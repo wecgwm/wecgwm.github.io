@@ -24,7 +24,7 @@
 <meta property="og:description" content="背景删除字符串中的破折号和空字符  当然，最简洁的方式是        String s &#x3D; number.replace(“ “, “”).replace(“-“, “”);但这里暂时忽略这种方案，只是为了指出该背景  一种较复杂的方案是使用 Stream，例如 12345678910private String justCase(String str)&amp;#123;      retu">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-03T13:05:39.000Z">
-<meta property="article:modified_time" content="2022-11-03T05:43:14.719Z">
+<meta property="article:modified_time" content="2022-11-03T05:47:05.962Z">
 <meta property="article:author" content="yichen">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary_large_image">
@@ -299,7 +299,6 @@
 <h2 id="reduce-vs-collect"><a href="#reduce-vs-collect" class="headerlink" title="reduce vs collect"></a>reduce vs collect</h2><p>先看一段代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">justCase</span><span class="hljs-params">()</span>&#123;  <br>    <span class="hljs-type">String</span> <span class="hljs-variable">number</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;a-b&quot;</span>;  s<br>    Function&lt;String, Stream&lt;Character&gt;&gt; function = str -&gt; str.chars()  <br>            .parallel()  <br>            .mapToObj(__ -&gt; (<span class="hljs-type">char</span>) __)  <br>            .filter(c -&gt; c != <span class="hljs-string">&#x27;-&#x27;</span> &amp;&amp; c != <span class="hljs-string">&#x27; &#x27;</span>);  <br>  <br>    <span class="hljs-type">String</span> <span class="hljs-variable">s1</span> <span class="hljs-operator">=</span> function.apply(number)  <br>            .reduce(<span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>(),  <br>                    StringBuilder::append,  <br>                    StringBuilder::append).toString(); <span class="hljs-comment">// baba  </span><br>  <br>    <span class="hljs-type">String</span> <span class="hljs-variable">s2</span> <span class="hljs-operator">=</span> function.apply(number)  <br>            .collect(Collector.of(  <br>                    StringBuilder::<span class="hljs-keyword">new</span>,  <br>                    StringBuilder::append,  <br>                    StringBuilder::append,  <br>                    StringBuilder::toString)); <span class="hljs-comment">// ab</span><br>                    <br>    <span class="hljs-type">String</span> <span class="hljs-variable">s3</span> <span class="hljs-operator">=</span> function.apply(number)  <br>            .collect(  <br>                    StringBuilder::<span class="hljs-keyword">new</span>,  <br>                    StringBuilder::append,  <br>                    StringBuilder::append).toString(); <span class="hljs-comment">// ab</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>^f50671</p>
 <p>发现在 <code>parallel stream</code> 下 <code>reduce()</code> 的输出并不符合我们的预期，先查看 <code>reduce()</code> 的方法注释</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs Java">...<br> identity值必须是组合器函数的标识。这意味着对于所有u ，<br>     combiner(identity , u) == u<br> 此外， combiner函数必须与accumulator函数兼容；对于所有u和t ，必须满足以下条件：<br>     combiner.apply(u, accumulator.apply(identity, t)) == accumulator.apply(u, t)<br>...<br><br>&lt;U&gt; U <span class="hljs-title function_">reduce</span><span class="hljs-params">(U identity,  BiFunction&lt;U, ? <span class="hljs-built_in">super</span> T, U&gt; accumulator,  BinaryOperator&lt;U&gt; combiner)</span>;<br></code></pre></td></tr></table></figure>
 <p>对这里的约定进行验证：</p>
@@ -401,12 +400,6 @@
                   </article>
                   <article class="post-next col-6">
                     
-                    
-                      <a href="/2022/11/03/hello-world/" title="Hello World">
-                        <span class="hidden-mobile">Hello World</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
                     
                   </article>
                 </div>
