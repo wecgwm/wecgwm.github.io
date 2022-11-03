@@ -8,7 +8,7 @@ subtitle: ''
 description: ''
 keywords:
 author: John Doe
-language: en
+language: zh-CN
 timezone: ''
 
 # URL
@@ -98,7 +98,6 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: fluid
-language: zh-CN  # 指定语言，会影响主题显示的语言，按需修改
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
