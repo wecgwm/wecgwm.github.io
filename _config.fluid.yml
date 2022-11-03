@@ -347,7 +347,7 @@ navbar:
   menu:
     - { key: "home", link: "/", icon: "iconfont icon-home-fill" }
     - { key: "archive", link: "/archives/", icon: "iconfont icon-archive-fill" }
-    - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
+    # - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
     - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
     #- { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
@@ -460,7 +460,8 @@ footer:
 index:
   # 首页 Banner 头图，可以是相对路径或绝对路径，以下相同
   # Path of Banner image, can be a relative path or an absolute path, the same on other pages
-  banner_img: /img/default.png
+  #banner_img: /img/default.png
+  banner_img: /img/202210052145207.jpg
 
   # 头图高度，屏幕百分比
   # Height ratio of banner image
@@ -532,7 +533,9 @@ index:
 # Post Page
 #---------------------------
 post:
-  banner_img: /img/default.png
+  #banner_img: /img/default.png
+  banner_img: /img/20220710105552.jpg
+
   banner_img_height: 70
   banner_mask_alpha: 0.3
 
@@ -777,7 +780,7 @@ gitalk:
   perPage: 10
   pagerDirection: last
   distractionFreeMode: false
-  createIssueManually: true
+  createIssueManually: false
   # 默认 proxy 可能会失效，解决方法请见下方链接
   # The default proxy may be invalid, refer to the links for solutions
   # https://github.com/gitalk/gitalk/issues/429
@@ -886,7 +889,8 @@ giscus:
 # Archive Page
 #---------------------------
 archive:
-  banner_img: /img/default.png
+  #banner_img: /img/default.png
+  banner_img: /img/6a9226f14b7bc83ced367c7035b17ef.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
@@ -897,7 +901,8 @@ archive:
 #---------------------------
 category:
   enable: true
-  banner_img: /img/default.png
+  #banner_img: /img/default.png
+  banner_img: /img/20220710105552.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
@@ -926,7 +931,8 @@ category:
 #---------------------------
 tag:
   enable: true
-  banner_img: /img/default.png
+  #banner_img: /img/default.png
+  banner_img: /img/a0c21ab04a6a65ece9c8f9e2df0bd51.jpg
   banner_img_height: 80
   banner_mask_alpha: 0.3
   tagcloud:
@@ -943,7 +949,8 @@ tag:
 #---------------------------
 about:
   enable: true
-  banner_img: /img/default.png
+  #banner_img: /img/default.png
+  banner_img: /img/6a9226f14b7bc83ced367c7035b17ef.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
   avatar: /img/20221103120102.jpg
