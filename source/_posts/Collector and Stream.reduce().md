@@ -133,8 +133,6 @@ public void justCase(){
 }
 ```
 
-^f50671
-
 发现在 `parallel stream` 下 `reduce()` 的输出并不符合我们的预期，先查看 `reduce()` 的方法注释
 ```Java
 ...
