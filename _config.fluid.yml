@@ -461,7 +461,7 @@ index:
   # 首页 Banner 头图，可以是相对路径或绝对路径，以下相同
   # Path of Banner image, can be a relative path or an absolute path, the same on other pages
   #banner_img: /img/default.png
-  banner_img: /img/20221106214321.jpg
+  banner_img: /img/202210052145207.jpg
 
   # 头图高度，屏幕百分比
   # Height ratio of banner image
@@ -534,7 +534,7 @@ index:
 #---------------------------
 post:
   #banner_img: /img/default.png
-  banner_img: /img/20221106214321.jpg
+  banner_img: /img/20220710105552.jpg
 
   banner_img_height: 70
   banner_mask_alpha: 0.3
@@ -890,7 +890,7 @@ giscus:
 #---------------------------
 archive:
   #banner_img: /img/default.png
-  banner_img: /img/20221106214321.jpg
+  banner_img: /img/6a9226f14b7bc83ced367c7035b17ef.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
@@ -932,8 +932,8 @@ category:
 tag:
   enable: true
   #banner_img: /img/default.png
-  banner_img: /img/20221106214321.jpg
-  banner_img_height: 80
+  banner_img: /img/20221106214415.jpg
+  banner_img_height: 100
   banner_mask_alpha: 0.3
   tagcloud:
     min_font: 15
@@ -950,7 +950,7 @@ tag:
 about:
   enable: true
   #banner_img: /img/default.png
-  banner_img: /img/20221106214321.jpg
+  banner_img: /img/20220710105552.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
   avatar: /img/20221103120102.jpg
@@ -962,6 +962,7 @@ about:
     - { class: "iconfont icon-github-fill", link: "https://github.com", tip: "GitHub" }
     - { class: "iconfont icon-douban-fill", link: "https://douban.com", tip: "豆瓣" }
     - { class: "iconfont icon-wechat-fill", qrcode: "/img/favicon.png" }
+  subtitle: "关于"
 
 
 #---------------------------
