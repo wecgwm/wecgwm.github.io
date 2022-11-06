@@ -42,7 +42,7 @@ class Solution {
 ```
 
 ## 矩阵快速幂
-对于数列递推问题，可以使用矩阵快速幂进行加速，矩阵快速幂能将时间复杂度突破线性达到 `O(logN)`。
+对于数列递推问题，可以使用矩阵快速幂进行加速，矩阵快速幂的时间复杂度能够突破线性达到 `O(logN)`。
 
 [OI-WIKI-快速幂](https://oi-wiki.org/math/binary-exponentiation/)　　[OI-WIKI-矩阵乘法](https://oi-wiki.org/math/linear-algebra/matrix/#%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95)　　[宫水三叶-矩阵快速幂](https://mp.weixin.qq.com/s?__biz=MzU4NDE3MTEyMA==&mid=2247488198&idx=1&sn=8272ca6b0ef6530413da4a270abb68bc&chksm=fd9cb9d9caeb30cf6c2defab0f5204adc158969d64418916e306f6bf50ae0c38518d4e4ba146&token=1067450240&lang=zh_CN#rd)
 
