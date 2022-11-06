@@ -941,7 +941,7 @@ tag:
     unit: px
     start_color: "#BBBBEE"
     end_color: "#337ab7"
-
+  subtitle: "失败总是贯穿人生始终"
 
 #---------------------------
 # 关于页
@@ -962,7 +962,6 @@ about:
     - { class: "iconfont icon-github-fill", link: "https://github.com", tip: "GitHub" }
     - { class: "iconfont icon-douban-fill", link: "https://douban.com", tip: "豆瓣" }
     - { class: "iconfont icon-wechat-fill", qrcode: "/img/favicon.png" }
-  subtitle: "关于"
 
 
 #---------------------------
