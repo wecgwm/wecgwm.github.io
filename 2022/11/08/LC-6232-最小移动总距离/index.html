@@ -1,0 +1,661 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/20221103120102.jpg">
+  <link rel="icon" href="/img/20221103120102.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="yichen">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="题目描述leetcode 困难题 X 轴上有一些机器人和工厂。给你一个整数数组 robot ，其中 robot[i] 是第 i 个机器人的位置。再给你一个二维整数数组 factory ，其中 factory[j] &#x3D; [positionj, limitj] ，表示第 j 个工厂的位置在 positionj ，且第 j 个工厂最多可以修理 limitj 个机器人。 每个机器人所在的位置 互">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LC-6232.最小移动总距离">
+<meta property="og:url" content="https://wecgwm.github.io/2022/11/08/LC-6232-%E6%9C%80%E5%B0%8F%E7%A7%BB%E5%8A%A8%E6%80%BB%E8%B7%9D%E7%A6%BB/index.html">
+<meta property="og:site_name" content="yichen">
+<meta property="og:description" content="题目描述leetcode 困难题 X 轴上有一些机器人和工厂。给你一个整数数组 robot ，其中 robot[i] 是第 i 个机器人的位置。再给你一个二维整数数组 factory ，其中 factory[j] &#x3D; [positionj, limitj] ，表示第 j 个工厂的位置在 positionj ，且第 j 个工厂最多可以修理 limitj 个机器人。 每个机器人所在的位置 互">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-08T13:30:45.000Z">
+<meta property="article:modified_time" content="2022-11-09T07:58:06.842Z">
+<meta property="article:author" content="yichen">
+<meta property="article:tag" content="记忆化搜索">
+<meta property="article:tag" content="动态规划">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>LC-6232.最小移动总距离 - yichen</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"wecgwm.github.io","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>yichen</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/20220710105552.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="LC-6232.最小移动总距离"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-08 13:30" pubdate>
+          2022年11月8日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          34 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">LC-6232.最小移动总距离</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-total-distance-traveled/">leetcode 困难题</a></p>
+<p>X 轴上有一些机器人和工厂。给你一个整数数组 robot ，其中 robot[i] 是第 i 个机器人的位置。再给你一个二维整数数组 factory ，其中 factory[j] &#x3D; [positionj, limitj] ，表示第 j 个工厂的位置在 positionj ，且第 j 个工厂最多可以修理 limitj 个机器人。</p>
+<p>每个机器人所在的位置 互不相同 。每个工厂所在的位置也 互不相同 。注意一个机器人可能一开始跟一个工厂在 相同的位置 。</p>
+<p>所有机器人一开始都是坏的，他们会沿着设定的方向一直移动。设定的方向要么是 X 轴的正方向，要么是 X 轴的负方向。当一个机器人经过一个没达到上限的工厂时，这个工厂会维修这个机器人，且机器人停止移动。</p>
+<p>任何时刻，你都可以设置 部分 机器人的移动方向。你的目标是最小化所有机器人总的移动距离。</p>
+<p>请你返回所有机器人移动的最小总距离。测试数据保证所有机器人都可以被维修。</p>
+<p>注意：</p>
+<p>所有机器人移动速度相同。<br>如果两个机器人移动方向相同，它们永远不会碰撞。<br>如果两个机器人迎面相遇，它们也不会碰撞，它们彼此之间会擦肩而过。<br>如果一个机器人经过了一个已经达到上限的工厂，机器人会当作工厂不存在，继续移动。<br>机器人从位置 x 到位置 y 的移动距离为 |y - x| 。</p>
+<p>示例1：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：robot = [0,4,6], factory = [[2,2],[6,2]]<br>输出：4<br>解释：如上图所示：<br>- 第一个机器人从位置<span class="hljs-number"> 0 </span>沿着正方向移动，在第一个工厂处维修。<br>- 第二个机器人从位置<span class="hljs-number"> 4 </span>沿着负方向移动，在第一个工厂处维修。<br>- 第三个机器人在位置<span class="hljs-number"> 6 </span>被第二个工厂维修，它不需要移动。<br>第一个工厂的维修上限是<span class="hljs-number"> 2 </span>，它维修了<span class="hljs-number"> 2 </span>个机器人。<br>第二个工厂的维修上限是<span class="hljs-number"> 2 </span>，它维修了<span class="hljs-number"> 1 </span>个机器人。<br>总移动距离是 |2 - 0| + |2 - 4| + |6 - 6| =<span class="hljs-number"> 4 </span>。没有办法得到比<span class="hljs-number"> 4 </span>更少的总移动距离。<br></code></pre></td></tr></table></figure>
+
+<p>示例2：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：robot = [1,-1], factory = [[-2,1],[2,1]]<br>输出：2<br>解释：如上图所示：<br>- 第一个机器人从位置<span class="hljs-number"> 1 </span>沿着正方向移动，在第二个工厂处维修。<br>- 第二个机器人在位置 -1 沿着负方向移动，在第一个工厂处维修。<br>第一个工厂的维修上限是<span class="hljs-number"> 1 </span>，它维修了<span class="hljs-number"> 1 </span>个机器人。<br>第二个工厂的维修上限是<span class="hljs-number"> 1 </span>，它维修了<span class="hljs-number"> 1 </span>个机器人。<br>总移动距离是 |2 - 1| + |(-2) - (-1)| =<span class="hljs-number"> 2 </span>。没有办法得到比<span class="hljs-number"> 2 </span>更少的总移动距离。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-number">1</span> &lt;= robot<span class="hljs-selector-class">.length</span>, factory<span class="hljs-selector-class">.length</span> &lt;= <span class="hljs-number">100</span><br>factory<span class="hljs-selector-attr">[j]</span><span class="hljs-selector-class">.length</span> == <span class="hljs-number">2</span><br>-<span class="hljs-number">109</span> &lt;= robot<span class="hljs-selector-attr">[i]</span>, positionj &lt;= <span class="hljs-number">109</span><br><span class="hljs-number">0</span> &lt;= limitj &lt;= robot<span class="hljs-selector-class">.length</span><br>测试数据保证所有机器人都可以被维修。<br></code></pre></td></tr></table></figure>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>有一个关键的结论：</p>
+<blockquote>
+<p>设两个机器人的位置分别为 r1, r2，且 r1 &lt; r2 ，机器人去的工厂的位置为 f1,f2 ，则 f1 必然小于 f2 ，因为如果 f1 &gt; f2 的话，交换这两个机器人去的工厂，移动距离就变小了。</p>
+</blockquote>
+<p>因此我们可以先对机器人和工厂按照位置从小到大排序，那么每个工厂要修复的机器人就将是连续的一段。</p>
+<hr>
+<p><strong>在以下几种解法中，我们统一设 f(i, j) 的含义为第 j 个及其右侧的工厂，修理第 i 个及其右侧的机器人时的最小距离，那么 f(0, 0) 就是题目所求。</strong></p>
+<h2 id="记忆化搜索"><a href="#记忆化搜索" class="headerlink" title="记忆化搜索"></a>记忆化搜索</h2><p>一种解法是递归 + 记忆化搜索。</p>
+<p>对于某个 <code>f(i, j)</code>，我们枚举出第 <code>j</code> 个工厂修任意个机器人的可能（比如修 <code>k</code> 个），同时设修这 <code>k</code> 个机器人所花费的距离为 <code>d(k)</code>，那么只需要取所有 <code>f(i + k + 1, j + 1) + d(k)</code> 的最小值，就是我们要求的 <code>f(i, j)</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-type">long</span>[][] cache;<br>    List&lt;Integer&gt; robot;<br>    <span class="hljs-type">int</span>[][] factory;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">long</span> <span class="hljs-title function_">minimumTotalDistance</span><span class="hljs-params">(List&lt;Integer&gt; robot, <span class="hljs-type">int</span>[][] factory)</span> &#123;<br>        Collections.sort(robot);<br>        Arrays.sort(factory, (a, b) -&gt; a[<span class="hljs-number">0</span>] - b[<span class="hljs-number">0</span>]);<br>        <span class="hljs-built_in">this</span>.robot = robot;<br>        <span class="hljs-built_in">this</span>.factory = factory;<br>        <span class="hljs-built_in">this</span>.cache = <span class="hljs-keyword">new</span> <span class="hljs-title class_">long</span>[robot.size()][factory.length];<br>        <span class="hljs-keyword">return</span> dfs(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>    &#125;<br><br>    <span class="hljs-comment">// cache[i][j] 表示第 i 个及其右侧的工厂，修理第 j 个及其右侧的机器人时的最小距离</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">long</span> <span class="hljs-title function_">dfs</span><span class="hljs-params">(<span class="hljs-type">int</span> i, <span class="hljs-type">int</span> j)</span>&#123;<br>        <span class="hljs-keyword">if</span>(i &gt;= robot.size())&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(j &gt;= factory.length)&#123;<br>            <span class="hljs-keyword">return</span> Long.MAX_VALUE; <span class="hljs-comment">// 不能用 Integer.MAX_VALUE</span><br>        &#125;<br>        <span class="hljs-keyword">if</span>(cache[i][j] != <span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">return</span> cache[i][j];<br>        &#125;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">min</span> <span class="hljs-operator">=</span> dfs(i, j + <span class="hljs-number">1</span>); <span class="hljs-comment">// 初始化为当前工厂不修理任何机器人</span><br>        <span class="hljs-type">long</span> <span class="hljs-variable">d</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; <br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; k &lt; factory[j][<span class="hljs-number">1</span>] &amp;&amp; i + k &lt; robot.size(); k++)&#123;<br>            d +=  Math.abs(robot.get(i + k) - factory[j][<span class="hljs-number">0</span>]); <span class="hljs-comment">// d(a)</span><br>            <span class="hljs-type">long</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> dfs(i + k + <span class="hljs-number">1</span>, j + <span class="hljs-number">1</span>);<br>            <span class="hljs-type">long</span> <span class="hljs-variable">next</span> <span class="hljs-operator">=</span> temp == Long.MAX_VALUE ? Long.MAX_VALUE : temp + d; <span class="hljs-comment">//防止溢出</span><br>            min = Math.min(min, next);<br>        &#125;<br>        cache[i][j] = min;<br>        <span class="hljs-keyword">return</span> min;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="dp"><a href="#dp" class="headerlink" title="dp"></a>dp</h2><p>根据 <code>记忆化搜索</code> 的解法，我们容易发现前面工厂的状态总是依赖于后面工厂的状态，所以我们只需要逆序遍历 <code>factory</code> 就可以实现动态规划，简略的方程如下：</p>
+<p><code>f(i, j) = min( f(i + k + 1, j + 1) + d(k) ) </code>（ <code>k</code> 取值范围为 <code>[0, factory[i][1]] - 1</code>）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">long</span> <span class="hljs-title function_">minimumTotalDistance</span><span class="hljs-params">(List&lt;Integer&gt; robot, <span class="hljs-type">int</span>[][] factory)</span> &#123;<br>        Collections.sort(robot);<br>        Arrays.sort(factory, (a, b) -&gt; a[<span class="hljs-number">0</span>] - b[<span class="hljs-number">0</span>]);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">rs</span> <span class="hljs-operator">=</span> robot.size(), fs = factory.length;<br>        <span class="hljs-comment">// dp[i][j] 表示第 i 个及其右侧的工厂，修理第 j 个及其右侧的机器人时的最小距离</span><br>        <span class="hljs-type">long</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">long</span>[rs][fs + <span class="hljs-number">1</span>];<br>        IntStream.range(<span class="hljs-number">0</span>, dp.length).forEach(index -&gt; Arrays.fill(dp[index], Long.MAX_VALUE));<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> fs - <span class="hljs-number">1</span>; j &gt;= <span class="hljs-number">0</span>; j--)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; rs; i++)&#123;<br>                <span class="hljs-type">long</span> <span class="hljs-variable">min</span> <span class="hljs-operator">=</span> dp[i][j + <span class="hljs-number">1</span>]; <span class="hljs-comment">// 初始化为一个都不修</span><br>                <span class="hljs-type">long</span> <span class="hljs-variable">d</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>                <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; k &lt;= factory[j][<span class="hljs-number">1</span>] - <span class="hljs-number">1</span> &amp;&amp; i + k &lt; rs; k++)&#123;<br>                    d += Math.abs(robot.get(i + k) - factory[j][<span class="hljs-number">0</span>]);<br>                    <span class="hljs-type">long</span> <span class="hljs-variable">next</span> <span class="hljs-operator">=</span> i + k == rs - <span class="hljs-number">1</span> ? <span class="hljs-number">0</span> : dp[i + k + <span class="hljs-number">1</span>][j + <span class="hljs-number">1</span>] ;<br>                    <span class="hljs-keyword">if</span>(next != Long.MAX_VALUE)&#123;<br>                        min = Math.min(min, next + d);<br>                    &#125;<br>                &#125;<br>                dp[i][j] = min;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="滚动数组"><a href="#滚动数组" class="headerlink" title="滚动数组"></a>滚动数组</h3><p>就像背包问题一样，我们可以发现工厂 <code>j</code> 只会依赖于工厂 <code>j + 1</code> 的状态，即实际上我们只需要保留最新的工厂状态，可以利用滚动数组进行优化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">long</span> <span class="hljs-title function_">minimumTotalDistance</span><span class="hljs-params">(List&lt;Integer&gt; robot, <span class="hljs-type">int</span>[][] factory)</span> &#123;<br>        Collections.sort(robot);<br>        Arrays.sort(factory, (a, b) -&gt; a[<span class="hljs-number">0</span>] - b[<span class="hljs-number">0</span>]);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">rs</span> <span class="hljs-operator">=</span> robot.size(), fs = factory.length;<br>        <span class="hljs-comment">// dp[i][j] 表示第 i 个及其右侧的工厂，修理第 j 个及其右侧的机器人时的最小距离</span><br>        <span class="hljs-type">long</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">long</span>[rs + <span class="hljs-number">1</span>];<br>        Arrays.fill(dp, Long.MAX_VALUE);<br>        dp[rs] = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> fs - <span class="hljs-number">1</span>; j &gt;= <span class="hljs-number">0</span>; j--)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; rs; i++)&#123;<br>                <span class="hljs-type">long</span> <span class="hljs-variable">min</span> <span class="hljs-operator">=</span> dp[i]; <span class="hljs-comment">// 一个都不修</span><br>                <span class="hljs-type">long</span> <span class="hljs-variable">d</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>                <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; k &lt;= factory[j][<span class="hljs-number">1</span>] - <span class="hljs-number">1</span> &amp;&amp; i + k &lt; rs; k++)&#123;<br>                    d += Math.abs(robot.get(i + k) - factory[j][<span class="hljs-number">0</span>]);<br>                    <span class="hljs-type">long</span> <span class="hljs-variable">next</span> <span class="hljs-operator">=</span> dp[i + k + <span class="hljs-number">1</span>];<br>                    <span class="hljs-keyword">if</span>(next != Long.MAX_VALUE)&#123;<br>                        min = Math.min(min, next + d);<br>                    &#125;<br>                &#125;<br>                dp[i] = min;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[<span class="hljs-number">0</span>];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/">#记忆化搜索</a>
+      
+        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>LC-6232.最小移动总距离</div>
+      <div>https://wecgwm.github.io/2022/11/08/LC-6232-最小移动总距离/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>yichen</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/06/LC-6231-%E9%9B%87%E4%BD%A3K%E4%BD%8D%E5%B7%A5%E4%BA%BA%E7%9A%84%E6%80%BB%E4%BB%A3%E4%BB%B7/" title="LC-6231.雇佣K位工人的总代价">
+                        <span class="hidden-mobile">LC-6231.雇佣K位工人的总代价</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '40261a21bb7e48bc1ba1f68781cc1c25'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
