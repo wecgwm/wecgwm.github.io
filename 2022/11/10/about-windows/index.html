@@ -16,24 +16,22 @@
   <meta name="author" content="yichen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="参考：OI-WIKI-# 字符串哈希宫水三叶-# 字符串哈希入门Leetcode-187重复的 DNA 序列  性质具体来说，哈希函数最重要的性质可以概括为下面两条：  在 Hash 函数值不一样的时候，两个字符串一定不一样；  在 Hash 函数值一样的时候，两个字符串不一定一样（哈希冲突&#x2F;碰撞。但大概率一样，且我们当然希望它们总是一样的）。   哈希函数我们需要关注的是什么？ 时间">
+    <meta name="description" content="背景目前 windows 还是使用的比较多的，在日常使用中会重复遇到一些问题，但总是解决后过段时间就忘了，所以在此记录下来。 环境变量需要知道的是，cmd 和 PowerShell 打印某个环境变量的方式是不同的  cmd1echo %Path% PowerShell1$env:path  刷新环境变量choco 内置的 refreshenv 可以帮助我们在不重启终端的情况下方便的刷新环境变量。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="字符串哈希">
-<meta property="og:url" content="https://wecgwm.github.io/2022/11/03/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/index.html">
+<meta property="og:title" content="about-windows">
+<meta property="og:url" content="https://wecgwm.github.io/2022/11/10/about-windows/index.html">
 <meta property="og:site_name" content="yichen">
-<meta property="og:description" content="参考：OI-WIKI-# 字符串哈希宫水三叶-# 字符串哈希入门Leetcode-187重复的 DNA 序列  性质具体来说，哈希函数最重要的性质可以概括为下面两条：  在 Hash 函数值不一样的时候，两个字符串一定不一样；  在 Hash 函数值一样的时候，两个字符串不一定一样（哈希冲突&#x2F;碰撞。但大概率一样，且我们当然希望它们总是一样的）。   哈希函数我们需要关注的是什么？ 时间">
+<meta property="og:description" content="背景目前 windows 还是使用的比较多的，在日常使用中会重复遇到一些问题，但总是解决后过段时间就忘了，所以在此记录下来。 环境变量需要知道的是，cmd 和 PowerShell 打印某个环境变量的方式是不同的  cmd1echo %Path% PowerShell1$env:path  刷新环境变量choco 内置的 refreshenv 可以帮助我们在不重启终端的情况下方便的刷新环境变量。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://wecgwm.github.io/img/20221001012815.png">
-<meta property="article:published_time" content="2022-11-03T21:55:00.000Z">
+<meta property="article:published_time" content="2022-11-10T19:24:09.000Z">
 <meta property="article:modified_time" content="2022-11-10T13:33:35.772Z">
 <meta property="article:author" content="yichen">
-<meta property="article:tag" content="字符串">
+<meta property="article:tag" content="Uncategorized">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://wecgwm.github.io/img/20221001012815.png">
   
   
   
-  <title>字符串哈希 - yichen</title>
+  <title>about-windows - yichen</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -186,7 +184,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="字符串哈希"></span>
+            <span id="subtitle" data-typed-text="about-windows"></span>
           
         </div>
 
@@ -197,8 +195,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-03 21:55" pubdate>
-          2022年11月3日 晚上
+        <time datetime="2022-11-10 19:24" pubdate>
+          2022年11月10日 晚上
         </time>
       </span>
     
@@ -209,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          363 字
         
       </span>
     
@@ -220,7 +218,7 @@
         
         
         
-          17 分钟
+          4 分钟
         
       </span>
     
@@ -258,40 +256,27 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">字符串哈希</h1>
+            <h1 style="display: none">about-windows</h1>
             
             
               <div class="markdown-body">
                 
-                <blockquote>
-<p>参考：<br><a target="_blank" rel="noopener" href="https://oi-wiki.org/string/hash/">OI-WIKI-# 字符串哈希</a><br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzU4NDE3MTEyMA==&mid=2247489813&idx=1&sn=7f3bc18ca390d85b17655f7164d8e660">宫水三叶-# 字符串哈希入门</a><br><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/repeated-dna-sequences/">Leetcode-187重复的 DNA 序列</a></p>
-</blockquote>
-<h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><p>具体来说，哈希函数最重要的性质可以概括为下面两条：</p>
-<ol>
-<li><p>在 Hash 函数值不一样的时候，两个字符串一定不一样；</p>
+                <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>目前 <code>windows</code> 还是使用的比较多的，在日常使用中会重复遇到一些问题，但总是解决后过段时间就忘了，所以在此记录下来。</p>
+<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><p>需要知道的是，<code>cmd</code> 和 <code>PowerShell</code> 打印某个环境变量的方式是不同的</p>
+<ul>
+<li>cmd<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd"><span class="hljs-built_in">echo</span> <span class="hljs-variable">%Path%</span><br></code></pre></td></tr></table></figure></li>
+<li>PowerShell<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs PowerShell"><span class="hljs-variable">$env:path</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="刷新环境变量"><a href="#刷新环境变量" class="headerlink" title="刷新环境变量"></a>刷新环境变量</h3><p><a target="_blank" rel="noopener" href="https://github.com/chocolatey/choco">choco</a> 内置的 <code>refreshenv</code> 可以帮助我们在不重启终端的情况下方便的刷新环境变量。</p>
+<p>需要注意的是虽然旧版命令行可以通过重启终端的手段刷新环境变量，但在 <a target="_blank" rel="noopener" href="https://github.com/microsoft/terminal">win11 默认的 terminal</a> 中由于存在 <a target="_blank" rel="noopener" href="https://github.com/microsoft/terminal/issues/1125">某些问题</a> 导致无法确保重启终端能够刷新环境变量。在这种时候，使用 <code>choco</code> 中的 <code>refreshenv</code> 几乎就是必须的了。</p>
+<ul>
+<li><p>cmd</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmd">refreshenv<br></code></pre></td></tr></table></figure>
 </li>
-<li><p>在 Hash 函数值一样的时候，两个字符串不一定一样（哈希冲突&#x2F;碰撞。但大概率一样，且我们当然希望它们总是一样的）。</p>
+<li><p>可能会发现在 <code>PowerShell</code> 中使用该命令并没有生效，这是因为还要进行 <a target="_blank" rel="noopener" href="https://docs.chocolatey.org/en-us/troubleshooting#why-does-choco-tab-not-work-for-me">some additional work</a></p>
 </li>
-</ol>
-<h2 id="哈希函数"><a href="#哈希函数" class="headerlink" title="哈希函数"></a>哈希函数</h2><p>我们需要关注的是什么？</p>
-<p>时间复杂度和 Hash 的准确率。</p>
-<p>通常我们采用的是<strong>多项式 Hash</strong>的方法，对于一个长度为 L 的字符串 s 来说，我们可以这样定义多项式 Hash 函数：</p>
-<p><img src="/img/20221001012815.png" srcset="/img/loading.gif" lazyload></p>
-<p>这种情况下，对于字符串 xyz ，其哈希函数值为 xb^2 + yb + z。</p>
-<p>对于该 Hash 函数的参考实现如下(（效率低下的版本，实际使用时一般不会这么写）)</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-keyword">using</span> std::string;<br><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> M = <span class="hljs-number">1e9</span> + <span class="hljs-number">7</span>; <br><span class="hljs-type">const</span> <span class="hljs-type">int</span> B = <span class="hljs-number">233</span>; <br><br><span class="hljs-keyword">typedef</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span> ll; <br><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">get_hash</span><span class="hljs-params">(<span class="hljs-type">const</span> string&amp; s)</span> </span>&#123; <br>	<span class="hljs-type">int</span> res = <span class="hljs-number">0</span>; <br>	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; s.<span class="hljs-built_in">size</span>(); ++i) &#123; <br>		res = (ll)(res * B + s[i]) % M; <br>	&#125; <br>	<span class="hljs-keyword">return</span> res; <br>&#125; <br><br><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">cmp</span><span class="hljs-params">(<span class="hljs-type">const</span> string&amp; s, <span class="hljs-type">const</span> string&amp; t)</span> </span>&#123; <br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">get_hash</span>(s) == <span class="hljs-built_in">get_hash</span>(t); <br>&#125;<br></code></pre></td></tr></table></figure>
+</ul>
 
-<h2 id="多次询问子串哈希"><a href="#多次询问子串哈希" class="headerlink" title="多次询问子串哈希"></a>多次询问子串哈希</h2><p>单次计算一个字符串的哈希值复杂度是 O(n)，其中 n 为串长，与暴力匹配没有区别，如果需要多次询问一个字符串的子串的哈希值，每次重新计算效率会非常低下。</p>
-<p>一般采取的方法是对整个字符串先 <strong>预处理出每个前缀的哈希值(设该数组为H)</strong> ，将哈希值看成一个 b 进制的数对 m 取模的结果，这样的话可以做到快速求出子串的哈希。</p>
-<p>首先对于F(s[1, i]) ，即原串长度为 i 的前缀（即子串s[1, i]）的哈希值 <strong>(即H[i])</strong> ，按照定义为</p>
-<p><strong>F(s[1, i])  &#x3D; s[1] * b^ (i - 1) + s[2] * b ^ (i - 2) + … + s[i - 1] * b +s[i]</strong> </p>
-<p>现在，我们想要用类似前缀和的方式快速求出子串 s[L, R] 的哈希值即 F(s[L, R])，按照定义哈希值为</p>
-<p><strong>F(s[L, R])  &#x3D; s[L] * b^ (R - L) + s[L + 1] * b ^ (R - L - 1) + … + s[R - 1] * b +s[R]</strong></p>
-<p>对比观察上述两个式子，可以发现 <code>式2</code> 其实可以由 <code>式1</code> 得出，即<br><strong>F(s[L, R])  &#x3D; F(s[1, R]) - F(s[1, L-1]) * b ^ (r - L + 1)</strong> </p>
-<p>那么即字串 S[L, R] 的哈希值等于 H[R] - H[L-1] * B ^ (R - L +1)</p>
-<p>而 B ^ (r - L + 1)  又可以通过 O(n) 的预处理出次方数组，以实现 O(1) 的回答每次询问</p>
-<p>实现，<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/repeated-dna-sequences/">Leetcode187</a>:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Hash</span> &#123;  <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">B</span> <span class="hljs-operator">=</span> <span class="hljs-number">131313</span>;  <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">M</span> <span class="hljs-operator">=</span> (<span class="hljs-type">int</span>)<span class="hljs-number">1e5</span> + <span class="hljs-number">10</span>;  <br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span>[] POWER = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[M]; <span class="hljs-comment">// 次方数组  </span><br>  <br>    <span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title function_">findRepeatedDnaSequences</span><span class="hljs-params">(String s)</span> &#123;  <br>        <span class="hljs-type">int</span>[] hashTable = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[s.length() + <span class="hljs-number">1</span>];  <br>        POWER[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;  <br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= s.length(); i++)&#123;  <br>            <span class="hljs-comment">// 预处理前缀哈希数组  </span><br>            hashTable[i] = hashTable[i - <span class="hljs-number">1</span>] * B + s.charAt(i - <span class="hljs-number">1</span>) % M;  <br>            <span class="hljs-comment">// 预处理次方数组</span><br>            POWER[i] = POWER[i - <span class="hljs-number">1</span>] * B;  <br>        &#125;  <br>        Map&lt;Integer, Integer&gt; countMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();  <br>        List&lt;String&gt; ans = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();  <br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; s.length() - <span class="hljs-number">10</span> + <span class="hljs-number">1</span>; i++)&#123;  <br>            <span class="hljs-comment">// 子串哈希等于 h(r) - h(l - 1) * b ^ (r - l + 1)            </span><br>            <span class="hljs-type">int</span> <span class="hljs-variable">hash</span> <span class="hljs-operator">=</span> hashTable[i + <span class="hljs-number">9</span> + <span class="hljs-number">1</span>] - hashTable[i] * POWER[i + <span class="hljs-number">9</span> - i + <span class="hljs-number">1</span>];  <br>            <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> countMap.merge(hash, <span class="hljs-number">0</span>, (oldValue, __) -&gt; ++oldValue);  <br>            <span class="hljs-keyword">if</span>(count == <span class="hljs-number">1</span>)&#123;  <br>                ans.add(s.substring(i, i + <span class="hljs-number">10</span>));  <br>            &#125;  <br>        &#125;  <br>        <span class="hljs-keyword">return</span> ans;  <br>    &#125;  <br>  <br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -303,7 +288,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">#字符串</a>
+        <a href="/tags/Uncategorized/">#Uncategorized</a>
       
     </div>
   
@@ -315,8 +300,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>字符串哈希</div>
-      <div>https://wecgwm.github.io/2022/11/03/字符串哈希/</div>
+      <div>about-windows</div>
+      <div>https://wecgwm.github.io/2022/11/10/about-windows/</div>
     </div>
     <div class="license-meta">
       
@@ -328,7 +313,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月3日</div>
+          <div>2022年11月10日</div>
         </div>
       
       
@@ -360,9 +345,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/03/LC-464-%E6%88%91%E8%83%BD%E8%B5%A2%E5%90%97/" title="LC-464.我能赢吗">
+                      <a href="/2022/11/10/LC-864-%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E9%92%A5%E5%8C%99%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" title="LC-864.获取所有钥匙的最短路径">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LC-464.我能赢吗</span>
+                        <span class="hidden-mobile">LC-864.获取所有钥匙的最短路径</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -370,8 +355,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/03/Collector-and-Stream.reduce()/" title="Collector-and-Stream.reduce()">
-                        <span class="hidden-mobile">Collector-and-Stream.reduce()</span>
+                      <a href="/2022/11/08/LC-6232-%E6%9C%80%E5%B0%8F%E7%A7%BB%E5%8A%A8%E6%80%BB%E8%B7%9D%E7%A6%BB/" title="LC-6232.最小移动总距离">
+                        <span class="hidden-mobile">LC-6232.最小移动总距离</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -392,7 +377,7 @@
         var options = Object.assign(
           {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: '32e7c3d8e973c5a6b971ae3c29a840ea'
+            id: '1b9be25121a2ac0e62cd0c7ce5569aea'
           }
         )
         var gitalk = new Gitalk(options);
