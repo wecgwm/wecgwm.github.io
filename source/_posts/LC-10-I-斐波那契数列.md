@@ -31,7 +31,7 @@ class Solution {
         }
         int a = 0, b = 1;
         for(int i = 2; i <= n; i++){
-            int temp = ((a % MOD) + (b % MOD)) % MOD; // 同余
+            int temp = (a + b) % MOD; 
             a = b;
             b = temp;
         }
@@ -78,7 +78,7 @@ class Solution {
         long[][] ret = new long[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                ret[i][j] = (((matrix1[i][0] * matrix2[0][j]) % MOD) + ((matrix1[i][1] * matrix2[1][j]) % MOD)) % MOD;
+                ret[i][j] = (((matrix1[i][0] * matrix2[0][j]) % MOD) + ((matrix1[i][1] * matrix2[1][j]) % MOD)) % MOD; // 同余
             }
         }
         return ret;
