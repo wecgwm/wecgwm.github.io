@@ -16,22 +16,23 @@
   <meta name="author" content="yichen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述leetcode 中等题 给你一个整数数组 nums 和一个整数 k 。请你从 nums 中满足下述条件的全部子数组中找出最大子数组和： 子数组的长度是 k，且子数组中的所有元素 各不相同 。返回满足题面要求的最大子数组和。如果不存在子数组满足这些条件，返回 0 。 子数组 是数组中一段连续非空的元素序列。 示例1： 123456789输入：nums &#x3D; [1,5,4,2,9,9,9],">
+    <meta name="description" content="题目描述leetcode 困难题 给你一个字符串 s 和一个 正 整数 k 。 从字符串 s 中选出一组满足下述条件且 不重叠 的子字符串：  每个子字符串的长度 至少 为 k 。 每个子字符串是一个 回文串 。返回最优方案中能选择的子字符串的 最大 数目。  子字符串 是字符串中一个连续的字符序列。 字符串之间互不重叠，也就是说对于任意两个子字符串 s[i..j] 和 s[x..y] ，要么 j">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LC-6230.长度为K子数组中的最大和">
-<meta property="og:url" content="https://wecgwm.github.io/2022/11/06/LC-6230-%E9%95%BF%E5%BA%A6%E4%B8%BAK%E5%AD%90%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/index.html">
+<meta property="og:title" content="LC-6236.不重叠回文子字符串的最大数目">
+<meta property="og:url" content="https://wecgwm.github.io/2022/11/13/LC-6236-%E4%B8%8D%E9%87%8D%E5%8F%A0%E5%9B%9E%E6%96%87%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%9C%80%E5%A4%A7%E6%95%B0%E7%9B%AE/index.html">
 <meta property="og:site_name" content="yichen">
-<meta property="og:description" content="题目描述leetcode 中等题 给你一个整数数组 nums 和一个整数 k 。请你从 nums 中满足下述条件的全部子数组中找出最大子数组和： 子数组的长度是 k，且子数组中的所有元素 各不相同 。返回满足题面要求的最大子数组和。如果不存在子数组满足这些条件，返回 0 。 子数组 是数组中一段连续非空的元素序列。 示例1： 123456789输入：nums &#x3D; [1,5,4,2,9,9,9],">
+<meta property="og:description" content="题目描述leetcode 困难题 给你一个字符串 s 和一个 正 整数 k 。 从字符串 s 中选出一组满足下述条件且 不重叠 的子字符串：  每个子字符串的长度 至少 为 k 。 每个子字符串是一个 回文串 。返回最优方案中能选择的子字符串的 最大 数目。  子字符串 是字符串中一个连续的字符序列。 字符串之间互不重叠，也就是说对于任意两个子字符串 s[i..j] 和 s[x..y] ，要么 j">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-06T19:36:27.000Z">
+<meta property="article:published_time" content="2022-11-13T17:30:48.000Z">
 <meta property="article:modified_time" content="2022-11-14T17:40:21.583Z">
 <meta property="article:author" content="yichen">
-<meta property="article:tag" content="滑动窗口">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="字符串">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>LC-6230.长度为K子数组中的最大和 - yichen</title>
+  <title>LC-6236.不重叠回文子字符串的最大数目 - yichen</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +185,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LC-6230.长度为K子数组中的最大和"></span>
+            <span id="subtitle" data-typed-text="LC-6236.不重叠回文子字符串的最大数目"></span>
           
         </div>
 
@@ -195,8 +196,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-06 19:36" pubdate>
-          2022年11月6日 晚上
+        <time datetime="2022-11-13 17:30" pubdate>
+          2022年11月13日 下午
         </time>
       </span>
     
@@ -207,7 +208,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          1.3k 字
         
       </span>
     
@@ -218,7 +219,7 @@
         
         
         
-          18 分钟
+          11 分钟
         
       </span>
     
@@ -256,37 +257,37 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LC-6230.长度为K子数组中的最大和</h1>
+            <h1 style="display: none">LC-6236.不重叠回文子字符串的最大数目</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-sum-of-distinct-subarrays-with-length-k/">leetcode 中等题</a></p>
-<p>给你一个整数数组 nums 和一个整数 k 。请你从 nums 中满足下述条件的全部子数组中找出最大子数组和：</p>
-<p>子数组的长度是 k，且<br>子数组中的所有元素 各不相同 。<br>返回满足题面要求的最大子数组和。如果不存在子数组满足这些条件，返回 0 。</p>
-<p>子数组 是数组中一段连续非空的元素序列。</p>
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-number-of-non-overlapping-palindrome-substrings/">leetcode 困难题</a></p>
+<p>给你一个字符串 s 和一个 正 整数 k 。</p>
+<p>从字符串 s 中选出一组满足下述条件且 不重叠 的子字符串：</p>
+<ul>
+<li>每个子字符串的长度 至少 为 k 。</li>
+<li>每个子字符串是一个 回文串 。<br>返回最优方案中能选择的子字符串的 最大 数目。</li>
+</ul>
+<p>子字符串 是字符串中一个连续的字符序列。</p>
+<p><strong>字符串之间互不重叠，也就是说对于任意两个子字符串 s[i..j] 和 s[x..y] ，要么 j &lt; x 要么 i &gt; y 。</strong></p>
 <p>示例1：</p>
-<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：nums = [1,5,4,2,9,9,9], k = 3<br>输出：15<br>解释：nums 中长度为<span class="hljs-number"> 3 </span>的子数组是：<br>- [1,5,4] 满足全部条件，和为<span class="hljs-number"> 10 </span>。<br>- [5,4,2] 满足全部条件，和为<span class="hljs-number"> 11 </span>。<br>- [4,2,9] 满足全部条件，和为<span class="hljs-number"> 15 </span>。<br>- [2,9,9] 不满足全部条件，因为元素<span class="hljs-number"> 9 </span>出现重复。<br>- [9,9,9] 不满足全部条件，因为元素<span class="hljs-number"> 9 </span>出现重复。<br>因为<span class="hljs-number"> 15 </span>是满足全部条件的所有子数组中的最大子数组和，所以返回<span class="hljs-number"> 15 </span>。<br></code></pre></td></tr></table></figure>
-
-<p>示例2：</p>
-<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：nums = [4,4,4], k = 3<br>输出：0<br>解释：nums 中长度为<span class="hljs-number"> 3 </span>的子数组是：<br>- [4,4,4] 不满足全部条件，因为元素<span class="hljs-number"> 4 </span>出现重复。<br>因为不存在满足全部条件的子数组，所以返回<span class="hljs-number"> 0 </span>。<br></code></pre></td></tr></table></figure>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs nix">输入：<span class="hljs-attr">s</span> = <span class="hljs-string">&quot;abaccdbbd&quot;</span>, <span class="hljs-attr">k</span> = <span class="hljs-number">3</span><br>输出：<span class="hljs-number">2</span><br>解释：可以选择 <span class="hljs-attr">s</span> = <span class="hljs-string">&quot;abaccdbbd&quot;</span> 中斜体加粗的子字符串。<span class="hljs-string">&quot;aba&quot;</span> 和 <span class="hljs-string">&quot;dbbd&quot;</span> 都是回文，且长度至少为 <span class="hljs-attr">k</span> = <span class="hljs-number">3</span> 。<br>可以证明，无法选出两个以上的有效子字符串。<br></code></pre></td></tr></table></figure>
 
 <p>提示：</p>
-<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>&lt;= k &lt;= nums.length &lt;= <span class="hljs-number">1e5</span><br><span class="hljs-symbol">1 </span>&lt;= nums[i] &lt;= <span class="hljs-number">1e5</span><br></code></pre></td></tr></table></figure>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>一开始看到数据范围时候，第一反应就是不能用 <code>O(N^2)</code> 时间复杂度实现。</p>
-<p>当时确实想到了滑动窗口，但是不知道怎么想的觉得滑动窗口需要 <code>O(N^2)</code> 的时间复杂度，就尝试了 <code>前缀和 + TreeSet</code> 的做法，但是想的太复杂了优化不到低于 <code>O(N^2)</code> 的时间复杂度（其实就是蠢）。</p>
-<p>直到后面才发现滑动窗口的时间复杂度就是 <code>O(N)</code>，因为不管嵌套了几次内层循环，左右指针都是单调的从 <code>0-&gt;(n - 1)</code> 递增，即总共的循环次数只会有 <code>n</code> 次，所以时间复杂度是满足要求的。</p>
-<h2 id="滑动窗口-Set"><a href="#滑动窗口-Set" class="headerlink" title="滑动窗口 + Set"></a>滑动窗口 + Set</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">long</span> <span class="hljs-title function_">maximumSubarraySum</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> k)</span> &#123;<br>        Set&lt;Integer&gt; exist = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">curSum</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>; i &lt; n &amp;&amp; j &lt; n; j++)&#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">leftItem</span> <span class="hljs-operator">=</span> nums[j];<br>            <span class="hljs-keyword">while</span>(exist.contains(leftItem))&#123;<br>                <span class="hljs-comment">// 存在重复元素, 移动左指针，直到重复元素被移除了</span><br>                exist.remove(nums[i]);<br>                curSum -= nums[i++];<br>            &#125;<br>            curSum += leftItem;<br>            exist.add(leftItem);<br>            <span class="hljs-keyword">if</span>(exist.size() &gt; k)&#123;<br>                exist.remove(nums[i]);<br>                curSum -= nums[i++];<br>            &#125;<br>            <span class="hljs-keyword">if</span>(exist.size() == k)&#123;<br>                ans = Math.max(ans, curSum);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<ul>
-<li>时间复杂度：O（N）：左右指针单调的从 <code>0-&gt;(n - 1)</code> 递增，循环次数总共只会有 <code>n</code> 次</li>
-<li>空间复杂度：O（K）</li>
-</ul>
-<h2 id="滑动窗口-Map"><a href="#滑动窗口-Map" class="headerlink" title="滑动窗口 + Map"></a>滑动窗口 + Map</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">long</span> <span class="hljs-title function_">maximumSubarraySum</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> k)</span> &#123;<br>        Map&lt;Integer, Integer&gt; cnt = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">curSum</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt;= k - <span class="hljs-number">1</span>; j++)&#123;<br>            cnt.put(nums[j], cnt.getOrDefault(nums[j], <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>);<br>            curSum += nums[j];<br>        &#125;<br>        <span class="hljs-keyword">if</span>(cnt.size() == k)&#123;<br>            ans = Math.max(ans, curSum);<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>, j = k; j &lt; n; i++, j++)&#123;<br>            curSum -= nums[i - <span class="hljs-number">1</span>];<br>            <span class="hljs-type">int</span> <span class="hljs-variable">value</span> <span class="hljs-operator">=</span> cnt.get(nums[i - <span class="hljs-number">1</span>]);<br>            <span class="hljs-keyword">if</span>(value == <span class="hljs-number">1</span>)&#123;<br>                cnt.remove(nums[i - <span class="hljs-number">1</span>]);<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                cnt.put(nums[i - <span class="hljs-number">1</span>], value - <span class="hljs-number">1</span>);<br>            &#125;<br>            curSum += nums[j];<br>            cnt.put(nums[j], cnt.getOrDefault(nums[j], <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>);<br>            <span class="hljs-keyword">if</span>(cnt.size() == k)&#123;<br>                ans = Math.max(ans, curSum);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<ul>
-<li>时间复杂度：O（N）</li>
-<li>空间复杂度：O（K）</li>
-</ul>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs abnf">提示：<br><span class="hljs-number">1</span> &lt;<span class="hljs-operator">=</span> k &lt;<span class="hljs-operator">=</span> s.length &lt;<span class="hljs-operator">=</span> <span class="hljs-number">2000</span><br>s 仅由小写英文字母组成<br></code></pre></td></tr></table></figure>
 
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>我们可以通过两次动态规划得出结果，其中第一次动态规划处理出某个子串 <code>s(i, j)</code> 是否为回文串，第二次动态规划处理如何划分得到最多的不重叠子字符串。</p>
+<hr>
+<p>第一次 <code>dp</code>，定义 <code>f(i, j)</code> 表示子串 <code>s(i, j)</code> 是否为回文串，那么可以得到转移方程：</p>
+<p><code>f(i, j) = s[i] == s[j]</code>，当 <code>j - i &lt;= 1</code> 时</p>
+<p><code>f(i, j) = f(i + 1, j - 1) &amp;&amp; (s[i] == s[j])</code>，当 <code>j - i &gt; 1</code> 时</p>
+<hr>
+<p>第二次 <code>dp</code>，定义 <code>f(i)</code> 表示 <code>s(0, i)</code> 的最多不重叠回文子串数量，那么 <code>f(n)</code> 为答案。</p>
+<p>对于某个 <code>f(i)</code>，可以分两种情况讨论：</p>
+<p>如果 <code>s[i]</code> 不在任意回文子串内的话，那么 <code>f(i) = f(i - 1)</code>，可以作为 <code>f(i)</code> 的初始值。</p>
+<p>如果 <code>s[i]</code> 在某个回文子串内时，枚举左端点 <code>left</code>，可以得到：<br><code>当 s(left, i) 为回文串，f(i) = Max(f(i), f(left - 1) + 1)</code>，其中<code>left</code> 取值范围为 <code>i - left + 1 &gt;= k</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">maxPalindromes</span><span class="hljs-params">(String s, <span class="hljs-type">int</span> k)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> s.length();<br>        <span class="hljs-type">char</span>[] c = s.toCharArray();<br>        <span class="hljs-type">boolean</span>[][] g = <span class="hljs-keyword">new</span> <span class="hljs-title class_">boolean</span>[n + <span class="hljs-number">1</span>][n + <span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> n + <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">1</span>; i--)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> i; j &lt; n + <span class="hljs-number">1</span>; j++)&#123;<br>                <span class="hljs-keyword">if</span>(c[i - <span class="hljs-number">1</span>] == c[j - <span class="hljs-number">1</span>] &amp;&amp; (j - i &lt;= <span class="hljs-number">1</span> || g[i + <span class="hljs-number">1</span>][j - <span class="hljs-number">1</span>]))&#123;<br>                    g[i][j] = <span class="hljs-literal">true</span>;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-type">int</span>[] f = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n + <span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; n + <span class="hljs-number">1</span>; i++)&#123;<br>            f[i] = f[i - <span class="hljs-number">1</span>]; <span class="hljs-comment">// i不参与</span><br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> i - k + <span class="hljs-number">1</span>; left &gt;= <span class="hljs-number">1</span>; left--)&#123;<br>                <span class="hljs-keyword">if</span>(g[left][i])&#123;<br>                    f[i] = Math.max(f[i], f[left - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> f[n];<br>    &#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -298,7 +299,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">#滑动窗口</a>
+        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
+      
+        <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">#字符串</a>
       
     </div>
   
@@ -310,8 +313,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LC-6230.长度为K子数组中的最大和</div>
-      <div>https://wecgwm.github.io/2022/11/06/LC-6230-长度为K子数组中的最大和/</div>
+      <div>LC-6236.不重叠回文子字符串的最大数目</div>
+      <div>https://wecgwm.github.io/2022/11/13/LC-6236-不重叠回文子字符串的最大数目/</div>
     </div>
     <div class="license-meta">
       
@@ -323,7 +326,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月6日</div>
+          <div>2022年11月13日</div>
         </div>
       
       
@@ -355,9 +358,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/06/LC-6231-%E9%9B%87%E4%BD%A3K%E4%BD%8D%E5%B7%A5%E4%BA%BA%E7%9A%84%E6%80%BB%E4%BB%A3%E4%BB%B7/" title="LC-6231.雇佣K位工人的总代价">
+                      <a href="/2022/11/14/LC-805-%E6%95%B0%E7%BB%84%E7%9A%84%E5%9D%87%E5%80%BC%E5%88%86%E5%89%B2/" title="LC-805.数组的均值分割">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LC-6231.雇佣K位工人的总代价</span>
+                        <span class="hidden-mobile">LC-805.数组的均值分割</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -365,8 +368,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/05/LC-375-%E7%8C%9C%E6%95%B0%E5%AD%97%E5%A4%A7%E5%B0%8FII/" title="LC-375.猜数字大小II">
-                        <span class="hidden-mobile">LC-375.猜数字大小II</span>
+                      <a href="/2022/11/12/LC-790-%E5%A4%9A%E7%B1%B3%E8%AF%BA%E5%92%8C%E6%89%98%E7%B1%B3%E8%AF%BA%E5%B9%B3%E9%93%BA/" title="LC-790.多米诺和托米诺平铺">
+                        <span class="hidden-mobile">LC-790.多米诺和托米诺平铺</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -387,7 +390,7 @@
         var options = Object.assign(
           {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: 'e9291c8894862b7e157cf706f47c3023'
+            id: '2f192205211ff053b646ae817363af5e'
           }
         )
         var gitalk = new Gitalk(options);
