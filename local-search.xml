@@ -4,6 +4,32 @@
   
   
   <entry>
+    <title>LC-792.匹配子序列的单词数</title>
+    <link href="/2022/11/18/LC-792-%E5%8C%B9%E9%85%8D%E5%AD%90%E5%BA%8F%E5%88%97%E7%9A%84%E5%8D%95%E8%AF%8D%E6%95%B0/"/>
+    <url>/2022/11/18/LC-792-%E5%8C%B9%E9%85%8D%E5%AD%90%E5%BA%8F%E5%88%97%E7%9A%84%E5%8D%95%E8%AF%8D%E6%95%B0/</url>
+    
+    <content type="html"><![CDATA[<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a href="">leetcode 中等题</a></p><p>$$<br>\begin{align}<br>&amp;\frac{sum(nums)}{n} &#x3D; \frac{sum(A)}{k}\\<br>\Leftrightarrow &amp; \frac{sum(B)}{k_2} &#x3D; \frac{sum(A) \times k_2 }{k \times k_2}\\<br>\end{align}<br>$$</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>LC-891.子序列宽度之和</title>
+    <link href="/2022/11/18/LC-891-%E5%AD%90%E5%BA%8F%E5%88%97%E5%AE%BD%E5%BA%A6%E4%B9%8B%E5%92%8C/"/>
+    <url>/2022/11/18/LC-891-%E5%AD%90%E5%BA%8F%E5%88%97%E5%AE%BD%E5%BA%A6%E4%B9%8B%E5%92%8C/</url>
+    
+    <content type="html"><![CDATA[<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a href="">leetcode 中等题</a></p><p>$$<br>\begin{align}<br>&amp;\frac{sum(nums)}{n} &#x3D; \frac{sum(A)}{k}\\<br>\Leftrightarrow &amp; \frac{sum(B)}{k_2} &#x3D; \frac{sum(A) \times k_2 }{k \times k_2}\\<br>\end{align}<br>$$</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LC-775.全局倒置与局部倒置</title>
     <link href="/2022/11/16/LC-775-%E5%85%A8%E5%B1%80%E5%80%92%E7%BD%AE%E4%B8%8E%E5%B1%80%E9%83%A8%E5%80%92%E7%BD%AE/"/>
     <url>/2022/11/16/LC-775-%E5%85%A8%E5%B1%80%E5%80%92%E7%BD%AE%E4%B8%8E%E5%B1%80%E9%83%A8%E5%80%92%E7%BD%AE/</url>

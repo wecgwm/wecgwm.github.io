@@ -16,23 +16,21 @@
   <meta name="author" content="yichen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述leetcode 中等题 两名玩家轮流选择从 1 到 10 的任意整数，累计整数和，先使得累计整数和 达到或超过  100 的玩家，即为胜者。 两位玩家不能使用重复的整数  给定两个整数 maxChoosableInteger （整数池中可选择的最大数）和 desiredTotal（累计和），若先出手的玩家是否能稳赢则返回 true ，否则返回 false 。假设两位玩家游戏时都表现 最佳">
+    <meta name="description" content="题目描述leetcode 中等题 $$\begin{align}&amp;\frac{sum(nums)}{n} &#x3D; \frac{sum(A)}{k}\\\Leftrightarrow &amp; \frac{sum(B)}{k_2} &#x3D; \frac{sum(A) \times k_2 }{k \times k_2}\\\end{align}$$">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LC-464.我能赢吗">
-<meta property="og:url" content="https://wecgwm.github.io/2022/11/03/LC-464-%E6%88%91%E8%83%BD%E8%B5%A2%E5%90%97/index.html">
+<meta property="og:title" content="LC-891.子序列宽度之和">
+<meta property="og:url" content="https://wecgwm.github.io/2022/11/18/LC-891-%E5%AD%90%E5%BA%8F%E5%88%97%E5%AE%BD%E5%BA%A6%E4%B9%8B%E5%92%8C/index.html">
 <meta property="og:site_name" content="yichen">
-<meta property="og:description" content="题目描述leetcode 中等题 两名玩家轮流选择从 1 到 10 的任意整数，累计整数和，先使得累计整数和 达到或超过  100 的玩家，即为胜者。 两位玩家不能使用重复的整数  给定两个整数 maxChoosableInteger （整数池中可选择的最大数）和 desiredTotal（累计和），若先出手的玩家是否能稳赢则返回 true ，否则返回 false 。假设两位玩家游戏时都表现 最佳">
+<meta property="og:description" content="题目描述leetcode 中等题 $$\begin{align}&amp;\frac{sum(nums)}{n} &#x3D; \frac{sum(A)}{k}\\\Leftrightarrow &amp; \frac{sum(B)}{k_2} &#x3D; \frac{sum(A) \times k_2 }{k \times k_2}\\\end{align}$$">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-03T22:06:00.000Z">
-<meta property="article:modified_time" content="2022-11-18T15:25:30.392Z">
+<meta property="article:published_time" content="2022-11-18T23:23:40.000Z">
+<meta property="article:modified_time" content="2022-11-18T15:25:30.396Z">
 <meta property="article:author" content="yichen">
-<meta property="article:tag" content="记忆化搜索">
-<meta property="article:tag" content="状态压缩">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>LC-464.我能赢吗 - yichen</title>
+  <title>LC-891.子序列宽度之和 - yichen</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -185,7 +183,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LC-464.我能赢吗"></span>
+            <span id="subtitle" data-typed-text="LC-891.子序列宽度之和"></span>
           
         </div>
 
@@ -196,8 +194,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-03 22:06" pubdate>
-          2022年11月3日 晚上
+        <time datetime="2022-11-18 23:23" pubdate>
+          2022年11月18日 晚上
         </time>
       </span>
     
@@ -208,7 +206,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          171 字
         
       </span>
     
@@ -219,7 +217,7 @@
         
         
         
-          18 分钟
+          2 分钟
         
       </span>
     
@@ -257,32 +255,14 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LC-464.我能赢吗</h1>
+            <h1 style="display: none">LC-891.子序列宽度之和</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/can-i-win/submissions/">leetcode 中等题</a></p>
-<p>两名玩家轮流选择从 1 到 10 的任意整数，累计整数和，先使得累计整数和 达到或超过  100 的玩家，即为胜者。</p>
-<p>两位玩家不能使用重复的整数 </p>
-<p>给定两个整数 maxChoosableInteger （整数池中可选择的最大数）和 desiredTotal（累计和），若先出手的玩家是否能稳赢则返回 true ，否则返回 false 。假设两位玩家游戏时都表现 最佳 。</p>
-<p>示例 1:</p>
-<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：maxChoosableInteger = 10, desiredTotal = 11<br>输出：false<br>解释：<br>无论第一个玩家选择哪个整数，他都会失败。<br>第一个玩家可以选择从<span class="hljs-number"> 1 </span>到<span class="hljs-number"> 10 </span>的整数。<br>如果第一个玩家选择 1，那么第二个玩家只能选择从<span class="hljs-number"> 2 </span>到<span class="hljs-number"> 10 </span>的整数。<br>第二个玩家可以通过选择整数 10（那么累积和为<span class="hljs-number"> 11 </span>&gt;= desiredTotal），从而取得胜利.<br>同样地，第一个玩家选择任意其他整数，第二个玩家都会赢。<br></code></pre></td></tr></table></figure>
-<p>示例 2:</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nix">输入：<span class="hljs-attr">maxChoosableInteger</span> = <span class="hljs-number">10</span>, <span class="hljs-attr">desiredTotal</span> = <span class="hljs-number">0</span><br>输出：<span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
-<p>示例 3:</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nix">输入：<span class="hljs-attr">maxChoosableInteger</span> = <span class="hljs-number">10</span>, <span class="hljs-attr">desiredTotal</span> = <span class="hljs-number">1</span><br>输出：<span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
-<p>提示：</p>
-<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>&lt;= maxChoosableInteger &lt;= <span class="hljs-number">20</span><br><span class="hljs-symbol">0 </span>&lt;= desiredTotal &lt;= <span class="hljs-number">300</span><br></code></pre></td></tr></table></figure>
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a href="">leetcode 中等题</a></p>
+<p>$$<br>\begin{align}<br>&amp;\frac{sum(nums)}{n} &#x3D; \frac{sum(A)}{k}\\<br>\Leftrightarrow &amp; \frac{sum(B)}{k_2} &#x3D; \frac{sum(A) \times k_2 }{k \times k_2}\\<br>\end{align}<br>$$</p>
 
-<h2 id="递归-TLE"><a href="#递归-TLE" class="headerlink" title="递归 (TLE)"></a>递归 (TLE)</h2><p>最无脑的做法是直接递归, 用一个 <code>List</code> 来模拟选数的情况，每次选走一个数时 <code>remove</code> 掉对应元素即可，但同时因为要找到最优决策，所以不能改变原集合，只能改变拷贝的 <code>List</code>（如果直接对原集合 <code>remove</code> ，递归结束后不好还原，重新 <code>add</code> 会添加到集合末尾，那整个 for 循环遍历集合就不正确了）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">canIWin</span><span class="hljs-params">(<span class="hljs-type">int</span> n, <span class="hljs-type">int</span> dest)</span> &#123;<br>        <span class="hljs-keyword">return</span> dfs(IntStream.rangeClosed(<span class="hljs-number">1</span>, n).boxed().collect(Collectors.toList()), dest);<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">dfs</span><span class="hljs-params">(List&lt;Integer&gt; list, <span class="hljs-type">int</span> dest)</span>&#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> list.size();<br>        <span class="hljs-type">boolean</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++)&#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">item</span> <span class="hljs-operator">=</span> list.get(i);<br>            <span class="hljs-keyword">if</span>(item &gt;= dest)&#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125;<br>            List&lt;Integer&gt; copy = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;(list);<br>            copy.remove(i);<br>            <span class="hljs-type">boolean</span> <span class="hljs-variable">flag</span> <span class="hljs-operator">=</span> dfs(copy, dest - item);<br>            <span class="hljs-keyword">if</span>(flag == <span class="hljs-literal">false</span>)&#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="状态压缩-记忆化搜索"><a href="#状态压缩-记忆化搜索" class="headerlink" title="状态压缩 + 记忆化搜索"></a>状态压缩 + 记忆化搜索</h2><p>上面方案有问题的地方在于直接使用了 <code>List</code> 模拟选数过程，而整个递归过程是存在很多重复计算的，使用 <code>List</code> 无法进行记忆化搜索。</p>
-<p>所以容易发现从一开始使用 <code>List</code> 就是一个 <strong>错误的思路</strong> 。</p>
-<p>由于 n 数据范围为 20，且每个数只能被选择一次，所以我们可以 <strong>用一个 int (32位)</strong> 来表示选数的情况（<code>状态压缩</code>），对应二进制为 1 代表已被选择，否则代表未被选择。这种方案的好处在于很容易就能实现 <code>记忆化搜索</code>，不管是用 <code>int[1 &lt;&lt; 20]</code> 又或者是 <code>Map&lt;Integer, Integer&gt;</code> 。</p>
-<p>整体实现的逻辑还是和上面的版本一样的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-type">int</span>[] cache = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[<span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">20</span>]; <span class="hljs-comment">// int 的第 n 位为 1 代表 n - 1 被选择</span><br>    <span class="hljs-type">int</span> n;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">canIWin</span><span class="hljs-params">(<span class="hljs-type">int</span> n, <span class="hljs-type">int</span> dest)</span> &#123;<br>        <span class="hljs-keyword">if</span> (n * (n + <span class="hljs-number">1</span>) / <span class="hljs-number">2</span> &lt; dest) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; <span class="hljs-comment">// 依题意平手算先出手的玩家输</span><br>        <span class="hljs-built_in">this</span>.n = n;<br>        <span class="hljs-keyword">return</span> dfs(<span class="hljs-number">0</span>, dest) == <span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">dfs</span><span class="hljs-params">(<span class="hljs-type">int</span> state, <span class="hljs-type">int</span> dest)</span>&#123;<br>        <span class="hljs-keyword">if</span>(cache[state] != <span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">return</span> cache[state];<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= n; i++)&#123;<br>            <span class="hljs-keyword">if</span>(((state &gt;&gt; (i - <span class="hljs-number">1</span>)) &amp; <span class="hljs-number">1</span>) == <span class="hljs-number">1</span>)&#123;<br>                <span class="hljs-comment">// 玩家不能重复使用整数</span><br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(i &gt;= dest)&#123;<br>                <span class="hljs-keyword">return</span> cache[state] = <span class="hljs-number">1</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(dfs((state | (<span class="hljs-number">1</span> &lt;&lt; (i - <span class="hljs-number">1</span>))), dest - i) == -<span class="hljs-number">1</span>)&#123;<br>                <span class="hljs-keyword">return</span> cache[state] = <span class="hljs-number">1</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> cache[state] = -<span class="hljs-number">1</span>;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -290,15 +270,6 @@
             <div>
               <div class="post-metas my-3">
   
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/">#记忆化搜索</a>
-      
-        <a href="/tags/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/">#状态压缩</a>
-      
-    </div>
   
 </div>
 
@@ -308,8 +279,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LC-464.我能赢吗</div>
-      <div>https://wecgwm.github.io/2022/11/03/LC-464-我能赢吗/</div>
+      <div>LC-891.子序列宽度之和</div>
+      <div>https://wecgwm.github.io/2022/11/18/LC-891-子序列宽度之和/</div>
     </div>
     <div class="license-meta">
       
@@ -321,7 +292,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月3日</div>
+          <div>2022年11月18日</div>
         </div>
       
       
@@ -353,9 +324,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/04/LC-10-I-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/" title="LC-10-I.斐波那契数列">
+                      <a href="/2022/11/18/LC-792-%E5%8C%B9%E9%85%8D%E5%AD%90%E5%BA%8F%E5%88%97%E7%9A%84%E5%8D%95%E8%AF%8D%E6%95%B0/" title="LC-792.匹配子序列的单词数">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LC-10-I.斐波那契数列</span>
+                        <span class="hidden-mobile">LC-792.匹配子序列的单词数</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -363,8 +334,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/03/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%93%88%E5%B8%8C/" title="字符串哈希">
-                        <span class="hidden-mobile">字符串哈希</span>
+                      <a href="/2022/11/16/LC-775-%E5%85%A8%E5%B1%80%E5%80%92%E7%BD%AE%E4%B8%8E%E5%B1%80%E9%83%A8%E5%80%92%E7%BD%AE/" title="LC-775.全局倒置与局部倒置">
+                        <span class="hidden-mobile">LC-775.全局倒置与局部倒置</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -385,7 +356,7 @@
         var options = Object.assign(
           {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: '4229de71e68acf4df2fcab6c277c51c6'
+            id: '9fa8ce62007274964326407448ae8c44'
           }
         )
         var gitalk = new Gitalk(options);
