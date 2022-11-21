@@ -21,10 +21,10 @@ tags:
 ```
 ```
 
-## 二分查找
+## 动态规划
+
 $$
 \begin{align}
-&\frac{sum(nums)}{n} = \frac{sum(A)}{k}\\\\
-\Leftrightarrow & \frac{sum(B)}{k_2} = \frac{sum(A) \times k_2 }{k \times k_2}\\\\
+&dp(i, j) = \frac{1}{4} \times (dp(i - 4, j) + dp(i - 3, j - 1) + dp(i - 2, j - 2) + dp(i - 1, j - 3))\\\\
 \end{align}
 $$
