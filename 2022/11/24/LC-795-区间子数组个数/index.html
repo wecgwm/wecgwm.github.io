@@ -16,23 +16,23 @@
   <meta name="author" content="yichen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述leetcode 中等题 有 A 和 B 两种类型 的汤。一开始每种类型的汤有 n 毫升。有四种分配操作：  提供 100ml 的 汤A 和 0ml 的 汤B 。 提供 75ml 的 汤A 和 25ml 的 汤B 。 提供 50ml 的 汤A 和 50ml 的 汤B 。 提供 25ml 的 汤A 和 75ml 的 汤B 。  当我们把汤分配给某人之后，汤就没有了。每个回合，我们将从四种概率">
+    <meta name="description" content="题目描述leetcode 中等题 给你一个整数数组 nums 和两个整数：left 及 right 。找出 nums 中连续、非空且其中最大元素在范围 [left, right] 内的子数组，并返回满足条件的子数组的个数。 示例1： 123输入：nums &#x3D; [2,1,4,3], left &#x3D; 2, right &#x3D; 3输出：3解释：满足条件的三个子数组：[2], [2, 1], [3]  提示1：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LC-808.分汤">
-<meta property="og:url" content="https://wecgwm.github.io/2022/11/21/LC-808-%E5%88%86%E6%B1%A4/index.html">
+<meta property="og:title" content="LC-795.区间子数组个数">
+<meta property="og:url" content="https://wecgwm.github.io/2022/11/24/LC-795-%E5%8C%BA%E9%97%B4%E5%AD%90%E6%95%B0%E7%BB%84%E4%B8%AA%E6%95%B0/index.html">
 <meta property="og:site_name" content="yichen">
-<meta property="og:description" content="题目描述leetcode 中等题 有 A 和 B 两种类型 的汤。一开始每种类型的汤有 n 毫升。有四种分配操作：  提供 100ml 的 汤A 和 0ml 的 汤B 。 提供 75ml 的 汤A 和 25ml 的 汤B 。 提供 50ml 的 汤A 和 50ml 的 汤B 。 提供 25ml 的 汤A 和 75ml 的 汤B 。  当我们把汤分配给某人之后，汤就没有了。每个回合，我们将从四种概率">
+<meta property="og:description" content="题目描述leetcode 中等题 给你一个整数数组 nums 和两个整数：left 及 right 。找出 nums 中连续、非空且其中最大元素在范围 [left, right] 内的子数组，并返回满足条件的子数组的个数。 示例1： 123输入：nums &#x3D; [2,1,4,3], left &#x3D; 2, right &#x3D; 3输出：3解释：满足条件的三个子数组：[2], [2, 1], [3]  提示1：">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-21T15:05:16.000Z">
+<meta property="article:published_time" content="2022-11-24T18:05:57.000Z">
 <meta property="article:modified_time" content="2022-11-24T12:19:41.400Z">
 <meta property="article:author" content="yichen">
-<meta property="article:tag" content="记忆化搜索">
-<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="多指针">
+<meta property="article:tag" content="单调栈">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>LC-808.分汤 - yichen</title>
+  <title>LC-795.区间子数组个数 - yichen</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -185,7 +185,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LC-808.分汤"></span>
+            <span id="subtitle" data-typed-text="LC-795.区间子数组个数"></span>
           
         </div>
 
@@ -196,8 +196,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-21 15:05" pubdate>
-          2022年11月21日 下午
+        <time datetime="2022-11-24 18:05" pubdate>
+          2022年11月24日 晚上
         </time>
       </span>
     
@@ -208,7 +208,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          2.5k 字
         
       </span>
     
@@ -219,7 +219,7 @@
         
         
         
-          19 分钟
+          21 分钟
         
       </span>
     
@@ -257,38 +257,32 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LC-808.分汤</h1>
+            <h1 style="display: none">LC-795.区间子数组个数</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/soup-servings/solution/fen-tang-by-leetcode-solution-0yxs/">leetcode 中等题</a></p>
-<p>有 A 和 B 两种类型 的汤。一开始每种类型的汤有 n 毫升。有四种分配操作：</p>
-<ul>
-<li>提供 100ml 的 汤A 和 0ml 的 汤B 。</li>
-<li>提供 75ml 的 汤A 和 25ml 的 汤B 。</li>
-<li>提供 50ml 的 汤A 和 50ml 的 汤B 。</li>
-<li>提供 25ml 的 汤A 和 75ml 的 汤B 。</li>
-</ul>
-<p>当我们把汤分配给某人之后，汤就没有了。每个回合，我们将从四种概率同为 0.25 的操作中进行分配选择。如果汤的剩余量不足以完成某次操作，我们将尽可能分配。当两种类型的汤都分配完时，停止操作。</p>
-<p>注意 不存在先分配 100 ml 汤B 的操作。</p>
-<p>需要返回的值： 汤A 先分配完的概率 +  汤A和汤B 同时分配完的概率 &#x2F; 2。返回值在正确答案 $10^{-5}$ 的范围内将被认为是正确的。</p>
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/number-of-subarrays-with-bounded-maximum/">leetcode 中等题</a></p>
+<p>给你一个整数数组 nums 和两个整数：left 及 right 。找出 nums 中连续、非空且其中最大元素在范围 [left, right] 内的子数组，并返回满足条件的子数组的个数。</p>
 <p>示例1：</p>
-<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs dns">输入: n = <span class="hljs-number">50</span><br>输出: <span class="hljs-number">0.62500</span><br>解释:如果我们选择前两个操作，<span class="hljs-keyword">A</span> 首先将变为空。<br>对于第三个操作，<span class="hljs-keyword">A</span> 和 B 会同时变为空。<br>对于第四个操作，B 首先将变为空。<br>所以 <span class="hljs-keyword">A</span> 变为空的总概率加上 <span class="hljs-keyword">A</span> 和 B 同时变为空的概率的一半是 <span class="hljs-number">0</span>.<span class="hljs-number">25</span> *(<span class="hljs-number">1</span> + <span class="hljs-number">1</span> + <span class="hljs-number">0</span>.<span class="hljs-number">5</span> + <span class="hljs-number">0</span>)= <span class="hljs-number">0</span>.<span class="hljs-number">625</span>。<br></code></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus">输入：nums = <span class="hljs-selector-attr">[2,1,4,3]</span>, <span class="hljs-attribute">left</span> = <span class="hljs-number">2</span>, right = <span class="hljs-number">3</span><br>输出：<span class="hljs-number">3</span><br>解释：满足条件的三个子数组：<span class="hljs-selector-attr">[2]</span>, <span class="hljs-selector-attr">[2, 1]</span>, <span class="hljs-selector-attr">[3]</span><br></code></pre></td></tr></table></figure>
 
 <p>提示1：</p>
-<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">0 </span>&lt;= n &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">9</span>​​​​​​​<br></code></pre></td></tr></table></figure>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>在该题的两个解法中，不论是自顶向下的记忆化搜索还是自底向上的动态规划，时间复杂度都是 $O(n^2)$，即使是将 $n$ 除以 $25$ （后面有解释），在该题的数据规模下仍然会 TLE。</p>
-<p>我们可以发现，随着分配次数的增加，汤 A 比汤 B 先分配完的概率或者答案也是增大的。事实上，当 $n &gt;&#x3D; 4475$ 后，这个答案和 $1$ 的误差就已经小于题目容忍的误差了。所以当 $n &lt; 4475$ 时，我们可以通过记忆化搜索或者动态规模得出答案，否则直接返回 $1$ 即可。</p>
-<h2 id="记忆化搜索"><a href="#记忆化搜索" class="headerlink" title="记忆化搜索"></a>记忆化搜索</h2><p>首先，由于数据规模较大以及四种分配操作都是 $25$ 的倍数，因此我们可以将 $n$ 除以 $25$（向上取整），并将四种分配操作变为 $(4, 0),(3, 1),(2, 2),(1, 3)$，且每种操作的概率均为 $0.25$。</p>
-<p>递归求解，当要分给 $A$ 和 $B$ 的汤均小于等于 $0$ 时，依题意返回 $0.5$，当仅 $A$ 小于等于 $0$ 时依题意返回 $1$，仅 $B$ 小于等于 $0$ 时返回 $0$，其他情况递归求解四种情况下的平均值即可。</p>
-<p>同时为了避免重复递归，使用 $cache[i][j]$ 保存 $A$ 剩余 $i$，$B$ 剩余 $j$ 时的结果。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-type">double</span>[][] cache;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">soupServings</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;<br>        n= (<span class="hljs-type">int</span>)Math.ceil((<span class="hljs-type">double</span>)n / <span class="hljs-number">25</span>);<br>        <span class="hljs-keyword">if</span>(n &gt;= <span class="hljs-number">179</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        &#125;<br>        cache = <span class="hljs-keyword">new</span> <span class="hljs-title class_">double</span>[n + <span class="hljs-number">1</span>][n + <span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">return</span> dfs(n, n);<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">double</span> <span class="hljs-title function_">dfs</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b)</span>&#123;<br>        <span class="hljs-keyword">if</span>(a &lt;= <span class="hljs-number">0</span> &amp;&amp; b &lt;= <span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0.5</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(a &lt;= <span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(b &lt;= <span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(cache[a][b] == <span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-type">double</span> <span class="hljs-variable">q</span> <span class="hljs-operator">=</span> dfs(a - <span class="hljs-number">4</span>, b);<br>            <span class="hljs-type">double</span> <span class="hljs-variable">w</span> <span class="hljs-operator">=</span> dfs(a - <span class="hljs-number">3</span>, b - <span class="hljs-number">1</span>);<br>            <span class="hljs-type">double</span> <span class="hljs-variable">e</span> <span class="hljs-operator">=</span> dfs(a - <span class="hljs-number">2</span>, b - <span class="hljs-number">2</span>);<br>            <span class="hljs-type">double</span> <span class="hljs-variable">r</span> <span class="hljs-operator">=</span> dfs(a - <span class="hljs-number">1</span>, b - <span class="hljs-number">3</span>);<br>            cache[a][b] = <span class="hljs-number">0.25</span> * (q + w + e + r);<br>        &#125;<br>        <span class="hljs-keyword">return</span> cache[a][b];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>类似记忆化搜索的思路，可以转成动态规划求解。</p>
-<p>定义 $dp(i, j)$ 表示 $A$ 剩余 $i$ 、 $B$ 剩余 $j$ 时的解，边界情况如同上面所解释的，非边界情况下转移方程为：</p>
-<p>$$<br>\begin{align}<br>&amp;dp(i, j) &#x3D; \frac{1}{4} \times (dp(i - 4, j) + dp(i - 3, j - 1) + dp(i - 2, j - 2) + dp(i - 1, j - 3))\\<br>\end{align}<br>$$</p>
-<p>需要注意的是在这道题中与记忆化搜索相比动态规划会多出一些无效状态的计算。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">soupServings</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;<br>        n = (n + <span class="hljs-number">25</span> - <span class="hljs-number">1</span>) / <span class="hljs-number">25</span>; <span class="hljs-comment">// 向上取整</span><br>        <span class="hljs-keyword">if</span>(n &gt;= <span class="hljs-number">179</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-type">double</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">double</span>[n + <span class="hljs-number">1</span>][n + <span class="hljs-number">1</span>];<br>        dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0.5</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= n; i++) &#123;<br>            dp[<span class="hljs-number">0</span>][i] = <span class="hljs-number">1.0</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; n + <span class="hljs-number">1</span>; i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; j &lt; n + <span class="hljs-number">1</span>; j++)&#123;<br>                dp[i][j] += dp[Math.max(<span class="hljs-number">0</span>, i - <span class="hljs-number">4</span>)][j] / <span class="hljs-number">4</span>;<br>                dp[i][j] += dp[Math.max(<span class="hljs-number">0</span>, i - <span class="hljs-number">3</span>)][j - <span class="hljs-number">1</span>] / <span class="hljs-number">4</span>;<br>                dp[i][j] += dp[Math.max(<span class="hljs-number">0</span>, i - <span class="hljs-number">2</span>)][Math.max(<span class="hljs-number">0</span>, j - <span class="hljs-number">2</span>)] / <span class="hljs-number">4</span>;<br>                dp[i][j] += dp[i - <span class="hljs-number">1</span>][Math.max(<span class="hljs-number">0</span>, j - <span class="hljs-number">3</span>)] / <span class="hljs-number">4</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[n][n];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>&lt;= nums.length &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">5</span><br><span class="hljs-symbol">0 </span>&lt;= nums[i] &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">9</span><br><span class="hljs-symbol">0 </span>&lt;= left &lt;= right &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">9</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h2><p>显然符合题意的子数组必然不包含任意的 $nums[i] &gt; right$，并且必须包含一个 $left &lt;&#x3D; nums[i] &lt;&#x3D; right$。 </p>
+<p>我们初始化左右指针都指向 $0$ ，右指针每次后移一位。<strong>并统计以右指针为子数组右端点且符合题意的子数组个数。</strong></p>
+<p>具体遍历时，分以下三种情况进行处理</p>
+<ul>
+<li>如果当前元素 $left &lt;&#x3D; nums[i] &lt;&#x3D; right$，我们只需要将答案累加 $right - left + 1$ 即可。并且同时维护一个 $lastMatch$，代表最后一个遇到的符合大于 $left$ 小于 $right$ 的元素下标，将其更新为当前下标。</li>
+<li>如果当前元素 $nums[i] &lt; left$ ，我们就需要找到左边第一个满足 $left &lt;&#x3D; nums[i] &lt;&#x3D; right$ 的下标，也就是 $lastMatch$，则显然以 $[lastMatch…right]$ 段任意元素作为左端点的子数组都不符合要求；而对于 $[left…lastMatch]$ 段，每个子数组都至少存在一个 $lastMatch$ 是符合要求的，所以我们将答案累加 $lastMatch - left + 1$ 。</li>
+<li>如果当前元素 $nums &gt; right$ ，我们只需要将左指针移动到 $i + 1$ 并将 $lastMatch$ 置为 $-1$ 即可，因为包含该元素的任意子数组都不符合题目要求。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">numSubarrayBoundedMax</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, lastMatch = -<span class="hljs-number">1</span>, n = nums.length;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">leftPoint</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, rightPoint = <span class="hljs-number">0</span>; rightPoint &lt; n; rightPoint++)&#123;<br>            <span class="hljs-keyword">if</span>(left &lt;= nums[rightPoint]  &amp;&amp; nums[rightPoint] &lt;= right)&#123;<br>                lastMatch = rightPoint;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(nums[rightPoint] &gt; right)&#123;<br>                lastMatch = -<span class="hljs-number">1</span>;<br>                leftPoint = rightPoint + <span class="hljs-number">1</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(lastMatch != - <span class="hljs-number">1</span>)&#123;<br>                ans += lastMatch - leftPoint + <span class="hljs-number">1</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h2><p>前面双指针的做法相当于每次求解以遍历到的当前元素作为右端点的合法子数组数量，另一种方法则是求解以当前元素作为子数组最大值的合法子数组数量。</p>
+<p>容易想到，我们利用单调栈维护出每个元素左边第一个大于当前元素的下标 $left[i]$、右边第一个大于当前元素的下标 $right[i]$。</p>
+<p>那么该范围内以该元素作为子数组最大值的数量就等价于包含该元素的子数组数量，也就是 $(i - left[i]) \times (right[i] - i)$。</p>
+<p>需要注意的是，由于数组中存在重复元素，我们在找第一个大于当前元素的下标时，可能存在每个重复元素都越过了彼此，由此产生重复统计。所以我们可以将某一侧的条件改为大于等于，实现类似半闭半开的效果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">numSubarrayBoundedMax</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-type">int</span>[] leftMax = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n];<br>        <span class="hljs-type">int</span>[] rightMax = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n];<br>        Deque&lt;Integer&gt; monoStack = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayDeque</span>&lt;&gt;();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++)&#123;<br>            <span class="hljs-keyword">while</span>(!monoStack.isEmpty() &amp;&amp; nums[i] &gt;= nums[monoStack.peekLast()])&#123;<br>                monoStack.pollLast();<br>            &#125;<br>            leftMax[i] =monoStack.isEmpty() ? -<span class="hljs-number">1</span> : monoStack.peekLast();<br>            monoStack.offerLast(i);<br>        &#125;<br>        monoStack.clear();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> n - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--)&#123;<br>            <span class="hljs-keyword">while</span>(!monoStack.isEmpty() &amp;&amp; nums[i] &gt; nums[monoStack.peekLast()])&#123;<br>                monoStack.pollLast();<br>            &#125;<br>            rightMax[i] = monoStack.isEmpty() ? n : monoStack.peekLast();<br>            monoStack.offerLast(i);<br>        &#125;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++)&#123;<br>            <span class="hljs-keyword">if</span>(nums[i] &gt; right || nums[i] &lt; left)&#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            ans += (i - leftMax[i]) * (rightMax[i] - i);<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -300,9 +294,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%AE%B0%E5%BF%86%E5%8C%96%E6%90%9C%E7%B4%A2/">#记忆化搜索</a>
+        <a href="/tags/%E5%A4%9A%E6%8C%87%E9%92%88/">#多指针</a>
       
-        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
+        <a href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/">#单调栈</a>
       
     </div>
   
@@ -314,8 +308,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LC-808.分汤</div>
-      <div>https://wecgwm.github.io/2022/11/21/LC-808-分汤/</div>
+      <div>LC-795.区间子数组个数</div>
+      <div>https://wecgwm.github.io/2022/11/24/LC-795-区间子数组个数/</div>
     </div>
     <div class="license-meta">
       
@@ -327,7 +321,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月21日</div>
+          <div>2022年11月24日</div>
         </div>
       
       
@@ -359,18 +353,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/21/LC-6244-%E5%AE%8C%E7%BE%8E%E5%88%86%E5%89%B2%E7%9A%84%E6%96%B9%E6%A1%88%E6%95%B0/" title="LC-6244.完美分割的方案数">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LC-6244.完美分割的方案数</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/20/LC-6243-%E5%88%B0%E8%BE%BE%E9%A6%96%E9%83%BD%E7%9A%84%E6%9C%80%E5%B0%91%E6%B2%B9%E8%80%97/" title="LC-6243.到达首都的最少油耗">
-                        <span class="hidden-mobile">LC-6243.到达首都的最少油耗</span>
+                      <a href="/2022/11/22/LC-878-%E7%AC%ACN%E4%B8%AA%E7%A5%9E%E5%A5%87%E6%95%B0%E5%AD%97/" title="LC-878.第N个神奇数字">
+                        <span class="hidden-mobile">LC-878.第N个神奇数字</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -391,7 +379,7 @@
         var options = Object.assign(
           {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: '55044d50eceb51e74ed696fa419eeb1e'
+            id: '9d7f1f58baddabdc1c506b51c8f6c9ed'
           }
         )
         var gitalk = new Gitalk(options);

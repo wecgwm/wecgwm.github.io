@@ -24,7 +24,7 @@
 <meta property="og:description" content="The Missing Semester of Your CS Education 该课程主要是教如何更高效的使用命令行、编辑器、Git 等工具。  Lecture 1 - Course overview + the shellNotes &gt; 将一个命令&#x2F;程序的输出流重定向到一个 文件， &lt; 相反。&gt;&gt; 和 &lt;&lt; 用做追加 管道符 | 与 &gt;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-11T03:14:00.000Z">
-<meta property="article:modified_time" content="2022-11-22T09:20:34.986Z">
+<meta property="article:modified_time" content="2022-11-24T12:19:41.400Z">
 <meta property="article:author" content="yichen">
 <meta property="article:tag" content="learning">
 <meta name="twitter:card" content="summary_large_image">
@@ -207,7 +207,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k 字
+          5.5k 字
         
       </span>
     
@@ -218,7 +218,7 @@
         
         
         
-          39 分钟
+          46 分钟
         
       </span>
     
@@ -298,6 +298,9 @@ The first line might be tricky to get working. It’s helpful to know that # sta
 <li><p>Your task is to write a command that recursively finds all HTML files in the folder and makes a zip with them. Note that your command should work even if the files have spaces (hint: check -d flag for xargs).</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">⚡ root@izwz9bpgwmtcoix1llcjwqz  /tmp/missing/lecture-2  <span class="hljs-built_in">mkdir</span> &#123;a,b&#125;    <br>⚡ root@izwz9bpgwmtcoix1llcjwqz  /tmp/missing/lecture-2  <span class="hljs-built_in">touch</span>  &#123;a,b&#125;/&#123;1,2.html,3.html&#125;                  <br>⚡ root@izwz9bpgwmtcoix1llcjwqz  /tmp/missing/lecture-2  <span class="hljs-built_in">touch</span> &#123;a,b&#125;/&#123;4\ 4.html,5\ 5.html&#125;<br>⚡ root@izwz9bpgwmtcoix1llcjwqz  /tmp/missing/lecture-2  find . -name <span class="hljs-string">&quot;*.html&quot;</span> -print0 | xargs -0 zip -r 1.zip<br><span class="hljs-comment"># or</span><br>⚡ root@izwz9bpgwmtcoix1llcjwqz  /tmp/missing/lecture-2  find . -<span class="hljs-built_in">type</span> f -name <span class="hljs-string">&quot;*.html&quot;</span> | xargs -d <span class="hljs-string">&#x27;\n&#x27;</span>  tar -cvzf html.zip<br></code></pre></td></tr></table></figure></li>
 </ul>
+<h2 id="Lecture-3-command-lineShell-Tools-and-Scripting"><a href="#Lecture-3-command-lineShell-Tools-and-Scripting" class="headerlink" title="Lecture 3 - command-lineShell Tools and Scripting"></a>Lecture 3 - command-lineShell Tools and Scripting</h2><h3 id="Notes-2"><a href="#Notes-2" class="headerlink" title="Notes"></a>Notes</h3><h3 id="Exercises-2"><a href="#Exercises-2" class="headerlink" title="Exercises"></a>Exercises</h3><ol>
+<li>…<br>However, this strategy will fail if we start in a different bash session, since wait only works for child processes. One feature we did not discuss in the notes is that the kill command’s exit status will be zero on success and nonzero otherwise. kill -0 does not send a signal but will give a nonzero exit status if the process does not exist. Write a bash function called pidwait that takes a pid and waits until the given process completes. You should use sleep to avoid wasting CPU unnecessarily.<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># root at izwz9bpgwmtcoix1llcjwqz in /tmp/missing/lecture-3 [7:23:55] → cat pidwait     </span><br><span class="hljs-comment">#!/bin/bash</span><br><span class="hljs-keyword">while</span> <span class="hljs-built_in">kill</span> -0 <span class="hljs-variable">$1</span>;<span class="hljs-keyword">do</span><br>    <span class="hljs-built_in">sleep</span> 1<br><span class="hljs-keyword">done</span><br><span class="hljs-comment"># root at izwz9bpgwmtcoix1llcjwqz in /tmp/missing/lecture-3 [7:22:35] → sleep 35 &amp;</span><br>[1] 16599<br><span class="hljs-comment"># root at izwz9bpgwmtcoix1llcjwqz in /tmp/missing/lecture-3 [7:22:41] → pgrep -f sleep\ 35 | xargs ./pidwait</span><br>+ 16599 <span class="hljs-keyword">done</span>       <span class="hljs-built_in">sleep</span> 35<br>./pidwait: line 2: <span class="hljs-built_in">kill</span>: (16599) - No such process<br></code></pre></td></tr></table></figure></li>
+</ol>
 
                 
               </div>
