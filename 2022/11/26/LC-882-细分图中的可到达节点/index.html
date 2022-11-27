@@ -16,23 +16,27 @@
   <meta name="author" content="yichen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述leetcode 困难题 给定你一个整数数组 nums 我们要将 nums 数组中的每个元素移动到 A 数组 或者 B 数组中，使得 A 数组和 B 数组不为空，并且 average(A) &#x3D;&#x3D; average(B) 。 如果可以完成则返回true ， 否则返回 false  。 注意：对于数组 arr ,  average(arr) 是 arr 的所有元素除以 arr">
+    <meta name="description" content="题目描述leetcode 困难题 给你一个无向图（原始图），图中有 n 个节点，编号从 0 到 n - 1 。你决定将图中的每条边 细分 为一条节点链，每条边之间的新节点数各不相同。 图用由边组成的二维数组 edges 表示，其中 edges[i] &#x3D; [ui, vi, cnti] 表示原始图中节点 ui 和 vi 之间存在一条边，cnti 是将边 细分 后的新节点总数。注意，cnti">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LC-805.数组的均值分割">
-<meta property="og:url" content="https://wecgwm.github.io/2022/11/14/LC-805-%E6%95%B0%E7%BB%84%E7%9A%84%E5%9D%87%E5%80%BC%E5%88%86%E5%89%B2/index.html">
+<meta property="og:title" content="LC-882.细分图中的可到达节点">
+<meta property="og:url" content="https://wecgwm.github.io/2022/11/26/LC-882-%E7%BB%86%E5%88%86%E5%9B%BE%E4%B8%AD%E7%9A%84%E5%8F%AF%E5%88%B0%E8%BE%BE%E8%8A%82%E7%82%B9/index.html">
 <meta property="og:site_name" content="yichen">
-<meta property="og:description" content="题目描述leetcode 困难题 给定你一个整数数组 nums 我们要将 nums 数组中的每个元素移动到 A 数组 或者 B 数组中，使得 A 数组和 B 数组不为空，并且 average(A) &#x3D;&#x3D; average(B) 。 如果可以完成则返回true ， 否则返回 false  。 注意：对于数组 arr ,  average(arr) 是 arr 的所有元素除以 arr">
+<meta property="og:description" content="题目描述leetcode 困难题 给你一个无向图（原始图），图中有 n 个节点，编号从 0 到 n - 1 。你决定将图中的每条边 细分 为一条节点链，每条边之间的新节点数各不相同。 图用由边组成的二维数组 edges 表示，其中 edges[i] &#x3D; [ui, vi, cnti] 表示原始图中节点 ui 和 vi 之间存在一条边，cnti 是将边 细分 后的新节点总数。注意，cnti">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-14T19:06:09.000Z">
+<meta property="og:image" content="https://wecgwm.github.io/img/Snipaste_2022-11-26_22-18-03.png">
+<meta property="article:published_time" content="2022-11-26T15:54:38.000Z">
 <meta property="article:modified_time" content="2022-11-27T16:27:42.642Z">
 <meta property="article:author" content="yichen">
-<meta property="article:tag" content="数学">
-<meta property="article:tag" content="折半搜索">
+<meta property="article:tag" content="堆">
+<meta property="article:tag" content="图">
+<meta property="article:tag" content="最短路径">
+<meta property="article:tag" content="Dijkstra">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://wecgwm.github.io/img/Snipaste_2022-11-26_22-18-03.png">
   
   
   
-  <title>LC-805.数组的均值分割 - yichen</title>
+  <title>LC-882.细分图中的可到达节点 - yichen</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -185,7 +189,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LC-805.数组的均值分割"></span>
+            <span id="subtitle" data-typed-text="LC-882.细分图中的可到达节点"></span>
           
         </div>
 
@@ -196,8 +200,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-14 19:06" pubdate>
-          2022年11月14日 晚上
+        <time datetime="2022-11-26 15:54" pubdate>
+          2022年11月26日 下午
         </time>
       </span>
     
@@ -208,7 +212,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.4k 字
+          2.1k 字
         
       </span>
     
@@ -219,7 +223,7 @@
         
         
         
-          29 分钟
+          18 分钟
         
       </span>
     
@@ -257,44 +261,30 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LC-805.数组的均值分割</h1>
+            <h1 style="display: none">LC-882.细分图中的可到达节点</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/split-array-with-same-average/">leetcode 困难题</a></p>
-<p>给定你一个整数数组 nums</p>
-<p>我们要将 nums 数组中的每个元素移动到 A 数组 或者 B 数组中，使得 A 数组和 B 数组不为空，并且 average(A) &#x3D;&#x3D; average(B) 。</p>
-<p>如果可以完成则返回true ， 否则返回 false  。</p>
-<p>注意：对于数组 arr ,  average(arr) 是 arr 的所有元素除以 arr 长度的和。</p>
-<p>示例1：</p>
-<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dns">输入: nums = [<span class="hljs-number">1,2,3,4</span>,<span class="hljs-number">5,6,7,8</span>]<br>输出: true<br>解释: 我们可以将数组分割为 [<span class="hljs-number">1,4,5,8</span>] 和 [<span class="hljs-number">2,3,6,7</span>], 他们的平均值都是<span class="hljs-number">4</span>.<span class="hljs-number">5</span>。<br></code></pre></td></tr></table></figure>
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reachable-nodes-in-subdivided-graph/">leetcode 困难题</a></p>
+<p>给你一个无向图（原始图），图中有 n 个节点，编号从 0 到 n - 1 。你决定将图中的每条边 细分 为一条节点链，每条边之间的新节点数各不相同。</p>
+<p>图用由边组成的二维数组 edges 表示，其中 edges[i] &#x3D; [ui, vi, cnti] 表示原始图中节点 ui 和 vi 之间存在一条边，cnti 是将边 细分 后的新节点总数。注意，cnti &#x3D;&#x3D; 0 表示边不可细分。</p>
+<p>要 细分 边 [ui, vi] ，需要将其替换为 (cnti + 1) 条新边，和 cnti 个新节点。新节点为 x1, x2, …, xcnti ，新边为 [ui, x1], [x1, x2], [x2, x3], …, [xcnti+1, xcnti], [xcnti, vi] 。</p>
+<p>现在得到一个 新的细分图 ，请你计算从节点 0 出发，可以到达多少个节点？如果节点间距离是 maxMoves 或更少，则视为 可以到达 。</p>
+<p>给你原始图和 maxMoves ，返回 新的细分图中从节点 0 出发 可到达的节点数 。</p>
+<p>示例1：<br><img src="/../img/Snipaste_2022-11-26_22-18-03.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs lua">输入：edges = <span class="hljs-string">[[0,1,10],[0,2,1],[1,2,2]]</span>, maxMoves = <span class="hljs-number">6</span>, n = <span class="hljs-number">3</span><br>输出：<span class="hljs-number">13</span><br>解释：边的细分情况如上图所示。<br>可以到达的节点已经用黄色标注出来。<br></code></pre></td></tr></table></figure>
 
-<p>示例2：</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">输入: nums = [3,1]</span><br><span class="hljs-section">输出: false</span><br></code></pre></td></tr></table></figure>
+<p>提示1：</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs excel"><span class="hljs-number">0</span> &lt;= edges.length &lt;= <span class="hljs-built_in">min</span>(<span class="hljs-built_in">n</span> * (<span class="hljs-built_in">n</span> - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>, <span class="hljs-number">104</span>)<br>edges[i].length == <span class="hljs-number">3</span><br><span class="hljs-number">0</span> &lt;= ui &lt; vi &lt; <span class="hljs-built_in">n</span><br>图中 不存在平行边<br><span class="hljs-number">0</span> &lt;= cnti &lt;= <span class="hljs-number">104</span><br><span class="hljs-number">0</span> &lt;= maxMoves &lt;= <span class="hljs-number">109</span><br><span class="hljs-number">1</span> &lt;= <span class="hljs-built_in">n</span> &lt;= <span class="hljs-number">3000</span><br></code></pre></td></tr></table></figure>
 
-<p>提示：</p>
-<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>&lt;= nums.length &lt;= <span class="hljs-number">30</span><br><span class="hljs-symbol">0 </span>&lt;= nums[i] &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">4</span><br></code></pre></td></tr></table></figure>
+<h2 id="Dijkstra-算法"><a href="#Dijkstra-算法" class="headerlink" title="Dijkstra 算法"></a>Dijkstra 算法</h2><p>将 $cnt_i$ 看成类似权值，再通过 <a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/shortest-path/#dijkstra-%E7%AE%97%E6%B3%95">Dijkstra</a> 算法得到每个原始点到 $0$ 的最短路径即可。</p>
+<p>需要注意的有两点：</p>
+<ol>
+<li>计算距离的时候要使用 $cnt + 1$ ，因为还要加上原始节点的消耗。</li>
+<li>得到最短路径后，计算 <code>可达点</code> 总数时需要将 <code>原始节点</code> 和 <code>拆分节点</code> 分开来计算避免重复计算原始点。对于原始节点，当 $d[i]$ 小于 $maxMoves$ 时，即为可达；而对于拆分节点，通过遍历所有边得出，对于某条边 $e(u, v)$ ，该边的可达的拆分点显然为经过 $u$ 点可达的拆分点与经过 $v$ 点可达的拆分点交集，设两者数量分别为 $u_x$ 和 $v_x$ 、该边拆分点总数为 $all$，那么该边可达的拆分点总数即为 $min(all, u_x + v_x)$ ，注意这里的 $min(all, )$ 相当于去了重。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">reachableNodes</span><span class="hljs-params">(<span class="hljs-type">int</span>[][] edges, <span class="hljs-type">int</span> maxMoves, <span class="hljs-type">int</span> n)</span> &#123;<br>        <span class="hljs-comment">// Build graph</span><br>        List&lt;<span class="hljs-type">int</span>[]&gt;[] g = <span class="hljs-keyword">new</span> <span class="hljs-title class_">List</span>[n];<br>        Arrays.setAll(g, k -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>());<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; edges.length; i++)&#123;<br>            g[edges[i][<span class="hljs-number">0</span>]].add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;edges[i][<span class="hljs-number">1</span>], edges[i][<span class="hljs-number">2</span>] + <span class="hljs-number">1</span>&#125;); <span class="hljs-comment">// +1, 因为还要算上原始点的距离</span><br>            g[edges[i][<span class="hljs-number">1</span>]].add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;edges[i][<span class="hljs-number">0</span>], edges[i][<span class="hljs-number">2</span>] + <span class="hljs-number">1</span>&#125;);<br>        &#125;<br>        <span class="hljs-comment">// dijkstra</span><br>        PriorityQueue&lt;<span class="hljs-type">int</span>[]&gt; min = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;((a, b) -&gt; a[<span class="hljs-number">1</span>] - b[<span class="hljs-number">1</span>]);<br>        min.offer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;);<br>        <span class="hljs-type">int</span>[] d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n];<br>        Arrays.fill(d, Integer.MAX_VALUE);<br>        d[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;<br>        Set&lt;Integer&gt; visit = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();<br>        <span class="hljs-keyword">while</span>(!min.isEmpty())&#123;<br>            <span class="hljs-type">int</span>[] top = min.poll();<br>            <span class="hljs-keyword">if</span>(!visit.add(top[<span class="hljs-number">0</span>]))&#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span>[] p : g[top[<span class="hljs-number">0</span>]])&#123;<br>                <span class="hljs-keyword">if</span>(d[p[<span class="hljs-number">0</span>]] &gt; d[top[<span class="hljs-number">0</span>]] + p[<span class="hljs-number">1</span>])&#123;<br>                    d[p[<span class="hljs-number">0</span>]] = d[top[<span class="hljs-number">0</span>]] + p[<span class="hljs-number">1</span>];<br>                    min.offer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;p[<span class="hljs-number">0</span>], d[p[<span class="hljs-number">0</span>]]&#125;);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-comment">// 原始点和拆分点分开来算</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> item : d)&#123;<br>            <span class="hljs-keyword">if</span>(item &lt;= maxMoves)&#123;<br>                ans++;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span>[] e : edges)&#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> Math.max(<span class="hljs-number">0</span>, maxMoves - d[e[<span class="hljs-number">0</span>]]);<br>            <span class="hljs-type">int</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> Math.max(<span class="hljs-number">0</span>, maxMoves - d[e[<span class="hljs-number">1</span>]]);<br>            ans += Math.min(e[<span class="hljs-number">2</span>], a + b);<br>        &#125;<br>        <span class="hljs-keyword">return</span>  ans;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
 
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>设我们移动了 $k$ 个元素到数组 $A$ 中，移动了 $k_2$ 或者说 $n-k$ 个元素到数组 $B$ 中，分割后的数组为 $A$ 和 $B$，且${sum}(A)$， ${sum}(B)$， ${sum}(nums)$ 分别表示数组 $A$， $B$， $nums$ 的元素和，由于数组 $A$，$B$ 的平均值相等，可以推出：</p>
-<p>$$<br>\begin{align}<br>&amp;\frac{sum(A)}{k} &#x3D; \frac{sum(B)}{n-k}\\<br>\Leftrightarrow &amp; sum(A) \times n - sum(A) \times k &#x3D; sum(B) \times k\\<br>\Leftrightarrow &amp; sum(A) \times n &#x3D; (sum(B) + sum(A)) \times k\\<br>\Leftrightarrow &amp; sum(A) \times n &#x3D; (sum(nums)) \times k\\<br>\Leftrightarrow &amp; \frac{sum(A)}{k} &#x3D; \frac{sum(nums)}{n}\\<br>\end{align}<br>$$</p>
-<p>也就是说如果存在子数组 $A$，$B$ 的平均值相等，则该平均值必然还会等于 $nums$ 的平均值。</p>
-<p><strong>并且我们只需要求出是否存在一个子数组的平均值等于原数组平均值即可</strong>，因为如果存在一个子数组平均值等于原数组平均值的话：<br>$$<br>\begin{align}<br>&amp;\frac{sum(nums)}{n} &#x3D; \frac{sum(A)}{k}\\<br>\Leftrightarrow &amp; \frac{sum(A) + sum(B)}{k + k_2} &#x3D; \frac{sum(A)}{k}\\<br>\Leftrightarrow &amp; \frac{sum(A) + sum(B)}{k_2} &#x3D; \frac{sum(A) \times (k + k_2)}{k \times k_2}\\<br>\Leftrightarrow &amp; \frac{sum(B)}{k_2} &#x3D; \frac{sum(A) \times (k + k_2) - (sum(A) \times k)}{k \times k_2}\\<br>\Leftrightarrow &amp; \frac{sum(B)}{k_2} &#x3D; \frac{sum(A) \times k_2 }{k \times k_2}\\<br>\Leftrightarrow &amp; \frac{sum(B)}{k_2} &#x3D; \frac{sum(A)}{k}\\<br>\end{align}<br>$$<br>可以得出剩余元素组成的子数组的平均值也为原数组平均值。</p>
-<p>那么问题变成求是否存在子数组平均值等于原数组，容易想到的思路是枚举每个子数组，此时一共有 $2^n$ 种方案（每个元素取或不取），由于题目中 <code>n</code> 最大是 <code>30</code>，会 TLE。</p>
-<p>我们可以使用折半查找的方法，将时间复杂度降低到 $O(2^\frac{n}{2})$。</p>
-<p>我们将数组 $nums$ 分成左右两部分，那么子数组 $A$ 可能存在三种情况：</p>
-<ul>
-<li>子数组 $A$ 完全在数组 $nums$ 的左半部分；</li>
-<li>子数组 $A$ 完全在数组 $nums$ 的右半部分；</li>
-<li>子数组 $A$ 一部分在数组 $nums$ 的左半部分，一部分在数组 $nums$ 的右半部分。</li>
-</ul>
-<p>我们分两次来处理数组，每次处理一部分。<br>如果是前两种情况比较好处理，我们只需要在处理对应部分数组时计算平均值，再与原数组的平均值比较即可。</p>
-<p>但如果是第三种情况，则要等我们在处理右半部分时，回过头来通过某种方式搜索左边是否存在符合我们预期的方案（无法简单的通过在哈希表中保存总和来求，因为还和左边数组取了几个有关系），即会花费额外的时间（可能TLE）又难实现。</p>
-<p>所以我们可以将数组 ${nums}$ 中的每个元素减去 $nums$ 的平均值，这样数组的平均值则变为 <code>0</code>。那么此时题目中的问题则变为：能否从 $nums$ 中找出若干个元素组成集合 $A$，使得 $A$ 的元素之和为 <code>0</code>。</p>
-<p>但是如果直接减去 $\frac{sum(nums)}{n}$ 会引进浮点数，如果在 <code>Java</code> 中直接使用 <code>double</code> 进行运算，会因为浮点数的误差出现WA，所以更好的方案是先将 $nums$ 中的每个元素乘以 $n$ 后再减去数组总和，也就是：<br>$$<br>\begin{align}<br>&amp;nums[i] &#x3D; nums[i] - \frac{sum(nums)}{n}\\<br>\Rightarrow &amp;nums[i] &#x3D; nums[i] \times n - \frac{sum(nums) \times n}{n}\\<br>\end{align}<br>$$<br>这样就不会出现浮点数了。</p>
-<p>这样处理后，如果是第一、二种情况，我们只需要在遍历时判断当前方案总和是否等于 $0$ 即可，如果是就直接返回。对于第三种情况，我们也只需要在遍历左边部分时额外再把当前方案的总和保存到哈希表中，然后在遍历右边部分数组的时候，如果当前总和是 $curSum$ ，判断哈希表是否存在 $-curSum$ 即可。</p>
-<p>另外需要注意的是，我们不能同时选择左右两边的所有元素，这样数组 $B$ 就为空了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">splitArraySameAverage</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-keyword">if</span>(nums.length &lt;= <span class="hljs-number">1</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length, m = nums.length / <span class="hljs-number">2</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">sum</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++)&#123;<br>            sum += nums[i];<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++)&#123;<br>            nums[i] = nums[i] * n - sum; <span class="hljs-comment">// 避免浮点数</span><br>        &#125;<br>        Set&lt;Integer&gt; exist = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; (<span class="hljs-number">1</span> &lt;&lt; m); i++)&#123; <span class="hljs-comment">// 2 ^（n/2）个方案</span><br>            <span class="hljs-type">int</span> <span class="hljs-variable">curSum</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; m; j++)&#123;<br>                <span class="hljs-keyword">if</span>((i &amp; (<span class="hljs-number">1</span> &lt;&lt; j)) != <span class="hljs-number">0</span>)&#123; <span class="hljs-comment">// 当前位为 1 代表当前位被选到了，例如 011 代表该轮只选择第一个和第二个元素</span><br>                    curSum += nums[j];<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(curSum == <span class="hljs-number">0</span>)&#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125;<br>            exist.add(curSum);<br>        &#125;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">rSum</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> m; i &lt; n; i++) &#123;<br>            rSum += nums[i];<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; (<span class="hljs-number">1</span> &lt;&lt; (n - m)); i++)&#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">curSum</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> m; j &lt; n; j++)&#123;<br>                <span class="hljs-keyword">if</span>((i &amp; (<span class="hljs-number">1</span> &lt;&lt; (j - m))) != <span class="hljs-number">0</span>)&#123;<br>                    curSum += nums[j];<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(curSum == <span class="hljs-number">0</span>)&#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(curSum != rSum &amp;&amp; exist.contains(-curSum))&#123; <span class="hljs-comment">// 第一个判断是因为不能同时选择左右两边的所有元素</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -306,9 +296,13 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+        <a href="/tags/%E5%A0%86/">#堆</a>
       
-        <a href="/tags/%E6%8A%98%E5%8D%8A%E6%90%9C%E7%B4%A2/">#折半搜索</a>
+        <a href="/tags/%E5%9B%BE/">#图</a>
+      
+        <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/">#最短路径</a>
+      
+        <a href="/tags/Dijkstra/">#Dijkstra</a>
       
     </div>
   
@@ -320,8 +314,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LC-805.数组的均值分割</div>
-      <div>https://wecgwm.github.io/2022/11/14/LC-805-数组的均值分割/</div>
+      <div>LC-882.细分图中的可到达节点</div>
+      <div>https://wecgwm.github.io/2022/11/26/LC-882-细分图中的可到达节点/</div>
     </div>
     <div class="license-meta">
       
@@ -333,7 +327,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月14日</div>
+          <div>2022年11月26日</div>
         </div>
       
       
@@ -365,18 +359,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/16/LC-775-%E5%85%A8%E5%B1%80%E5%80%92%E7%BD%AE%E4%B8%8E%E5%B1%80%E9%83%A8%E5%80%92%E7%BD%AE/" title="LC-775.全局倒置与局部倒置">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LC-775.全局倒置与局部倒置</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/13/LC-6236-%E4%B8%8D%E9%87%8D%E5%8F%A0%E5%9B%9E%E6%96%87%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%9C%80%E5%A4%A7%E6%95%B0%E7%9B%AE/" title="LC-6236.不重叠回文子字符串的最大数目">
-                        <span class="hidden-mobile">LC-6236.不重叠回文子字符串的最大数目</span>
+                      <a href="/2022/11/24/LC-795-%E5%8C%BA%E9%97%B4%E5%AD%90%E6%95%B0%E7%BB%84%E4%B8%AA%E6%95%B0/" title="LC-795.区间子数组个数">
+                        <span class="hidden-mobile">LC-795.区间子数组个数</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -397,7 +385,7 @@
         var options = Object.assign(
           {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: '2fc090f8d4261effc70c8cb84d58066e'
+            id: '91078f53bc78aa4af1bb703437ca39e8'
           }
         )
         var gitalk = new Gitalk(options);
