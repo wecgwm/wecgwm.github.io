@@ -16,27 +16,23 @@
   <meta name="author" content="yichen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述leetcode 困难题 给你一个无向图（原始图），图中有 n 个节点，编号从 0 到 n - 1 。你决定将图中的每条边 细分 为一条节点链，每条边之间的新节点数各不相同。 图用由边组成的二维数组 edges 表示，其中 edges[i] &#x3D; [ui, vi, cnti] 表示原始图中节点 ui 和 vi 之间存在一条边，cnti 是将边 细分 后的新节点总数。注意，cnti">
+    <meta name="description" content="题目描述leetcode 困难题 给你一个长度为 n 的数组 nums ，该数组由从 1 到 n 的 不同 整数组成。另给你一个正整数 k 。 统计并返回 num 中的 中位数 等于 k 的非空子数组的数目。 注意：  数组的中位数是按 递增 顺序排列后位于 中间 的那个元素，如果数组长度为偶数，则中位数是位于中间靠 左 的那个元素。 例如，[2,3,1,4] 的中位数是 2 ，[8,4,3,5,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LC-882.细分图中的可到达节点">
-<meta property="og:url" content="https://wecgwm.github.io/2022/11/26/LC-882-%E7%BB%86%E5%88%86%E5%9B%BE%E4%B8%AD%E7%9A%84%E5%8F%AF%E5%88%B0%E8%BE%BE%E8%8A%82%E7%82%B9/index.html">
+<meta property="og:title" content="LC-6248.统计中位数为K的子数组">
+<meta property="og:url" content="https://wecgwm.github.io/2022/11/28/LC-6248-%E7%BB%9F%E8%AE%A1%E4%B8%AD%E4%BD%8D%E6%95%B0%E4%B8%BAK%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/index.html">
 <meta property="og:site_name" content="yichen">
-<meta property="og:description" content="题目描述leetcode 困难题 给你一个无向图（原始图），图中有 n 个节点，编号从 0 到 n - 1 。你决定将图中的每条边 细分 为一条节点链，每条边之间的新节点数各不相同。 图用由边组成的二维数组 edges 表示，其中 edges[i] &#x3D; [ui, vi, cnti] 表示原始图中节点 ui 和 vi 之间存在一条边，cnti 是将边 细分 后的新节点总数。注意，cnti">
+<meta property="og:description" content="题目描述leetcode 困难题 给你一个长度为 n 的数组 nums ，该数组由从 1 到 n 的 不同 整数组成。另给你一个正整数 k 。 统计并返回 num 中的 中位数 等于 k 的非空子数组的数目。 注意：  数组的中位数是按 递增 顺序排列后位于 中间 的那个元素，如果数组长度为偶数，则中位数是位于中间靠 左 的那个元素。 例如，[2,3,1,4] 的中位数是 2 ，[8,4,3,5,">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://wecgwm.github.io/img/Snipaste_2022-11-26_22-18-03.png">
-<meta property="article:published_time" content="2022-11-26T15:54:38.000Z">
-<meta property="article:modified_time" content="2022-11-28T15:59:18.631Z">
+<meta property="article:published_time" content="2022-11-28T13:52:46.000Z">
+<meta property="article:modified_time" content="2022-11-28T15:59:18.627Z">
 <meta property="article:author" content="yichen">
-<meta property="article:tag" content="堆">
-<meta property="article:tag" content="图">
-<meta property="article:tag" content="最短路径">
-<meta property="article:tag" content="Dijkstra">
+<meta property="article:tag" content="等价转换">
+<meta property="article:tag" content="枚举">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://wecgwm.github.io/img/Snipaste_2022-11-26_22-18-03.png">
   
   
   
-  <title>LC-882.细分图中的可到达节点 - yichen</title>
+  <title>LC-6248.统计中位数为K的子数组 - yichen</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -189,7 +185,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LC-882.细分图中的可到达节点"></span>
+            <span id="subtitle" data-typed-text="LC-6248.统计中位数为K的子数组"></span>
           
         </div>
 
@@ -200,8 +196,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-26 15:54" pubdate>
-          2022年11月26日 下午
+        <time datetime="2022-11-28 13:52" pubdate>
+          2022年11月28日 下午
         </time>
       </span>
     
@@ -212,7 +208,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          1.4k 字
         
       </span>
     
@@ -223,7 +219,7 @@
         
         
         
-          18 分钟
+          12 分钟
         
       </span>
     
@@ -261,30 +257,31 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LC-882.细分图中的可到达节点</h1>
+            <h1 style="display: none">LC-6248.统计中位数为K的子数组</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reachable-nodes-in-subdivided-graph/">leetcode 困难题</a></p>
-<p>给你一个无向图（原始图），图中有 n 个节点，编号从 0 到 n - 1 。你决定将图中的每条边 细分 为一条节点链，每条边之间的新节点数各不相同。</p>
-<p>图用由边组成的二维数组 edges 表示，其中 edges[i] &#x3D; [ui, vi, cnti] 表示原始图中节点 ui 和 vi 之间存在一条边，cnti 是将边 细分 后的新节点总数。注意，cnti &#x3D;&#x3D; 0 表示边不可细分。</p>
-<p>要 细分 边 [ui, vi] ，需要将其替换为 (cnti + 1) 条新边，和 cnti 个新节点。新节点为 x1, x2, …, xcnti ，新边为 [ui, x1], [x1, x2], [x2, x3], …, [xcnti+1, xcnti], [xcnti, vi] 。</p>
-<p>现在得到一个 新的细分图 ，请你计算从节点 0 出发，可以到达多少个节点？如果节点间距离是 maxMoves 或更少，则视为 可以到达 。</p>
-<p>给你原始图和 maxMoves ，返回 新的细分图中从节点 0 出发 可到达的节点数 。</p>
-<p>示例1：<br><img src="/../img/Snipaste_2022-11-26_22-18-03.png" srcset="/img/loading.gif" lazyload></p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs lua">输入：edges = <span class="hljs-string">[[0,1,10],[0,2,1],[1,2,2]]</span>, maxMoves = <span class="hljs-number">6</span>, n = <span class="hljs-number">3</span><br>输出：<span class="hljs-number">13</span><br>解释：边的细分情况如上图所示。<br>可以到达的节点已经用黄色标注出来。<br></code></pre></td></tr></table></figure>
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-subarrays-with-median-k/">leetcode 困难题</a></p>
+<p>给你一个长度为 n 的数组 nums ，该数组由从 1 到 n 的 不同 整数组成。另给你一个正整数 k 。</p>
+<p>统计并返回 num 中的 中位数 等于 k 的非空子数组的数目。</p>
+<p>注意：</p>
+<ul>
+<li>数组的中位数是按 递增 顺序排列后位于 中间 的那个元素，如果数组长度为偶数，则中位数是位于中间靠 左 的那个元素。<ul>
+<li>例如，[2,3,1,4] 的中位数是 2 ，[8,4,3,5,1] 的中位数是 4 。</li>
+</ul>
+</li>
+<li>子数组是数组中的一个连续部分。</li>
+</ul>
+<p>示例1：</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs inform7">输入：nums = <span class="hljs-comment">[3,2,1,4,5]</span>, k = 4<br>输出：3<br>解释：中位数等于 4 的子数组有：<span class="hljs-comment">[4]</span>、<span class="hljs-comment">[4,5]</span> 和 <span class="hljs-comment">[1,4,5]</span> 。<br></code></pre></td></tr></table></figure>
 
 <p>提示1：</p>
-<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs excel"><span class="hljs-number">0</span> &lt;= edges.length &lt;= <span class="hljs-built_in">min</span>(<span class="hljs-built_in">n</span> * (<span class="hljs-built_in">n</span> - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>, <span class="hljs-number">104</span>)<br>edges[i].length == <span class="hljs-number">3</span><br><span class="hljs-number">0</span> &lt;= ui &lt; vi &lt; <span class="hljs-built_in">n</span><br>图中 不存在平行边<br><span class="hljs-number">0</span> &lt;= cnti &lt;= <span class="hljs-number">104</span><br><span class="hljs-number">0</span> &lt;= maxMoves &lt;= <span class="hljs-number">109</span><br><span class="hljs-number">1</span> &lt;= <span class="hljs-built_in">n</span> &lt;= <span class="hljs-number">3000</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs excel"><span class="hljs-built_in">n</span> == nums.length<br><span class="hljs-number">1</span> &lt;= <span class="hljs-built_in">n</span> &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">5</span><br><span class="hljs-number">1</span> &lt;= nums[i], k &lt;= <span class="hljs-built_in">n</span><br>nums 中的整数互不相同<br></code></pre></td></tr></table></figure>
 
-<h2 id="Dijkstra-算法"><a href="#Dijkstra-算法" class="headerlink" title="Dijkstra 算法"></a>Dijkstra 算法</h2><p>将 $cnt_i$ 看成类似权值，再通过 <a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/shortest-path/#dijkstra-%E7%AE%97%E6%B3%95">Dijkstra</a> 算法得到每个原始点到 $0$ 的最短路径即可。</p>
-<p>需要注意的有两点：</p>
-<ol>
-<li>计算距离的时候要使用 $cnt + 1$ ，因为还要加上原始节点的消耗。</li>
-<li>得到最短路径后，计算 <code>可达点</code> 总数时需要将 <code>原始节点</code> 和 <code>拆分节点</code> 分开来计算避免重复计算原始点。对于原始节点，当 $d[i]$ 小于 $maxMoves$ 时，即为可达；而对于拆分节点，通过遍历所有边得出，对于某条边 $e(u, v)$ ，该边的可达的拆分点显然为经过 $u$ 点可达的拆分点与经过 $v$ 点可达的拆分点交集，设两者数量分别为 $u_x$ 和 $v_x$ 、该边拆分点总数为 $all$，那么该边可达的拆分点总数即为 $min(all, u_x + v_x)$ ，注意这里的 $min(all, )$ 相当于去了重。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">reachableNodes</span><span class="hljs-params">(<span class="hljs-type">int</span>[][] edges, <span class="hljs-type">int</span> maxMoves, <span class="hljs-type">int</span> n)</span> &#123;<br>        <span class="hljs-comment">// Build graph</span><br>        List&lt;<span class="hljs-type">int</span>[]&gt;[] g = <span class="hljs-keyword">new</span> <span class="hljs-title class_">List</span>[n];<br>        Arrays.setAll(g, k -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>());<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; edges.length; i++)&#123;<br>            g[edges[i][<span class="hljs-number">0</span>]].add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;edges[i][<span class="hljs-number">1</span>], edges[i][<span class="hljs-number">2</span>] + <span class="hljs-number">1</span>&#125;); <span class="hljs-comment">// +1, 因为还要算上原始点的距离</span><br>            g[edges[i][<span class="hljs-number">1</span>]].add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;edges[i][<span class="hljs-number">0</span>], edges[i][<span class="hljs-number">2</span>] + <span class="hljs-number">1</span>&#125;);<br>        &#125;<br>        <span class="hljs-comment">// dijkstra</span><br>        PriorityQueue&lt;<span class="hljs-type">int</span>[]&gt; min = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;((a, b) -&gt; a[<span class="hljs-number">1</span>] - b[<span class="hljs-number">1</span>]);<br>        min.offer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;);<br>        <span class="hljs-type">int</span>[] d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n];<br>        Arrays.fill(d, Integer.MAX_VALUE);<br>        d[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;<br>        Set&lt;Integer&gt; visit = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();<br>        <span class="hljs-keyword">while</span>(!min.isEmpty())&#123;<br>            <span class="hljs-type">int</span>[] top = min.poll();<br>            <span class="hljs-keyword">if</span>(!visit.add(top[<span class="hljs-number">0</span>]))&#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span>[] p : g[top[<span class="hljs-number">0</span>]])&#123;<br>                <span class="hljs-keyword">if</span>(d[p[<span class="hljs-number">0</span>]] &gt; d[top[<span class="hljs-number">0</span>]] + p[<span class="hljs-number">1</span>])&#123;<br>                    d[p[<span class="hljs-number">0</span>]] = d[top[<span class="hljs-number">0</span>]] + p[<span class="hljs-number">1</span>];<br>                    min.offer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;p[<span class="hljs-number">0</span>], d[p[<span class="hljs-number">0</span>]]&#125;);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-comment">// 原始点和拆分点分开来算</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> item : d)&#123;<br>            <span class="hljs-keyword">if</span>(item &lt;= maxMoves)&#123;<br>                ans++;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span>[] e : edges)&#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> Math.max(<span class="hljs-number">0</span>, maxMoves - d[e[<span class="hljs-number">0</span>]]);<br>            <span class="hljs-type">int</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> Math.max(<span class="hljs-number">0</span>, maxMoves - d[e[<span class="hljs-number">1</span>]]);<br>            ans += Math.min(e[<span class="hljs-number">2</span>], a + b);<br>        &#125;<br>        <span class="hljs-keyword">return</span>  ans;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure></li>
-</ol>
-
+<h2 id="等价转换"><a href="#等价转换" class="headerlink" title="等价转换"></a>等价转换</h2><p>由于是求中位数等于 $k$ 的子数组的个数，所以可以 <strong>把数组中大于 $k$ 的元素转换成 $1$ ，小于的转换成 $-1$ 。</strong>经过该转换后就可以利用类似前缀和的方式进行求解。并且由于该数组是一个数列，那么就只需要找到 $k$ 后通过用前缀和的做法向左右扩散即可。</p>
+<p>具体来说，找到 $k$ 的位置后，选一个方向计算前缀和，并将该方向每个子数组的结果通过哈希表统计起来；然后遍历另一个方向，每次得出前缀和后，设其为 $preSum$，通过判断哈希表是否存在 $-preSum$ （偶数个数情况）和 $-preSum + 1$ （奇数个数情况），如果存在的话就可以加上对应的个数。当然，由题意可知如果是 $0$ 或者 $1$ 的话，直接将 $ans + 1$ 即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">countSubarrays</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> k)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> -<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span>(p++ &lt; n)&#123;<br>            <span class="hljs-keyword">if</span>(nums[p] == k)&#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>        Map&lt;Integer, Integer&gt; sumCount = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        <span class="hljs-type">int</span>[] sum = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n];<br>        <span class="hljs-type">int</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br>        <span class="hljs-comment">// 左边前缀和</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> p - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span>; i--)&#123;<br>            sum[i] = i + <span class="hljs-number">1</span> &lt; n ? sum[i + <span class="hljs-number">1</span>] : <span class="hljs-number">0</span>;<br>            sum[i] += nums[i] &gt; k ? <span class="hljs-number">1</span> : -<span class="hljs-number">1</span>;<br>            sumCount.compute(sum[i], (key, old) -&gt; old == <span class="hljs-literal">null</span> ? <span class="hljs-number">1</span>: ++old);<br>        &#125;<br>        ans += sumCount.getOrDefault(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>) + sumCount.getOrDefault(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>);<br>        <span class="hljs-comment">// 右边前缀和</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> p + <span class="hljs-number">1</span>; i &lt; n; i++)&#123;<br>            sum[i] = i - <span class="hljs-number">1</span> &gt;= <span class="hljs-number">0</span> ? sum[i - <span class="hljs-number">1</span>] : <span class="hljs-number">0</span>;w<br>            sum[i] += nums[i] &gt; k ? <span class="hljs-number">1</span> : -<span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">if</span>(sum[i] == <span class="hljs-number">0</span> || sum[i] == <span class="hljs-number">1</span>)&#123;<br>                ans++;<br>            &#125;<br>            ans += sumCount.getOrDefault(-sum[i], <span class="hljs-number">0</span>);<br>            ans += sumCount.getOrDefault(-sum[i] + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -296,13 +293,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%A0%86/">#堆</a>
+        <a href="/tags/%E7%AD%89%E4%BB%B7%E8%BD%AC%E6%8D%A2/">#等价转换</a>
       
-        <a href="/tags/%E5%9B%BE/">#图</a>
-      
-        <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/">#最短路径</a>
-      
-        <a href="/tags/Dijkstra/">#Dijkstra</a>
+        <a href="/tags/%E6%9E%9A%E4%B8%BE/">#枚举</a>
       
     </div>
   
@@ -314,8 +307,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LC-882.细分图中的可到达节点</div>
-      <div>https://wecgwm.github.io/2022/11/26/LC-882-细分图中的可到达节点/</div>
+      <div>LC-6248.统计中位数为K的子数组</div>
+      <div>https://wecgwm.github.io/2022/11/28/LC-6248-统计中位数为K的子数组/</div>
     </div>
     <div class="license-meta">
       
@@ -327,7 +320,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月26日</div>
+          <div>2022年11月28日</div>
         </div>
       
       
@@ -359,9 +352,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/28/LC-6251-%E7%BB%9F%E8%AE%A1%E5%9B%9E%E6%96%87%E5%AD%90%E5%BA%8F%E5%88%97%E6%95%B0%E7%9B%AE/" title="LC-6251.统计回文子序列数目">
+                      <a href="/2022/11/28/LC-813-%E6%9C%80%E5%A4%A7%E5%B9%B3%E5%9D%87%E5%80%BC%E5%92%8C%E7%9A%84%E5%88%86%E7%BB%84/" title="LC-813.最大平均值和的分组">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LC-6251.统计回文子序列数目</span>
+                        <span class="hidden-mobile">LC-813.最大平均值和的分组</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -369,8 +362,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/24/LC-795-%E5%8C%BA%E9%97%B4%E5%AD%90%E6%95%B0%E7%BB%84%E4%B8%AA%E6%95%B0/" title="LC-795.区间子数组个数">
-                        <span class="hidden-mobile">LC-795.区间子数组个数</span>
+                      <a href="/2022/11/28/LC-6251-%E7%BB%9F%E8%AE%A1%E5%9B%9E%E6%96%87%E5%AD%90%E5%BA%8F%E5%88%97%E6%95%B0%E7%9B%AE/" title="LC-6251.统计回文子序列数目">
+                        <span class="hidden-mobile">LC-6251.统计回文子序列数目</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -391,7 +384,7 @@
         var options = Object.assign(
           {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: '91078f53bc78aa4af1bb703437ca39e8'
+            id: '3762010f28368376e384d0bd1851f8eb'
           }
         )
         var gitalk = new Gitalk(options);
