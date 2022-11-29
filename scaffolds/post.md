@@ -21,6 +21,7 @@ tags:
 
 $$
 \begin{align}
-&dp(i, j) = \frac{1}{4} \times (dp(i - 4, j) + dp(i - 3, j - 1) + dp(i - 2, j - 2) + dp(i - 1, j - 3))\\\\
+&dp(i, j) = \frac{sum(nums[0] ... nums[i - 1])}{i}　　　　　　　　　　　　　　　　　　　 j = 1\\\\
+&dp(i, j) = max\{dp(x, j - 1) + \frac{sum(nums[x + 1] ... nums[i])}{i - x}\}　　　　 1 <j ,　j - 1 <= x < i \\\\
 \end{align}
 $$
