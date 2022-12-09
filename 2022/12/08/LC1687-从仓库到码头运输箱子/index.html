@@ -16,27 +16,23 @@
   <meta name="author" content="yichen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述leetcode 困难题 给你一个无向图（原始图），图中有 n 个节点，编号从 0 到 n - 1 。你决定将图中的每条边 细分 为一条节点链，每条边之间的新节点数各不相同。 图用由边组成的二维数组 edges 表示，其中 edges[i] &#x3D; [ui, vi, cnti] 表示原始图中节点 ui 和 vi 之间存在一条边，cnti 是将边 细分 后的新节点总数。注意，cnti">
+    <meta name="description" content="题目描述leetcode 困难题 你有一辆货运卡车，你需要用这一辆车把一些箱子从仓库运送到码头。这辆卡车每次运输有 箱子数目的限制 和 总重量的限制 。 给你一个箱子数组 boxes 和三个整数 portsCount, maxBoxes 和 maxWeight ，其中 boxes[i] &#x3D; [ports​​i​, weighti] 。 ports​​i 表示第 i 个箱子需要送达的码头，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LC-882.细分图中的可到达节点">
-<meta property="og:url" content="https://wecgwm.github.io/2022/11/26/LC-882-%E7%BB%86%E5%88%86%E5%9B%BE%E4%B8%AD%E7%9A%84%E5%8F%AF%E5%88%B0%E8%BE%BE%E8%8A%82%E7%82%B9/index.html">
+<meta property="og:title" content="LC1687.从仓库到码头运输箱子">
+<meta property="og:url" content="https://wecgwm.github.io/2022/12/08/LC1687-%E4%BB%8E%E4%BB%93%E5%BA%93%E5%88%B0%E7%A0%81%E5%A4%B4%E8%BF%90%E8%BE%93%E7%AE%B1%E5%AD%90/index.html">
 <meta property="og:site_name" content="yichen">
-<meta property="og:description" content="题目描述leetcode 困难题 给你一个无向图（原始图），图中有 n 个节点，编号从 0 到 n - 1 。你决定将图中的每条边 细分 为一条节点链，每条边之间的新节点数各不相同。 图用由边组成的二维数组 edges 表示，其中 edges[i] &#x3D; [ui, vi, cnti] 表示原始图中节点 ui 和 vi 之间存在一条边，cnti 是将边 细分 后的新节点总数。注意，cnti">
+<meta property="og:description" content="题目描述leetcode 困难题 你有一辆货运卡车，你需要用这一辆车把一些箱子从仓库运送到码头。这辆卡车每次运输有 箱子数目的限制 和 总重量的限制 。 给你一个箱子数组 boxes 和三个整数 portsCount, maxBoxes 和 maxWeight ，其中 boxes[i] &#x3D; [ports​​i​, weighti] 。 ports​​i 表示第 i 个箱子需要送达的码头，">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://wecgwm.github.io/img/Snipaste_2022-11-26_22-18-03.png">
-<meta property="article:published_time" content="2022-11-26T15:54:38.000Z">
+<meta property="article:published_time" content="2022-12-08T23:46:25.000Z">
 <meta property="article:modified_time" content="2022-12-09T10:15:10.062Z">
 <meta property="article:author" content="yichen">
-<meta property="article:tag" content="堆">
-<meta property="article:tag" content="图">
-<meta property="article:tag" content="最短路径">
-<meta property="article:tag" content="Dijkstra">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="单调队列">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://wecgwm.github.io/img/Snipaste_2022-11-26_22-18-03.png">
   
   
   
-  <title>LC-882.细分图中的可到达节点 - yichen</title>
+  <title>LC1687.从仓库到码头运输箱子 - yichen</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -189,7 +185,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LC-882.细分图中的可到达节点"></span>
+            <span id="subtitle" data-typed-text="LC1687.从仓库到码头运输箱子"></span>
           
         </div>
 
@@ -200,8 +196,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-26 15:54" pubdate>
-          2022年11月26日 下午
+        <time datetime="2022-12-08 23:46" pubdate>
+          2022年12月8日 晚上
         </time>
       </span>
     
@@ -212,7 +208,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          3k 字
         
       </span>
     
@@ -223,7 +219,7 @@
         
         
         
-          18 分钟
+          25 分钟
         
       </span>
     
@@ -261,30 +257,35 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LC-882.细分图中的可到达节点</h1>
+            <h1 style="display: none">LC1687.从仓库到码头运输箱子</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/reachable-nodes-in-subdivided-graph/">leetcode 困难题</a></p>
-<p>给你一个无向图（原始图），图中有 n 个节点，编号从 0 到 n - 1 。你决定将图中的每条边 细分 为一条节点链，每条边之间的新节点数各不相同。</p>
-<p>图用由边组成的二维数组 edges 表示，其中 edges[i] &#x3D; [ui, vi, cnti] 表示原始图中节点 ui 和 vi 之间存在一条边，cnti 是将边 细分 后的新节点总数。注意，cnti &#x3D;&#x3D; 0 表示边不可细分。</p>
-<p>要 细分 边 [ui, vi] ，需要将其替换为 (cnti + 1) 条新边，和 cnti 个新节点。新节点为 x1, x2, …, xcnti ，新边为 [ui, x1], [x1, x2], [x2, x3], …, [xcnti+1, xcnti], [xcnti, vi] 。</p>
-<p>现在得到一个 新的细分图 ，请你计算从节点 0 出发，可以到达多少个节点？如果节点间距离是 maxMoves 或更少，则视为 可以到达 。</p>
-<p>给你原始图和 maxMoves ，返回 新的细分图中从节点 0 出发 可到达的节点数 。</p>
-<p>示例1：<br><img src="/../img/Snipaste_2022-11-26_22-18-03.png" srcset="/img/loading.gif" lazyload></p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs lua">输入：edges = <span class="hljs-string">[[0,1,10],[0,2,1],[1,2,2]]</span>, maxMoves = <span class="hljs-number">6</span>, n = <span class="hljs-number">3</span><br>输出：<span class="hljs-number">13</span><br>解释：边的细分情况如上图所示。<br>可以到达的节点已经用黄色标注出来。<br></code></pre></td></tr></table></figure>
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/delivering-boxes-from-storage-to-ports/">leetcode 困难题</a></p>
+<p>你有一辆货运卡车，你需要用这一辆车把一些箱子从仓库运送到码头。这辆卡车每次运输有 箱子数目的限制 和 总重量的限制 。</p>
+<p>给你一个箱子数组 boxes 和三个整数 portsCount, maxBoxes 和 maxWeight ，其中 boxes[i] &#x3D; [ports​​i​, weighti] 。</p>
+<p>ports​​i 表示第 i 个箱子需要送达的码头， weightsi 是第 i 个箱子的重量。<br>portsCount 是码头的数目。<br>maxBoxes 和 maxWeight 分别是卡车每趟运输箱子数目和重量的限制。<br>箱子需要按照 数组顺序 运输，同时每次运输需要遵循以下步骤：</p>
+<p>卡车从 boxes 队列中按顺序取出若干个箱子，但不能违反 maxBoxes 和 maxWeight 限制。<br>对于在卡车上的箱子，我们需要 按顺序 处理它们，卡车会通过 一趟行程 将最前面的箱子送到目的地码头并卸货。如果卡车已经在对应的码头，那么不需要 额外行程 ，箱子也会立马被卸货。<br>卡车上所有箱子都被卸货后，卡车需要 一趟行程 回到仓库，从箱子队列里再取出一些箱子。<br>卡车在将所有箱子运输并卸货后，最后必须回到仓库。</p>
+<p>请你返回将所有箱子送到相应码头的 最少行程 次数。</p>
+<p>示例1：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：boxes = [[1,2],[3,3],[3,1],[3,1],[2,4]], portsCount = 3, maxBoxes = 3, maxWeight = 6<br>输出：6<br>解释：最优策略如下：<br>- 卡车首先运输第一个箱子，到达码头<span class="hljs-number"> 1 </span>，然后回到仓库，总共<span class="hljs-number"> 2 </span>趟行程。<br>- 卡车运输第二、第三、第四个箱子，到达码头<span class="hljs-number"> 3 </span>，然后回到仓库，总共<span class="hljs-number"> 2 </span>趟行程。<br>- 卡车运输第五个箱子，到达码头<span class="hljs-number"> 2 </span>，回到仓库，总共<span class="hljs-number"> 2 </span>趟行程。<br>总行程数为<span class="hljs-number"> 2 </span>+<span class="hljs-number"> 2 </span>+<span class="hljs-number"> 2 </span>=<span class="hljs-number"> 6 </span>。<br></code></pre></td></tr></table></figure>
 
 <p>提示1：</p>
-<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs excel"><span class="hljs-number">0</span> &lt;= edges.length &lt;= <span class="hljs-built_in">min</span>(<span class="hljs-built_in">n</span> * (<span class="hljs-built_in">n</span> - <span class="hljs-number">1</span>) / <span class="hljs-number">2</span>, <span class="hljs-number">104</span>)<br>edges[i].length == <span class="hljs-number">3</span><br><span class="hljs-number">0</span> &lt;= ui &lt; vi &lt; <span class="hljs-built_in">n</span><br>图中 不存在平行边<br><span class="hljs-number">0</span> &lt;= cnti &lt;= <span class="hljs-number">104</span><br><span class="hljs-number">0</span> &lt;= maxMoves &lt;= <span class="hljs-number">109</span><br><span class="hljs-number">1</span> &lt;= <span class="hljs-built_in">n</span> &lt;= <span class="hljs-number">3000</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>&lt;= boxes.length &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">5</span><br><span class="hljs-symbol">1 </span>&lt;= portsCount, maxBoxes, maxWeight &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">5</span><br><span class="hljs-symbol">1 </span>&lt;= ports​​i &lt;= portsCount<br><span class="hljs-symbol">1 </span>&lt;= weightsi &lt;= maxWeight<br></code></pre></td></tr></table></figure>
 
-<h2 id="Dijkstra-算法"><a href="#Dijkstra-算法" class="headerlink" title="Dijkstra 算法"></a>Dijkstra 算法</h2><p>将 $cnt_i$ 看成类似权值，再通过 <a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/shortest-path/#dijkstra-%E7%AE%97%E6%B3%95">Dijkstra</a> 算法得到每个原始点到 $0$ 的最短路径即可。</p>
-<p>需要注意的有两点：</p>
-<ol>
-<li>计算距离的时候要使用 $cnt + 1$ ，因为还要加上原始节点的消耗。</li>
-<li>得到最短路径后，计算 <code>可达点</code> 总数时需要将 <code>原始节点</code> 和 <code>拆分节点</code> 分开来计算避免重复计算原始点。对于原始节点，当 $d[i]$ 小于 $maxMoves$ 时，即为可达；而对于拆分节点，通过遍历所有边得出，对于某条边 $e(u, v)$ ，该边的可达的拆分点显然为经过 $u$ 点可达的拆分点与经过 $v$ 点可达的拆分点交集，设两者数量分别为 $u_x$ 和 $v_x$ 、该边拆分点总数为 $all$，那么该边可达的拆分点总数即为 $min(all, u_x + v_x)$ ，注意这里的 $min(all, )$ 相当于去了重。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">reachableNodes</span><span class="hljs-params">(<span class="hljs-type">int</span>[][] edges, <span class="hljs-type">int</span> maxMoves, <span class="hljs-type">int</span> n)</span> &#123;<br>        <span class="hljs-comment">// Build graph</span><br>        List&lt;<span class="hljs-type">int</span>[]&gt;[] g = <span class="hljs-keyword">new</span> <span class="hljs-title class_">List</span>[n];<br>        Arrays.setAll(g, k -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>());<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; edges.length; i++)&#123;<br>            g[edges[i][<span class="hljs-number">0</span>]].add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;edges[i][<span class="hljs-number">1</span>], edges[i][<span class="hljs-number">2</span>] + <span class="hljs-number">1</span>&#125;); <span class="hljs-comment">// +1, 因为还要算上原始点的距离</span><br>            g[edges[i][<span class="hljs-number">1</span>]].add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;edges[i][<span class="hljs-number">0</span>], edges[i][<span class="hljs-number">2</span>] + <span class="hljs-number">1</span>&#125;);<br>        &#125;<br>        <span class="hljs-comment">// dijkstra</span><br>        PriorityQueue&lt;<span class="hljs-type">int</span>[]&gt; min = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;((a, b) -&gt; a[<span class="hljs-number">1</span>] - b[<span class="hljs-number">1</span>]);<br>        min.offer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;);<br>        <span class="hljs-type">int</span>[] d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n];<br>        Arrays.fill(d, Integer.MAX_VALUE);<br>        d[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;<br>        Set&lt;Integer&gt; visit = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();<br>        <span class="hljs-keyword">while</span>(!min.isEmpty())&#123;<br>            <span class="hljs-type">int</span>[] top = min.poll();<br>            <span class="hljs-keyword">if</span>(!visit.add(top[<span class="hljs-number">0</span>]))&#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span>[] p : g[top[<span class="hljs-number">0</span>]])&#123;<br>                <span class="hljs-keyword">if</span>(d[p[<span class="hljs-number">0</span>]] &gt; d[top[<span class="hljs-number">0</span>]] + p[<span class="hljs-number">1</span>])&#123;<br>                    d[p[<span class="hljs-number">0</span>]] = d[top[<span class="hljs-number">0</span>]] + p[<span class="hljs-number">1</span>];<br>                    min.offer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;p[<span class="hljs-number">0</span>], d[p[<span class="hljs-number">0</span>]]&#125;);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-comment">// 原始点和拆分点分开来算</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> item : d)&#123;<br>            <span class="hljs-keyword">if</span>(item &lt;= maxMoves)&#123;<br>                ans++;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span>[] e : edges)&#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> Math.max(<span class="hljs-number">0</span>, maxMoves - d[e[<span class="hljs-number">0</span>]]);<br>            <span class="hljs-type">int</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> Math.max(<span class="hljs-number">0</span>, maxMoves - d[e[<span class="hljs-number">1</span>]]);<br>            ans += Math.min(e[<span class="hljs-number">2</span>], a + b);<br>        &#125;<br>        <span class="hljs-keyword">return</span>  ans;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure></li>
-</ol>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>以下前缀和或 $dp$ 数组为了方便下标都从 $1$ 开始到 $n$ 结束。</p>
+<p>定义 $w$ 为重量前缀和数组；$diff$ 为“相邻不相等码头”前缀和数组，即 $diff[j]$ 表示 $[0, j]$ 区间箱子的相邻不相等码头的和。</p>
+<p>利用 $diff$ 可以 $O(1)$ 的求出一趟车的最小行程，设该趟车第一个箱子为 $x$ ，最后一个箱子为 $y$ ，那么该趟的最小行程为 $diff[y] - diff[x] + 2$，其中 $2$ 是因为汽车离开仓库和返回仓库所消耗行程。</p>
+<p>定义 $dp[i]$ 表示 $[0, i - 1]$ 区间箱子的最少行程数，$i - 1$ 显然为某趟车的最后一个箱子下标，那么 $dp[n]$ 为答案。</p>
+<p>具体转移过程如下，对于每个 $dp[i]$，枚举上一趟车最后一个箱子的可能性 $dp[j]$，那么其在 $boxes$ 中的下标为 $j - 1$ ，也就是说 $j$ 为该趟车第一个箱子，简略的转移方程为： </p>
+<p>$$<br>\begin{align}<br>&amp;dp(i) &#x3D; max(dp[j] + diff[i - 1] - diff[j] + 2) 　　　　　　　max(0, i - maxBoxes) &lt;&#x3D; j &lt; i\\<br>\end{align}<br>$$</p>
+<p>该解法时间复杂度为 $O(N^2)$ ，会 TLE 。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">boxDelivering</span><span class="hljs-params">(<span class="hljs-type">int</span>[][] boxes, <span class="hljs-type">int</span> portsCount, <span class="hljs-type">int</span> maxBoxes, <span class="hljs-type">int</span> maxWeight)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> boxes.length;<br>        <span class="hljs-type">int</span>[] w = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n + <span class="hljs-number">1</span>];<br>        <span class="hljs-type">int</span>[] diff = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n + <span class="hljs-number">1</span>]; <span class="hljs-comment">// 实际运算中，这里 n 下标并没有用到</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; n + <span class="hljs-number">1</span>; i++)&#123;<br>            w[i] = w[i - <span class="hljs-number">1</span>] + boxes[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>];<br>            diff[i] = i == n || boxes[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>] == boxes[i][<span class="hljs-number">0</span>] ? diff[i - <span class="hljs-number">1</span>] : diff[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-comment">// dp[i] 表示 i 个箱子的最少行程数</span><br>        <span class="hljs-type">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n + <span class="hljs-number">1</span>];<br>        Arrays.fill(dp, Integer.MAX_VALUE);<br>        dp[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; n + <span class="hljs-number">1</span>; i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> Math.max(<span class="hljs-number">0</span>, i - maxBoxes); j &lt; i; j++)&#123;<br>                <span class="hljs-keyword">if</span>(w[i] - w[j] &gt; maxWeight)&#123;<br>                    <span class="hljs-keyword">continue</span>;<br>                &#125;<br>                dp[i] = Math.min(dp[i], dp[j] + diff[i - <span class="hljs-number">1</span>] - diff[j] + <span class="hljs-number">2</span>);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[n];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<h2 id="动态规划-单调队列"><a href="#动态规划-单调队列" class="headerlink" title="动态规划 + 单调队列"></a>动态规划 + 单调队列</h2><p>观察上面的转移过程可知，内层循环实际上是在 $[max(0, i - maxBoxes), i - 1]$ 窗口内找到一个满足要求的 $dp[j] - diff[j]$ 最小值，所以我们可以利用单调队列来实现 $O(1)$ 获取最小值。</p>
+<p>每个下标最多进队一次出队一次，内层最多总共循环 $n$ 次。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">boxDelivering</span><span class="hljs-params">(<span class="hljs-type">int</span>[][] boxes, <span class="hljs-type">int</span> portsCount, <span class="hljs-type">int</span> maxBoxes, <span class="hljs-type">int</span> maxWeight)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> boxes.length;<br>        <span class="hljs-type">int</span>[] w = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n + <span class="hljs-number">1</span>];<br>        <span class="hljs-type">int</span>[] diff = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n + <span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; n + <span class="hljs-number">1</span>; i++)&#123;<br>            w[i] = w[i - <span class="hljs-number">1</span>] + boxes[i - <span class="hljs-number">1</span>][<span class="hljs-number">1</span>];<br>            diff[i] = i == n || boxes[i - <span class="hljs-number">1</span>][<span class="hljs-number">0</span>] == boxes[i][<span class="hljs-number">0</span>] ? diff[i - <span class="hljs-number">1</span>] : diff[i - <span class="hljs-number">1</span>] + <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-comment">// dp[i] 表示 i 个箱子的最少行程数</span><br>        <span class="hljs-type">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n + <span class="hljs-number">1</span>];<br>        Deque&lt;Integer&gt; deque = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayDeque</span>&lt;&gt;();<br>        deque.offerLast(<span class="hljs-number">0</span>);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; n + <span class="hljs-number">1</span>; i++)&#123;<br>            <span class="hljs-keyword">while</span>(!deque.isEmpty() &amp;&amp; (i - deque.peekFirst() &gt; maxBoxes || w[i] - w[deque.peekFirst()] &gt; maxWeight))&#123;<br>                deque.pollFirst();<br>            &#125;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">min</span> <span class="hljs-operator">=</span> deque.peekFirst(); <span class="hljs-comment">// If NPE, there is no legal solution.</span><br>            dp[i] = dp[min] + diff[i - <span class="hljs-number">1</span>] - diff[min] + <span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">while</span>(!deque.isEmpty() &amp;&amp; (dp[i] - diff[i] &lt; dp[deque.peekLast()] - diff[deque.peekLast()]))&#123;<br>                deque.pollLast();<br>            &#125;<br>            deque.offerLast(i);<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[n];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -296,13 +297,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%A0%86/">#堆</a>
+        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
       
-        <a href="/tags/%E5%9B%BE/">#图</a>
-      
-        <a href="/tags/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/">#最短路径</a>
-      
-        <a href="/tags/Dijkstra/">#Dijkstra</a>
+        <a href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">#单调队列</a>
       
     </div>
   
@@ -314,8 +311,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LC-882.细分图中的可到达节点</div>
-      <div>https://wecgwm.github.io/2022/11/26/LC-882-细分图中的可到达节点/</div>
+      <div>LC1687.从仓库到码头运输箱子</div>
+      <div>https://wecgwm.github.io/2022/12/08/LC1687-从仓库到码头运输箱子/</div>
     </div>
     <div class="license-meta">
       
@@ -327,7 +324,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月26日</div>
+          <div>2022年12月8日</div>
         </div>
       
       
@@ -359,18 +356,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/28/LC-6251-%E7%BB%9F%E8%AE%A1%E5%9B%9E%E6%96%87%E5%AD%90%E5%BA%8F%E5%88%97%E6%95%B0%E7%9B%AE/" title="LC-6251.统计回文子序列数目">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LC-6251.统计回文子序列数目</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/24/LC-795-%E5%8C%BA%E9%97%B4%E5%AD%90%E6%95%B0%E7%BB%84%E4%B8%AA%E6%95%B0/" title="LC-795.区间子数组个数">
-                        <span class="hidden-mobile">LC-795.区间子数组个数</span>
+                      <a href="/2022/12/08/LC-1775-%E9%80%9A%E8%BF%87%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0%E4%BD%BF%E6%95%B0%E7%BB%84%E7%9A%84%E5%92%8C%E7%9B%B8%E7%AD%89/" title="LC-1775.通过最少操作次数使数组的和相等">
+                        <span class="hidden-mobile">LC-1775.通过最少操作次数使数组的和相等</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -391,7 +382,7 @@
         var options = Object.assign(
           {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: '91078f53bc78aa4af1bb703437ca39e8'
+            id: '8739eb6673d2bf2d626d97d589db3cce'
           }
         )
         var gitalk = new Gitalk(options);
