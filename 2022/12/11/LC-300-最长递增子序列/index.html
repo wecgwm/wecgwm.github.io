@@ -16,22 +16,24 @@
   <meta name="author" content="yichen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述leetcode 中等题 给定数组 nums 和一个整数 k 。我们将给定的数组 nums 分成 最多 k 个相邻的非空子数组 。 分数 由每个子数组内的平均值的总和构成。 注意我们必须使用 nums 数组中的每一个数进行分组，并且分数不一定需要是整数。 返回我们所能得到的最大 分数 是多少。答案误差在 $10^{-6}$ 内被视为是正确的。 示例1： 123456输入: nums &#x3D; [">
+    <meta name="description" content="题目描述leetcode 中等题 给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。 子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。 示例1： 123输入：nums &#x3D; [10,9,2,5,3,7,101,18]输出：4解释：最长递增子序列是 [2,3,7,101]，因此">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LC-813.最大平均值和的分组">
-<meta property="og:url" content="https://wecgwm.github.io/2022/11/28/LC-813-%E6%9C%80%E5%A4%A7%E5%B9%B3%E5%9D%87%E5%80%BC%E5%92%8C%E7%9A%84%E5%88%86%E7%BB%84/index.html">
+<meta property="og:title" content="LC-300.最长递增子序列">
+<meta property="og:url" content="https://wecgwm.github.io/2022/12/11/LC-300-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97/index.html">
 <meta property="og:site_name" content="yichen">
-<meta property="og:description" content="题目描述leetcode 中等题 给定数组 nums 和一个整数 k 。我们将给定的数组 nums 分成 最多 k 个相邻的非空子数组 。 分数 由每个子数组内的平均值的总和构成。 注意我们必须使用 nums 数组中的每一个数进行分组，并且分数不一定需要是整数。 返回我们所能得到的最大 分数 是多少。答案误差在 $10^{-6}$ 内被视为是正确的。 示例1： 123456输入: nums &#x3D; [">
+<meta property="og:description" content="题目描述leetcode 中等题 给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。 子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。 示例1： 123输入：nums &#x3D; [10,9,2,5,3,7,101,18]输出：4解释：最长递增子序列是 [2,3,7,101]，因此">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-28T17:38:25.000Z">
+<meta property="article:published_time" content="2022-12-11T22:56:36.000Z">
 <meta property="article:modified_time" content="2022-12-12T08:50:42.916Z">
 <meta property="article:author" content="yichen">
 <meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="二分查找">
+<meta property="article:tag" content="贪心">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>LC-813.最大平均值和的分组 - yichen</title>
+  <title>LC-300.最长递增子序列 - yichen</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -184,7 +186,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LC-813.最大平均值和的分组"></span>
+            <span id="subtitle" data-typed-text="LC-300.最长递增子序列"></span>
           
         </div>
 
@@ -195,8 +197,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-28 17:38" pubdate>
-          2022年11月28日 下午
+        <time datetime="2022-12-11 22:56" pubdate>
+          2022年12月11日 晚上
         </time>
       </span>
     
@@ -207,7 +209,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          2k 字
         
       </span>
     
@@ -218,7 +220,7 @@
         
         
         
-          16 分钟
+          17 分钟
         
       </span>
     
@@ -256,27 +258,34 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LC-813.最大平均值和的分组</h1>
+            <h1 style="display: none">LC-300.最长递增子序列</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/largest-sum-of-averages/">leetcode 中等题</a></p>
-<p>给定数组 nums 和一个整数 k 。我们将给定的数组 nums 分成 最多 k 个相邻的非空子数组 。 分数 由每个子数组内的平均值的总和构成。</p>
-<p>注意我们必须使用 nums 数组中的每一个数进行分组，并且分数不一定需要是整数。</p>
-<p>返回我们所能得到的最大 分数 是多少。答案误差在 $10^{-6}$ 内被视为是正确的。</p>
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-increasing-subsequence/">leetcode 中等题</a></p>
+<p>给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。</p>
+<p>子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p>
 <p>示例1：</p>
-<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs prolog">输入: nums = [<span class="hljs-number">9</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">9</span>], k = <span class="hljs-number">3</span><br>输出: <span class="hljs-number">20.00000</span><br>解释: <br>nums 的最优分组是[<span class="hljs-number">9</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">9</span>]. 得到的分数是 <span class="hljs-number">9</span> + (<span class="hljs-number">1</span> + <span class="hljs-number">2</span> + <span class="hljs-number">3</span>) / <span class="hljs-number">3</span> + <span class="hljs-number">9</span> = <span class="hljs-number">20.</span> <br>我们也可以把 nums 分成[<span class="hljs-number">9</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">9</span>]. <br>这样的分组得到的分数为 <span class="hljs-number">5</span> + <span class="hljs-number">2</span> + <span class="hljs-number">6</span> = <span class="hljs-number">13</span>, 但不是最大值.<br></code></pre></td></tr></table></figure>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dns">输入：nums = [<span class="hljs-number">10,9,2,5</span>,<span class="hljs-number">3,7,101,18</span>]<br>输出：<span class="hljs-number">4</span><br>解释：最长递增子序列是 [<span class="hljs-number">2,3,7,101</span>]，因此长度为 <span class="hljs-number">4</span> 。<br></code></pre></td></tr></table></figure>
 
 <p>提示1：</p>
-<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>&lt;= nums.length &lt;= <span class="hljs-number">100</span><br><span class="hljs-symbol">1 </span>&lt;= nums[i] &lt;= <span class="hljs-number">104</span><br><span class="hljs-symbol">1 </span>&lt;= k &lt;= nums.length<br></code></pre></td></tr></table></figure>
+<figure class="highlight parser3"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs parser3"><span class="hljs-number">1</span><span class="language-xml"> &lt;= nums.length &lt;= </span><span class="hljs-number">2500</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-number">-10</span><span class="hljs-keyword">^4</span><span class="language-xml"> &lt;= nums[i] &lt;= </span><span class="hljs-number">10</span><span class="hljs-keyword">^4</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>定义 $dp[i][j]$ 表示子数组 $[0…i]$ 分成 $j$ 段的最大分数。<br>为了方便，令 $i$ 和 $j$ 从 $1$ 开始，简略的状态转移方程如下:</p>
-<p>$$<br>\begin{align}<br>&amp;dp(i, j) &#x3D; \frac{sum(nums[0] … nums[i - 1])}{i}　　　　　　　　　　　　　　　　　　　 j &#x3D; 1\\<br>&amp;dp(i, j) &#x3D; max\{dp(x, j - 1) + \frac{sum(nums[x + 1] … nums[i])}{i - x}\}　　　　 1 &lt;j ,　j - 1 &lt;&#x3D; x &lt; i \\<br>\end{align}<br>$$</p>
-<p>$dp[n][k]$ 为答案。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">largestSumOfAverages</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> k)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-type">int</span>[] preSum = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n + <span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= n; i++)&#123;<br>            preSum[i] = preSum[i - <span class="hljs-number">1</span>] + nums[i - <span class="hljs-number">1</span>];<br>        &#125;<br>        <span class="hljs-comment">// dp[i][j] 表示i区间分j组的最大分数</span><br>        <span class="hljs-type">double</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">double</span>[n + <span class="hljs-number">1</span>][k + <span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; j &lt;= k; j++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= n; i++)&#123;<br>                <span class="hljs-keyword">if</span>(j == <span class="hljs-number">1</span>)&#123;<br>                    dp[i][j] = ((<span class="hljs-type">double</span>)preSum[i] - preSum[<span class="hljs-number">0</span>]) / i;<br>                    <span class="hljs-keyword">continue</span>;<br>                &#125;<br>                <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> j - <span class="hljs-number">1</span>; p &lt; i; p++)&#123;<br>                    <span class="hljs-type">double</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> dp[p][j - <span class="hljs-number">1</span>] + ((<span class="hljs-type">double</span>)preSum[i] - preSum[p]) / (i - (p + <span class="hljs-number">1</span>) + <span class="hljs-number">1</span>); <br>                    dp[i][j] = Math.max(dp[i][j], temp);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[n][k];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h2 id="滚动数组"><a href="#滚动数组" class="headerlink" title="滚动数组"></a>滚动数组</h2><p>类似01背包，可以进行滚动数组优化。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">largestSumOfAverages</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> k)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-type">int</span>[] preSum = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n + <span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= n; i++)&#123;<br>            preSum[i] = preSum[i - <span class="hljs-number">1</span>] + nums[i - <span class="hljs-number">1</span>];<br>        &#125;<br>        <span class="hljs-comment">// dp[i][j] 表示i区间分j组的最大分数</span><br>        <span class="hljs-type">double</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">double</span>[n + <span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; j &lt;= k; j++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> n; i &gt;= <span class="hljs-number">1</span>; i--)&#123;<br>                <span class="hljs-keyword">if</span>(j == <span class="hljs-number">1</span>)&#123;<br>                    dp[i] = ((<span class="hljs-type">double</span>)preSum[i] - preSum[<span class="hljs-number">0</span>]) / i;<br>                    <span class="hljs-keyword">continue</span>;<br>                &#125;<br>                <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> j - <span class="hljs-number">1</span>; p &lt; i; p++)&#123;<br>                    <span class="hljs-type">double</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> dp[p] + ((<span class="hljs-type">double</span>)preSum[i] - preSum[p]) / (i - (p + <span class="hljs-number">1</span>) + <span class="hljs-number">1</span>); <br>                    dp[i] = Math.max(dp[i], temp);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[n];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>定义 $dp[i]$ 表示以第 $i$ 个元素结尾的最长子序列长度，有：</p>
+<p>$$<br>\begin{align}<br>&amp;dp(i) &#x3D; max\{dp(j)\} + 1　　　　 0 &lt;&#x3D; j &lt; i　 \&amp;\&amp;　 nums[j] &lt; nums[i]\\<br>&amp;LIS&#x3D; max\{dp(i)\}　　　　　　 0 &lt;&#x3D; i &lt; n<br>\end{align}<br>$$</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">lengthOfLIS</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-type">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; i; j++)&#123;<br>                <span class="hljs-keyword">if</span>(nums[j] &lt; nums[i])&#123;<br>                    dp[i] = Math.max(dp[i], dp[j] + <span class="hljs-number">1</span>);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> Arrays.stream(dp).max().orElseThrow() + <span class="hljs-number">1</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="贪心-二分查找"><a href="#贪心-二分查找" class="headerlink" title="贪心 + 二分查找"></a>贪心 + 二分查找</h2><p>上面解法时间复杂度为 $O(N^2)$ ，另一种更快的解法是贪心 + 二分。</p>
+<p>定义 $d[i]$ 表示长度为 $i$ 的子序列的最后一个元素，我们需要让最后一个元素尽量小，从而可以得出 $LIS$。</p>
+<p>可知 $d$ 数组是单调递增的，因为假设存在 $dp[i] &lt; dp[j]$ 且 $i &gt; j$，那么该 $i$ 长度的子序列第 $j$ 个元素必然会小于 $d[j]$ ，这与 $d$ 的定义矛盾。</p>
+<p>令 $maxLength$ 为当前最大子序列长度，依次遍历 $nums$，具体的 $maxLength$ 维护过程如下：</p>
+<ul>
+<li>如果当前元素 $nums[i]$ 大于 $d[maxLength]$ ，那么显然有 $d[++maxLength] &#x3D; nums[i]$</li>
+<li>如果当前元素 $nums[i]$ 小于等于 $d[maxLength]$ ，为了让 $d$ 的定义正确，需要找到最后一个小于 $nums[i]$ 的 $d[lastLess]$，显然可以得出 $d[lastLess + 1] &#x3D; nums[i]$。稍微要注意的是这里之所以要找 “第一个小于的下一个坐标” 而不是“第一个大于”的下标，是因为“第一个大于”的下标的前一个元素，即 $d[firstLarge - 1]$ 可能等于 $nums[i]$，而因为题目要求子序列严格递增，所以显然无法由此推出 $d[firstLarge] &#x3D; nums[i]$。</li>
+</ul>
+<p>遍历 $nums$ 的时间复杂度为 $O(N)$，而搜索最后一个小于目标元素的下标可以使用二分查找缩小右边界的方法实现，时间复杂度 $O(logN)$，所以总时间复杂度为 $O(NlogN)$</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">lengthOfLIS</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-type">int</span>[] d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n + <span class="hljs-number">1</span>];<br>        <span class="hljs-type">int</span> <span class="hljs-variable">maxLength</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br>        d[maxLength] = nums[<span class="hljs-number">0</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; n; i++)&#123;<br>            <span class="hljs-keyword">if</span>(d[maxLength] &lt; nums[i])&#123;<br>                d[++maxLength] = nums[i];<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-comment">// Search for the last less than nums[i] index, because question require strictly increasing</span><br>            <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>, right = maxLength;<br>            <span class="hljs-keyword">while</span>(left &lt; right)&#123;<br>                <span class="hljs-type">int</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> left + (right - left &gt;&gt; <span class="hljs-number">1</span>);<br>                <span class="hljs-keyword">if</span>(d[mid] &lt; nums[i])&#123;<br>                    left = mid + <span class="hljs-number">1</span>;<br>                &#125;<span class="hljs-keyword">else</span>&#123;<br>                    right = mid;<br>                &#125;<br>            &#125;<br>            d[left] = nums[i];<br>        &#125;<br>        <span class="hljs-keyword">return</span> maxLength;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -290,6 +299,10 @@
       
         <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
       
+        <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">#二分查找</a>
+      
+        <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
+      
     </div>
   
 </div>
@@ -300,8 +313,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LC-813.最大平均值和的分组</div>
-      <div>https://wecgwm.github.io/2022/11/28/LC-813-最大平均值和的分组/</div>
+      <div>LC-300.最长递增子序列</div>
+      <div>https://wecgwm.github.io/2022/12/11/LC-300-最长递增子序列/</div>
     </div>
     <div class="license-meta">
       
@@ -313,7 +326,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月28日</div>
+          <div>2022年12月11日</div>
         </div>
       
       
@@ -345,9 +358,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/29/LC-115-%E4%B8%8D%E5%90%8C%E7%9A%84%E5%AD%90%E5%BA%8F%E5%88%97/" title="LC-115.不同的子序列">
+                      <a href="/2022/12/11/LC-1691-%E5%A0%86%E5%8F%A0%E9%95%BF%E6%96%B9%E4%BD%93%E7%9A%84%E6%9C%80%E5%A4%A7%E9%AB%98%E5%BA%A6/" title="LC-1691.堆叠长方体的最大高度">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LC-115.不同的子序列</span>
+                        <span class="hidden-mobile">LC-1691.堆叠长方体的最大高度</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -355,8 +368,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/28/LC-6248-%E7%BB%9F%E8%AE%A1%E4%B8%AD%E4%BD%8D%E6%95%B0%E4%B8%BAK%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="LC-6248.统计中位数为K的子数组">
-                        <span class="hidden-mobile">LC-6248.统计中位数为K的子数组</span>
+                      <a href="/2022/12/08/LC-1687-%E4%BB%8E%E4%BB%93%E5%BA%93%E5%88%B0%E7%A0%81%E5%A4%B4%E8%BF%90%E8%BE%93%E7%AE%B1%E5%AD%90/" title="LC-1687.从仓库到码头运输箱子">
+                        <span class="hidden-mobile">LC-1687.从仓库到码头运输箱子</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -377,7 +390,7 @@
         var options = Object.assign(
           {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: '0788a1915a8c8c0f835d5eae6eb6dcd9'
+            id: 'd29062a99c9b4172bed1ff1b79d4b1d0'
           }
         )
         var gitalk = new Gitalk(options);
