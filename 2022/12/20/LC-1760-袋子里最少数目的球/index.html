@@ -16,23 +16,22 @@
   <meta name="author" content="yichen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述leetcode 中等题 给你一棵 n 个节点的树（一个无向、连通、无环图），每个节点表示一个城市，编号从 0 到 n - 1 ，且恰好有 n - 1 条路。0 是首都。给你一个二维整数数组 roads ，其中 roads[i] &#x3D; [ai, bi] ，表示城市 ai 和 bi 之间有一条 双向路 。 每个城市里有一个代表，他们都要去首都参加一个会议。 每座城市里有一辆车。给你一">
+    <meta name="description" content="题目描述leetcode 中等题 给你一个整数数组 nums ，其中 nums[i] 表示第 i 个袋子里球的数目。同时给你一个整数 maxOperations 。 你可以进行如下操作至多 maxOperations 次：  选择任意一个袋子，并将袋子里的球分到 2 个新的袋子中，每个袋子里都有 正整数 个球。 比方说，一个袋子里有 5 个球，你可以把它们分到两个新袋子里，分别有 1 个和 4 个">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LC-6243.到达首都的最少油耗">
-<meta property="og:url" content="https://wecgwm.github.io/2022/11/20/LC-6243-%E5%88%B0%E8%BE%BE%E9%A6%96%E9%83%BD%E7%9A%84%E6%9C%80%E5%B0%91%E6%B2%B9%E8%80%97/index.html">
+<meta property="og:title" content="LC-1760.袋子里最少数目的球">
+<meta property="og:url" content="https://wecgwm.github.io/2022/12/20/LC-1760-%E8%A2%8B%E5%AD%90%E9%87%8C%E6%9C%80%E5%B0%91%E6%95%B0%E7%9B%AE%E7%9A%84%E7%90%83/index.html">
 <meta property="og:site_name" content="yichen">
-<meta property="og:description" content="题目描述leetcode 中等题 给你一棵 n 个节点的树（一个无向、连通、无环图），每个节点表示一个城市，编号从 0 到 n - 1 ，且恰好有 n - 1 条路。0 是首都。给你一个二维整数数组 roads ，其中 roads[i] &#x3D; [ai, bi] ，表示城市 ai 和 bi 之间有一条 双向路 。 每个城市里有一个代表，他们都要去首都参加一个会议。 每座城市里有一辆车。给你一">
+<meta property="og:description" content="题目描述leetcode 中等题 给你一个整数数组 nums ，其中 nums[i] 表示第 i 个袋子里球的数目。同时给你一个整数 maxOperations 。 你可以进行如下操作至多 maxOperations 次：  选择任意一个袋子，并将袋子里的球分到 2 个新的袋子中，每个袋子里都有 正整数 个球。 比方说，一个袋子里有 5 个球，你可以把它们分到两个新袋子里，分别有 1 个和 4 个">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-20T20:26:03.000Z">
+<meta property="article:published_time" content="2022-12-20T16:34:20.000Z">
 <meta property="article:modified_time" content="2022-12-20T08:48:52.679Z">
 <meta property="article:author" content="yichen">
-<meta property="article:tag" content="贪心">
-<meta property="article:tag" content="dfs">
+<meta property="article:tag" content="二分查找">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>LC-6243.到达首都的最少油耗 - yichen</title>
+  <title>LC-1760.袋子里最少数目的球 - yichen</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -186,7 +185,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LC-6243.到达首都的最少油耗"></span>
+            <span id="subtitle" data-typed-text="LC-1760.袋子里最少数目的球"></span>
           
         </div>
 
@@ -197,8 +196,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-20 20:26" pubdate>
-          2022年11月20日 晚上
+        <time datetime="2022-12-20 16:34" pubdate>
+          2022年12月20日 下午
         </time>
       </span>
     
@@ -209,7 +208,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          1k 字
         
       </span>
     
@@ -220,7 +219,7 @@
         
         
         
-          14 分钟
+          9 分钟
         
       </span>
     
@@ -258,32 +257,31 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LC-6243.到达首都的最少油耗</h1>
+            <h1 style="display: none">LC-1760.袋子里最少数目的球</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-fuel-cost-to-report-to-the-capital/">leetcode 中等题</a></p>
-<p>给你一棵 n 个节点的树（一个无向、连通、无环图），每个节点表示一个城市，编号从 0 到 n - 1 ，且恰好有 n - 1 条路。0 是首都。给你一个二维整数数组 roads ，其中 roads[i] &#x3D; [ai, bi] ，表示城市 ai 和 bi 之间有一条 双向路 。</p>
-<p>每个城市里有一个代表，他们都要去首都参加一个会议。</p>
-<p>每座城市里有一辆车。给你一个整数 seats 表示每辆车里面座位的数目。</p>
-<p>城市里的代表可以选择乘坐所在城市的车，或者乘坐其他城市的车。相邻城市之间一辆车的油耗是一升汽油。</p>
-<p>请你返回到达首都最少需要多少升汽油。</p>
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-limit-of-balls-in-a-bag/">leetcode 中等题</a></p>
+<p>给你一个整数数组 nums ，其中 nums[i] 表示第 i 个袋子里球的数目。同时给你一个整数 maxOperations 。</p>
+<p>你可以进行如下操作至多 maxOperations 次：</p>
+<ul>
+<li>选择任意一个袋子，并将袋子里的球分到 2 个新的袋子中，每个袋子里都有 正整数 个球。<ul>
+<li>比方说，一个袋子里有 5 个球，你可以把它们分到两个新袋子里，分别有 1 个和 4 个球，或者分别有 2 个和 3 个球。<br>你的开销是单个袋子里球数目的 最大值 ，你想要 最小化 开销。</li>
+</ul>
+</li>
+</ul>
+<p>请你返回进行上述操作后的最小开销。</p>
 <p>示例1：</p>
-<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：roads = [[0,1],[0,2],[0,3]], seats = 5<br>输出：3<br>解释：<br>- 代表<span class="hljs-number"> 1 </span>直接到达首都，消耗<span class="hljs-number"> 1 </span>升汽油。<br>- 代表<span class="hljs-number"> 2 </span>直接到达首都，消耗<span class="hljs-number"> 1 </span>升汽油。<br>- 代表<span class="hljs-number"> 3 </span>直接到达首都，消耗<span class="hljs-number"> 1 </span>升汽油。<br>最少消耗<span class="hljs-number"> 3 </span>升汽油。<br></code></pre></td></tr></table></figure>
-
-<p>示例2:</p>
-<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：roads = [[3,1],[3,2],[1,0],[0,4],[0,5],[4,6]], seats = 2<br>输出：7<br>解释：<br>- 代表<span class="hljs-number"> 2 </span>到达城市<span class="hljs-number"> 3 </span>，消耗<span class="hljs-number"> 1 </span>升汽油。<br>- 代表<span class="hljs-number"> 2 </span>和代表<span class="hljs-number"> 3 </span>一起到达城市<span class="hljs-number"> 1 </span>，消耗<span class="hljs-number"> 1 </span>升汽油。<br>- 代表<span class="hljs-number"> 2 </span>和代表<span class="hljs-number"> 3 </span>一起到达首都，消耗<span class="hljs-number"> 1 </span>升汽油。<br>- 代表<span class="hljs-number"> 1 </span>直接到达首都，消耗<span class="hljs-number"> 1 </span>升汽油。<br>- 代表<span class="hljs-number"> 5 </span>直接到达首都，消耗<span class="hljs-number"> 1 </span>升汽油。<br>- 代表<span class="hljs-number"> 6 </span>到达城市<span class="hljs-number"> 4 </span>，消耗<span class="hljs-number"> 1 </span>升汽油。<br>- 代表<span class="hljs-number"> 4 </span>和代表<span class="hljs-number"> 6 </span>一起到达首都，消耗<span class="hljs-number"> 1 </span>升汽油。<br>最少消耗<span class="hljs-number"> 7 </span>升汽油。<br></code></pre></td></tr></table></figure>
-
-<p>示例3：</p>
-<figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs fix"><span class="hljs-attr">输入：roads </span>=<span class="hljs-string"> [], seats = 1</span><br><span class="hljs-string">输出：0</span><br><span class="hljs-string">解释：没有代表需要从别的城市到达首都。</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：nums = [9], maxOperations = 2<br>输出：3<br>解释：<br>- 将装有<span class="hljs-number"> 9 </span>个球的袋子分成装有<span class="hljs-number"> 6 </span>个和<span class="hljs-number"> 3 </span>个球的袋子。[9] -&gt; [6,3] 。<br>- 将装有<span class="hljs-number"> 6 </span>个球的袋子分成装有<span class="hljs-number"> 3 </span>个和<span class="hljs-number"> 3 </span>个球的袋子。[6,3] -&gt; [3,3,3] 。<br>装有最多球的袋子里装有<span class="hljs-number"> 3 </span>个球，所以开销为<span class="hljs-number"> 3 </span>并返回<span class="hljs-number"> 3 </span>。<br></code></pre></td></tr></table></figure>
 
 <p>提示1：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span> &lt;= n &lt;= <span class="hljs-number">105</span><br><span class="hljs-attribute">roads</span>.length == n - <span class="hljs-number">1</span><br><span class="hljs-attribute">roads</span>[i].length == <span class="hljs-number">2</span><br><span class="hljs-attribute">0</span> &lt;= ai, bi &lt; n<br><span class="hljs-attribute">ai</span> != bi<br><span class="hljs-attribute">roads</span> 表示一棵合法的树。<br><span class="hljs-attribute">1</span> &lt;= seats &lt;= <span class="hljs-number">105</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>&lt;= nums.length &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">5</span><br><span class="hljs-symbol">1 </span>&lt;= maxOperations, nums[i] &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">9</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h2><p>车辆可以视为无限的，要使消耗的油最少，可以递归的判断对于每个子节点，汇集到该节点的人一共有多少，那么也就是该节点的子节点数量 $count$，<strong>并且每次都可以取汇集到该节点的所有人到下一个节点最少需要花费的油量</strong> $ceil(\frac{count}{seats})$ 视为该节点的贡献，最后累加所有节点的贡献就为答案。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    List&lt;Integer&gt;[] g;<br>    <span class="hljs-type">int</span> seats;<br>    <span class="hljs-type">long</span> ans;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">long</span> <span class="hljs-title function_">minimumFuelCost</span><span class="hljs-params">(<span class="hljs-type">int</span>[][] roads, <span class="hljs-type">int</span> seats)</span> &#123;<br>        <span class="hljs-keyword">if</span>(roads.length == <span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-built_in">this</span>.seats = seats;<br>        g = <span class="hljs-keyword">new</span> <span class="hljs-title class_">List</span>[roads.length + <span class="hljs-number">1</span>];<br>        IntStream.range(<span class="hljs-number">0</span>, roads.length + <span class="hljs-number">1</span>).forEach(i -&gt; g[i] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;());<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span>[] road : roads)&#123;<br>            g[road[<span class="hljs-number">0</span>]].add(road[<span class="hljs-number">1</span>]);<br>            g[road[<span class="hljs-number">1</span>]].add(road[<span class="hljs-number">0</span>]);<br>        &#125;<br>        dfs(<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>);<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">long</span> <span class="hljs-title function_">dfs</span><span class="hljs-params">(<span class="hljs-type">int</span> p, <span class="hljs-type">int</span> father)</span>&#123;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">size</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> item : g[p])&#123;<br>            <span class="hljs-keyword">if</span>(item == father)&#123; <span class="hljs-comment">// 题目给的双向边，避免死循环重复遍历</span><br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            size += dfs(item, p);<br>        &#125;<br>        <span class="hljs-keyword">if</span>(p != <span class="hljs-number">0</span>)&#123; <span class="hljs-comment">// 0节点不需要计算，所有人都到达了</span><br>            ans += Math.ceil((<span class="hljs-type">double</span>)size / seats); <span class="hljs-comment">// 向上取整等价于 （size + seats - 1) / seats</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> size;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p>转化成最大化操作次数时最小开销问题。</p>
+<p>对于某个袋子 $nums[i]$，目标开销 $x$，需要的操作次数为 $\lfloor\frac{nums[i] - 1}{x}\rfloor$ 。</p>
+<p>由于操作次数和开销满足单调性（类似的，普通的二分查找也是因为数组下标和元素满足单调性），随着开销的减少操作次数增加，所以可以通过二分查找计算开销的左边界。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">minimumSize</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> maxOperations)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>, right = Arrays.stream(nums).max().orElseThrow(); <span class="hljs-comment">// 当然这里 1 表示袋子里最少有1个球</span><br>        <span class="hljs-keyword">while</span>(left &lt; right)&#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> left + (right - left &gt;&gt; <span class="hljs-number">1</span>);<br>            <span class="hljs-type">int</span> <span class="hljs-variable">op</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> item : nums)&#123;<br>                op += (item - <span class="hljs-number">1</span>) / mid;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(op &gt; maxOperations)&#123;<br>                left = mid + <span class="hljs-number">1</span>;<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                right = mid;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> left;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -295,9 +293,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
-      
-        <a href="/tags/dfs/">#dfs</a>
+        <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">#二分查找</a>
       
     </div>
   
@@ -309,8 +305,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LC-6243.到达首都的最少油耗</div>
-      <div>https://wecgwm.github.io/2022/11/20/LC-6243-到达首都的最少油耗/</div>
+      <div>LC-1760.袋子里最少数目的球</div>
+      <div>https://wecgwm.github.io/2022/12/20/LC-1760-袋子里最少数目的球/</div>
     </div>
     <div class="license-meta">
       
@@ -322,7 +318,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月20日</div>
+          <div>2022年12月20日</div>
         </div>
       
       
@@ -354,18 +350,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/21/LC-808-%E5%88%86%E6%B1%A4/" title="LC-808.分汤">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LC-808.分汤</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/20/LC-799-%E9%A6%99%E6%A7%9F%E5%A1%94/" title="LC-799.香槟塔">
-                        <span class="hidden-mobile">LC-799.香槟塔</span>
+                      <a href="/2022/12/19/LC-1703-%E5%BE%97%E5%88%B0%E8%BF%9E%E7%BB%ADK%E4%B8%AA1%E7%9A%84%E6%9C%80%E5%B0%91%E7%9B%B8%E9%82%BB%E4%BA%A4%E6%8D%A2%E6%AC%A1%E6%95%B0/" title="LC-1703.得到连续K个1的最少相邻交换次数">
+                        <span class="hidden-mobile">LC-1703.得到连续K个1的最少相邻交换次数</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -388,7 +378,7 @@
         var options = Object.assign(
           {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: '63be01d9f2b09e08ddbb67f3a897ce72'
+            id: '59ebd6f2135dfd1a403a8fa6f1637e55'
           }
         )
         var gitalk = new Gitalk(options);
