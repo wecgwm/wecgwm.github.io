@@ -16,22 +16,24 @@
   <meta name="author" content="yichen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述leetcode 中等题 给你一个下标从 0 开始的整数数组 costs ，其中 costs[i] 是雇佣第 i 位工人的代价。 同时给你两个整数 k 和 candidates 。我们想根据以下规则恰好雇佣 k 位工人： 总共进行 k 轮雇佣，且每一轮恰好雇佣一位工人。在每一轮雇佣中，从最前面 candidates 和最后面 candidates 人中选出代价最小的一位工人，如果有多位代价">
+    <meta name="description" content="题目描述leetcode 中等题 给你一个整数数组 nums 和一个整数 x 。每一次操作时，你应当移除数组 nums 最左边或最右边的元素，然后从 x 中减去该元素的值。请注意，需要 修改 数组以供接下来的操作使用。 如果可以将 x 恰好 减到 0 ，返回 最小操作数 ；否则，返回 -1 。 示例1： 123输入：nums &#x3D; [1,1,4,2,3], x &#x3D; 5输出：2解释：最佳解决方案是移除">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LC-6231.雇佣K位工人的总代价">
-<meta property="og:url" content="https://wecgwm.github.io/2022/11/06/LC-6231-%E9%9B%87%E4%BD%A3K%E4%BD%8D%E5%B7%A5%E4%BA%BA%E7%9A%84%E6%80%BB%E4%BB%A3%E4%BB%B7/index.html">
+<meta property="og:title" content="LC-1658.将x减到0的最小操作数">
+<meta property="og:url" content="https://wecgwm.github.io/2023/01/08/LC-1658-%E5%B0%86x%E5%87%8F%E5%88%B00%E7%9A%84%E6%9C%80%E5%B0%8F%E6%93%8D%E4%BD%9C%E6%95%B0/index.html">
 <meta property="og:site_name" content="yichen">
-<meta property="og:description" content="题目描述leetcode 中等题 给你一个下标从 0 开始的整数数组 costs ，其中 costs[i] 是雇佣第 i 位工人的代价。 同时给你两个整数 k 和 candidates 。我们想根据以下规则恰好雇佣 k 位工人： 总共进行 k 轮雇佣，且每一轮恰好雇佣一位工人。在每一轮雇佣中，从最前面 candidates 和最后面 candidates 人中选出代价最小的一位工人，如果有多位代价">
+<meta property="og:description" content="题目描述leetcode 中等题 给你一个整数数组 nums 和一个整数 x 。每一次操作时，你应当移除数组 nums 最左边或最右边的元素，然后从 x 中减去该元素的值。请注意，需要 修改 数组以供接下来的操作使用。 如果可以将 x 恰好 减到 0 ，返回 最小操作数 ；否则，返回 -1 。 示例1： 123输入：nums &#x3D; [1,1,4,2,3], x &#x3D; 5输出：2解释：最佳解决方案是移除">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-06T21:14:11.000Z">
-<meta property="article:modified_time" content="2023-01-08T14:47:02.544Z">
+<meta property="article:published_time" content="2023-01-08T17:52:19.000Z">
+<meta property="article:modified_time" content="2023-01-08T14:47:02.540Z">
 <meta property="article:author" content="yichen">
-<meta property="article:tag" content="优先队列">
+<meta property="article:tag" content="前缀和">
+<meta property="article:tag" content="滑动窗口">
+<meta property="article:tag" content="多指针">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>LC-6231.雇佣K位工人的总代价 - yichen</title>
+  <title>LC-1658.将x减到0的最小操作数 - yichen</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -185,7 +187,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LC-6231.雇佣K位工人的总代价"></span>
+            <span id="subtitle" data-typed-text="LC-1658.将x减到0的最小操作数"></span>
           
         </div>
 
@@ -196,8 +198,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-06 21:14" pubdate>
-          2022年11月6日 晚上
+        <time datetime="2023-01-08 17:52" pubdate>
+          2023年1月8日 下午
         </time>
       </span>
     
@@ -208,7 +210,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          1.5k 字
         
       </span>
     
@@ -219,7 +221,7 @@
         
         
         
-          17 分钟
+          13 分钟
         
       </span>
     
@@ -257,26 +259,27 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LC-6231.雇佣K位工人的总代价</h1>
+            <h1 style="display: none">LC-1658.将x减到0的最小操作数</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/total-cost-to-hire-k-workers/">leetcode 中等题</a></p>
-<p>给你一个下标从 0 开始的整数数组 costs ，其中 costs[i] 是雇佣第 i 位工人的代价。</p>
-<p>同时给你两个整数 k 和 candidates 。我们想根据以下规则恰好雇佣 k 位工人：</p>
-<p>总共进行 k 轮雇佣，且每一轮恰好雇佣一位工人。<br>在每一轮雇佣中，从最前面 candidates 和最后面 candidates 人中选出代价最小的一位工人，如果有多位代价相同且最小的工人，选择下标更小的一位工人。<br>比方说，costs &#x3D; [3,2,7,7,1,2] 且 candidates &#x3D; 2 ，第一轮雇佣中，我们选择第 4 位工人，因为他的代价最小 [3,2,7,7,1,2] 。<br>第二轮雇佣，我们选择第 1 位工人，因为他们的代价与第 4 位工人一样都是最小代价，而且下标更小，[3,2,7,7,2] 。注意每一轮雇佣后，剩余工人的下标可能会发生变化。<br>如果剩余员工数目不足 candidates 人，那么下一轮雇佣他们中代价最小的一人，如果有多位代价相同且最小的工人，选择下标更小的一位工人。<br>一位工人只能被选择一次。<br>返回雇佣恰好 k 位工人的总代价。</p>
-<p>示例1：<br>输入：costs &#x3D; [17,12,10,2,7,2,11,20,8], k &#x3D; 3, candidates &#x3D; 4<br>输出：11<br>解释：我们总共雇佣 3 位工人。总代价一开始为 0 。</p>
-<ul>
-<li>第一轮雇佣，我们从 [17,12,10,2,,2,11,20,8] 中选择。最小代价是 2 ，有两位工人，我们选择下标更小的一位工人，即第 3 位工人。总代价是 0 + 2 &#x3D; 2 。</li>
-<li>第二轮雇佣，我们从 [17,12,10,7,2,11,20,8] 中选择。最小代价是 2 ，下标为 4 ，总代价是 2 + 2 &#x3D; 4 。</li>
-<li>第三轮雇佣，我们从 [17,12,10,7,11,20,8] 中选择，最小代价是 7 ，下标为 3 ，总代价是 4 + 7 &#x3D; 11 。注意下标为 3 的工人同时在最前面和最后面 4 位工人中。<br>总雇佣代价是 11 。</li>
-</ul>
-<p>提示：</p>
-<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>&lt;= costs.length &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">5</span><br><span class="hljs-symbol">1 </span>&lt;= costs[i] &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">5</span><br><span class="hljs-symbol">1 </span>&lt;= k, candidates &lt;= costs.length<br></code></pre></td></tr></table></figure>
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-operations-to-reduce-x-to-zero/">leetcode 中等题</a></p>
+<p>给你一个整数数组 nums 和一个整数 x 。每一次操作时，你应当移除数组 nums 最左边或最右边的元素，然后从 x 中减去该元素的值。请注意，需要 修改 数组以供接下来的操作使用。</p>
+<p>如果可以将 x 恰好 减到 0 ，返回 最小操作数 ；否则，返回 -1 。</p>
+<p>示例1：</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs llvm">输入：nums <span class="hljs-operator">=</span> [<span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-number">4</span><span class="hljs-punctuation">,</span><span class="hljs-number">2</span><span class="hljs-punctuation">,</span><span class="hljs-number">3</span>]<span class="hljs-punctuation">,</span> <span class="hljs-keyword">x</span> <span class="hljs-operator">=</span> <span class="hljs-number">5</span><br>输出：<span class="hljs-number">2</span><br>解释：最佳解决方案是移除后两个元素，将 <span class="hljs-keyword">x</span> 减到 <span class="hljs-number">0</span> 。<br></code></pre></td></tr></table></figure>
 
-<h2 id="最小堆"><a href="#最小堆" class="headerlink" title="最小堆"></a>最小堆</h2><p>通过两个最小堆模拟 <code>最前面 candidates 和最后面 candidates 个人</code> 即可，具体来说每次取出两个堆的最小值，接着继续尝试维护堆直到 <code>k</code> 轮选人结束。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">long</span> <span class="hljs-title function_">totalCost</span><span class="hljs-params">(<span class="hljs-type">int</span>[] costs, <span class="hljs-type">int</span> k, <span class="hljs-type">int</span> candidates)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> costs.length;<br>        Comparator&lt;<span class="hljs-type">int</span>[]&gt; cmp = (a, b) -&gt; &#123;<br>            <span class="hljs-keyword">if</span>(a[<span class="hljs-number">0</span>] == b[<span class="hljs-number">0</span>])&#123;<br>                <span class="hljs-keyword">return</span> a[<span class="hljs-number">1</span>] - b[<span class="hljs-number">1</span>];<br>            &#125;<br>            <span class="hljs-keyword">return</span> a[<span class="hljs-number">0</span>] - b[<span class="hljs-number">0</span>];<br>        &#125;;<br>        <span class="hljs-comment">// 实际上不需要比较下标，可以改成 PriorityQueue&lt;Integer&gt;</span><br>        PriorityQueue&lt;<span class="hljs-type">int</span>[]&gt; front = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;(cmp); <br>        PriorityQueue&lt;<span class="hljs-type">int</span>[]&gt; tail = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;(cmp);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, right = n - <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; candidates &amp;&amp; left &lt;= right; i++)&#123; <span class="hljs-comment">// candidates 个人</span><br>            front.offer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;costs[left], left++&#125;);<br>            <span class="hljs-keyword">if</span>(left &gt; right)&#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            tail.offer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;costs[right], right--&#125;);<br>        &#125;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(k-- &gt; <span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-type">int</span>[] f = front.peek();<br>            <span class="hljs-type">int</span>[] t = tail.peek();<br>            <span class="hljs-keyword">if</span>(t == <span class="hljs-literal">null</span> || (f != <span class="hljs-literal">null</span> &amp;&amp; f[<span class="hljs-number">0</span>] &lt;= t[<span class="hljs-number">0</span>]))&#123;<br>                ans += front.poll()[<span class="hljs-number">0</span>];<br>                <span class="hljs-keyword">if</span>(left &lt;= right)&#123;<br>                    front.offer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;costs[left], left++&#125;);<br>                &#125;<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                ans += tail.poll()[<span class="hljs-number">0</span>];<br>                <span class="hljs-keyword">if</span>(left &lt;= right)&#123;<br>                    tail.offer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;costs[right], right--&#125;);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>提示1：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>&lt;= nums.length &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">5</span><br><span class="hljs-symbol">1 </span>&lt;= nums[i] &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">4</span><br><span class="hljs-symbol">1 </span>&lt;= x &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">9</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="双指针-前缀和"><a href="#双指针-前缀和" class="headerlink" title="双指针 + 前缀和"></a>双指针 + 前缀和</h2><p>首先由于每次都是从最左边或最右边选择一个元素，那么 $x$ 必然由数组的一个前缀、后缀所组成。</p>
+<p>因此原题目可以转化成求元素和为 $sum - x$ 的子数组，其中 $sum$ 为数组总和，此时的操作次数显然为数组长度减去子数组长度。</p>
+<p>具体可以使用双指针 + 前缀和的方式进行求解。为了方便，初始时将 $x$ 转换成 $sum - x$，左右指针均指向 $0$，右指针每次向右移动一位，并将当前指向元素累加到前缀和 $curSum$ 中，而每当 $curSum$ 大于 $x$ 时，向右移动左指针并从前缀和中减去当前指向元素，直到 $curSum &lt;&#x3D; x$ ，此时再尝试更新 $ans$ 即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">minOperations</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> x)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-comment">// x = sum - x</span><br>        x = -x;<br>        x = Arrays.stream(nums).reduce(x, Integer::sum);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> n + <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, right = <span class="hljs-number">0</span>, curSum = <span class="hljs-number">0</span>; right &lt; n; right++)&#123;<br>            curSum += nums[right];<br>            <span class="hljs-keyword">while</span>(left &lt;= right &amp;&amp; curSum &gt; x)&#123;<br>                curSum -= nums[left++];<br>            &#125;<br>            <span class="hljs-keyword">if</span>(curSum == x)&#123;<br>                ans = Math.min(ans, n - (right - left + <span class="hljs-number">1</span>));<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans == n + <span class="hljs-number">1</span> ? -<span class="hljs-number">1</span> : ans;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>类似的做法还可以使用哈希表：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">minOperations</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> x)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-comment">// x = sum - x</span><br>        x = -x;<br>        x = Arrays.stream(nums).reduce(x, Integer::sum);<br>        Map&lt;Integer, Integer&gt; sumMapIndex = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        sumMapIndex.put(<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> n + <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, preSum = <span class="hljs-number">0</span>; i &lt; n; i++)&#123;<br>            preSum += nums[i];<br>            sumMapIndex.put(preSum, i);<br>            <span class="hljs-keyword">if</span>(sumMapIndex.containsKey(preSum - x))&#123;<br>                ans = Math.min(ans, n - (i - sumMapIndex.get(preSum - x)));<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans == n + <span class="hljs-number">1</span> ? -<span class="hljs-number">1</span> : ans;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -288,7 +291,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">#优先队列</a>
+        <a href="/tags/%E5%89%8D%E7%BC%80%E5%92%8C/">#前缀和</a>
+      
+        <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">#滑动窗口</a>
+      
+        <a href="/tags/%E5%A4%9A%E6%8C%87%E9%92%88/">#多指针</a>
       
     </div>
   
@@ -300,8 +307,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LC-6231.雇佣K位工人的总代价</div>
-      <div>https://wecgwm.github.io/2022/11/06/LC-6231-雇佣K位工人的总代价/</div>
+      <div>LC-1658.将x减到0的最小操作数</div>
+      <div>https://wecgwm.github.io/2023/01/08/LC-1658-将x减到0的最小操作数/</div>
     </div>
     <div class="license-meta">
       
@@ -313,7 +320,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月6日</div>
+          <div>2023年1月8日</div>
         </div>
       
       
@@ -345,18 +352,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/08/LC-6232-%E6%9C%80%E5%B0%8F%E7%A7%BB%E5%8A%A8%E6%80%BB%E8%B7%9D%E7%A6%BB/" title="LC-6232.最小移动总距离">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LC-6232.最小移动总距离</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/06/LC-6230-%E9%95%BF%E5%BA%A6%E4%B8%BAK%E5%AD%90%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/" title="LC-6230.长度为K子数组中的最大和">
-                        <span class="hidden-mobile">LC-6230.长度为K子数组中的最大和</span>
+                      <a href="/2023/01/07/LC-1802-%E6%9C%89%E7%95%8C%E6%95%B0%E7%BB%84%E4%B8%AD%E6%8C%87%E5%AE%9A%E4%B8%8B%E6%A0%87%E5%A4%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/" title="LC-1802.有界数组中指定下标处的最大值">
+                        <span class="hidden-mobile">LC-1802.有界数组中指定下标处的最大值</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -379,7 +380,7 @@
         var options = Object.assign(
           {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: 'fbb7fd38941f8c24cc97b62b4a48e8c0'
+            id: '0a0881807604fd805e0649f0f95019d8'
           }
         )
         var gitalk = new Gitalk(options);
