@@ -16,24 +16,23 @@
   <meta name="author" content="yichen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述leetcode 中等题 给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。 子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。 示例1： 123输入：nums &#x3D; [10,9,2,5,3,7,101,18]输出：4解释：最长递增子序列是 [2,3,7,101]，因此">
+    <meta name="description" content="题目描述leetcode 困难题 共有 k 位工人计划将 n 个箱子从旧仓库移动到新仓库。给你两个整数 n 和 k，以及一个二维整数数组 time ，数组的大小为 k x 4 ，其中 time[i] &#x3D; [leftToRighti, pickOldi, rightToLefti, putNewi] 。 一条河将两座仓库分隔，只能通过一座桥通行。旧仓库位于河的右岸，新仓库在河的左岸。开始时">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LC-300.最长递增子序列">
-<meta property="og:url" content="https://wecgwm.github.io/2022/12/11/LC-300-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97/index.html">
+<meta property="og:title" content="LC-2532.过桥的时间">
+<meta property="og:url" content="https://wecgwm.github.io/2023/01/11/LC-2532-%E8%BF%87%E6%A1%A5%E7%9A%84%E6%97%B6%E9%97%B4/index.html">
 <meta property="og:site_name" content="yichen">
-<meta property="og:description" content="题目描述leetcode 中等题 给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。 子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。 示例1： 123输入：nums &#x3D; [10,9,2,5,3,7,101,18]输出：4解释：最长递增子序列是 [2,3,7,101]，因此">
+<meta property="og:description" content="题目描述leetcode 困难题 共有 k 位工人计划将 n 个箱子从旧仓库移动到新仓库。给你两个整数 n 和 k，以及一个二维整数数组 time ，数组的大小为 k x 4 ，其中 time[i] &#x3D; [leftToRighti, pickOldi, rightToLefti, putNewi] 。 一条河将两座仓库分隔，只能通过一座桥通行。旧仓库位于河的右岸，新仓库在河的左岸。开始时">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-12-11T22:56:36.000Z">
+<meta property="article:published_time" content="2023-01-11T17:49:08.000Z">
 <meta property="article:modified_time" content="2023-01-11T12:34:17.427Z">
 <meta property="article:author" content="yichen">
-<meta property="article:tag" content="动态规划">
-<meta property="article:tag" content="贪心">
-<meta property="article:tag" content="二分查找">
+<meta property="article:tag" content="优先队列">
+<meta property="article:tag" content="复杂模拟">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>LC-300.最长递增子序列 - yichen</title>
+  <title>LC-2532.过桥的时间 - yichen</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -187,7 +186,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LC-300.最长递增子序列"></span>
+            <span id="subtitle" data-typed-text="LC-2532.过桥的时间"></span>
           
         </div>
 
@@ -198,8 +197,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-12-11 22:56" pubdate>
-          2022年12月11日 晚上
+        <time datetime="2023-01-11 17:49" pubdate>
+          2023年1月11日 下午
         </time>
       </span>
     
@@ -210,7 +209,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          3.5k 字
         
       </span>
     
@@ -221,7 +220,7 @@
         
         
         
-          17 分钟
+          29 分钟
         
       </span>
     
@@ -259,34 +258,51 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LC-300.最长递增子序列</h1>
+            <h1 style="display: none">LC-2532.过桥的时间</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-increasing-subsequence/">leetcode 中等题</a></p>
-<p>给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。</p>
-<p>子序列 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，[3,6,2,7] 是数组 [0,3,1,6,2,2,7] 的子序列。</p>
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/time-to-cross-a-bridge/">leetcode 困难题</a></p>
+<p>共有 k 位工人计划将 n 个箱子从旧仓库移动到新仓库。给你两个整数 n 和 k，以及一个二维整数数组 time ，数组的大小为 k x 4 ，其中 time[i] &#x3D; [leftToRighti, pickOldi, rightToLefti, putNewi] 。</p>
+<p>一条河将两座仓库分隔，只能通过一座桥通行。旧仓库位于河的右岸，新仓库在河的左岸。开始时，所有 k 位工人都在桥的左侧等待。为了移动这些箱子，第 i 位工人（下标从 0 开始）可以：</p>
+<ul>
+<li>从左岸（新仓库）跨过桥到右岸（旧仓库），用时 leftToRighti 分钟。</li>
+<li>从旧仓库选择一个箱子，并返回到桥边，用时 pickOldi 分钟。不同工人可以同时搬起所选的箱子。</li>
+<li>从右岸（旧仓库）跨过桥到左岸（新仓库），用时 rightToLefti 分钟。</li>
+<li>将箱子放入新仓库，并返回到桥边，用时 putNewi 分钟。不同工人可以同时放下所选的箱子。</li>
+</ul>
+<p>如果满足下面任一条件，则认为工人 i 的 效率低于 工人 j ：</p>
+<ul>
+<li>leftToRighti + rightToLefti &gt; leftToRightj + rightToLeftj</li>
+<li>leftToRighti + rightToLefti &#x3D;&#x3D; leftToRightj + rightToLeftj 且 i &gt; j</li>
+</ul>
+<p>工人通过桥时需要遵循以下规则：</p>
+<ul>
+<li>如果工人 x 到达桥边时，工人 y 正在过桥，那么工人 x 需要在桥边等待。</li>
+<li>如果没有正在过桥的工人，那么在桥右边等待的工人可以先过桥。如果同时有多个工人在右边等待，那么 效率最低 的工人会先过桥。</li>
+<li>如果没有正在过桥的工人，且桥右边也没有在等待的工人，同时旧仓库还剩下至少一个箱子需要搬运，此时在桥左边的工人可以过桥。如果同时有多个工人在左边等待，那么 效率最低 的工人会先过桥。</li>
+</ul>
+<p>所有 n 个盒子都需要放入新仓库，请你返回最后一个搬运箱子的工人 到达河左岸 的时间。</p>
 <p>示例1：</p>
-<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dns">输入：nums = [<span class="hljs-number">10,9,2,5</span>,<span class="hljs-number">3,7,101,18</span>]<br>输出：<span class="hljs-number">4</span><br>解释：最长递增子序列是 [<span class="hljs-number">2,3,7,101</span>]，因此长度为 <span class="hljs-number">4</span> 。<br></code></pre></td></tr></table></figure>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：n = 3, k = 2, time = [[1,9,1,8],[10,10,10,10]]<br>输出：50<br>解释：<br>从<span class="hljs-number"> 0 </span>到<span class="hljs-number"> 10 </span>：工人<span class="hljs-number"> 1 </span>从左岸过桥到达右岸。<br>从<span class="hljs-number"> 10 </span>到<span class="hljs-number"> 20 </span>：工人<span class="hljs-number"> 1 </span>从旧仓库搬起一个箱子。<br>从<span class="hljs-number"> 10 </span>到<span class="hljs-number"> 11 </span>：工人<span class="hljs-number"> 0 </span>从左岸过桥到达右岸。<br>从<span class="hljs-number"> 11 </span>到<span class="hljs-number"> 20 </span>：工人<span class="hljs-number"> 0 </span>从旧仓库搬起一个箱子。<br>从<span class="hljs-number"> 20 </span>到<span class="hljs-number"> 30 </span>：工人<span class="hljs-number"> 1 </span>从右岸过桥到达左岸。<br>从<span class="hljs-number"> 30 </span>到<span class="hljs-number"> 40 </span>：工人<span class="hljs-number"> 1 </span>将箱子放入新仓库。<br>从<span class="hljs-number"> 30 </span>到<span class="hljs-number"> 31 </span>：工人<span class="hljs-number"> 0 </span>从右岸过桥到达左岸。<br>从<span class="hljs-number"> 31 </span>到<span class="hljs-number"> 39 </span>：工人<span class="hljs-number"> 0 </span>将箱子放入新仓库。<br>从<span class="hljs-number"> 39 </span>到<span class="hljs-number"> 40 </span>：工人<span class="hljs-number"> 0 </span>从左岸过桥到达右岸。<br>从<span class="hljs-number"> 40 </span>到<span class="hljs-number"> 49 </span>：工人<span class="hljs-number"> 0 </span>从旧仓库搬起一个箱子。<br>从<span class="hljs-number"> 49 </span>到<span class="hljs-number"> 50 </span>：工人<span class="hljs-number"> 0 </span>从右岸过桥到达左岸。<br>从<span class="hljs-number"> 50 </span>到<span class="hljs-number"> 58 </span>：工人<span class="hljs-number"> 0 </span>将箱子放入新仓库。<br>整个过程在<span class="hljs-number"> 58 </span>分钟后结束。因为问题关注的是最后一个工人到达左岸的时间，所以返回<span class="hljs-number"> 50 </span>。<br></code></pre></td></tr></table></figure>
 
 <p>提示1：</p>
-<figure class="highlight parser3"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs parser3"><span class="hljs-number">1</span><span class="language-xml"> &lt;= nums.length &lt;= </span><span class="hljs-number">2500</span><span class="language-xml"></span><br><span class="language-xml"></span><span class="hljs-number">-10</span><span class="hljs-keyword">^4</span><span class="language-xml"> &lt;= nums[i] &lt;= </span><span class="hljs-number">10</span><span class="hljs-keyword">^4</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-number">1</span> &lt;= n, k &lt;= <span class="hljs-number">104</span><br><span class="hljs-selector-tag">time</span><span class="hljs-selector-class">.length</span> == k<br><span class="hljs-selector-tag">time</span><span class="hljs-selector-attr">[i]</span><span class="hljs-selector-class">.length</span> == <span class="hljs-number">4</span><br><span class="hljs-number">1</span> &lt;= leftToRighti, pickOldi, rightToLefti, putNewi &lt;= <span class="hljs-number">1000</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>定义 $dp[i]$ 表示以第 $i$ 个元素结尾的最长子序列长度，有：</p>
-<p>$$<br>\begin{align}<br>&amp;dp(i) &#x3D; max\{dp(j)\} + 1　　　　 0 &lt;&#x3D; j &lt; i　 \&amp;\&amp;　 nums[j] &lt; nums[i]\\<br>&amp;LIS&#x3D; max\{dp(i)\}　　　　　　 0 &lt;&#x3D; i &lt; n<br>\end{align}<br>$$</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">lengthOfLIS</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-type">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; i; j++)&#123;<br>                <span class="hljs-keyword">if</span>(nums[j] &lt; nums[i])&#123;<br>                    dp[i] = Math.max(dp[i], dp[j] + <span class="hljs-number">1</span>);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> Arrays.stream(dp).max().orElseThrow() + <span class="hljs-number">1</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="贪心-二分查找"><a href="#贪心-二分查找" class="headerlink" title="贪心 + 二分查找"></a>贪心 + 二分查找</h2><p>上面解法时间复杂度为 $O(N^2)$ ，另一种更快的解法是贪心 + 二分。</p>
-<p>定义 $d[i]$ 表示长度为 $i$ 的子序列的最后一个元素，我们需要让最后一个元素尽量小，从而可以得出 $LIS$。</p>
-<p>可知 $d$ 数组是单调递增的，因为假设存在 $dp[i] &lt; dp[j]$ 且 $i &gt; j$，那么该 $i$ 长度的子序列第 $j$ 个元素必然会小于 $d[j]$ ，这与 $d$ 的定义矛盾。</p>
-<p>令 $maxLength$ 为当前最大子序列长度，依次遍历 $nums$，具体的 $maxLength$ 维护过程如下：</p>
+<h2 id="模拟"><a href="#模拟" class="headerlink" title="模拟"></a>模拟</h2><p>通过四个堆进行模拟，分别是：</p>
 <ul>
-<li>如果当前元素 $nums[i]$ 大于 $d[maxLength]$ ，那么显然有 $d[++maxLength] &#x3D; nums[i]$</li>
-<li>如果当前元素 $nums[i]$ 小于等于 $d[maxLength]$ ，为了让 $d$ 的定义正确，需要找到最后一个小于 $nums[i]$ 的 $d[lastLess]$，显然可以得出 $d[lastLess + 1] &#x3D; nums[i]$。稍微要注意的是这里之所以要找 “第一个小于的下一个坐标” 而不是“第一个大于”的下标，是因为“第一个大于”的下标的前一个元素，即 $d[firstLarge - 1]$ 可能等于 $nums[i]$，而因为题目要求子序列严格递增，所以显然无法由此推出 $d[firstLarge] &#x3D; nums[i]$。</li>
+<li>$leftBridge$ 左边等桥的工人序号，堆顶为效率最小的工人。</li>
+<li>$rightBridge$ 右边等桥的工人序号，堆顶为效率最小的工人。</li>
+<li>$leftPuttingNew$ 左边正在搬箱子的工人，$int[0]$ 为该工人搬运当前箱子完成的时间，$int[1]$ 为工人序号，堆顶为搬运完成时间最早的工人。</li>
+<li>$rightPickingOld$ 右边正在搬箱子的工人，$int[0]$ 为该工人搬运当前箱子完成的时间，$int[1]$ 为工人序号，堆顶为搬运完成时间最早的工人。</li>
 </ul>
-<p>遍历 $nums$ 的时间复杂度为 $O(N)$，而搜索最后一个小于目标元素的下标可以使用二分查找缩小右边界的方法实现，时间复杂度 $O(logN)$，所以总时间复杂度为 $O(NlogN)$</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">lengthOfLIS</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-type">int</span>[] d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n + <span class="hljs-number">1</span>];<br>        <span class="hljs-type">int</span> <span class="hljs-variable">maxLength</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br>        d[maxLength] = nums[<span class="hljs-number">0</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; n; i++)&#123;<br>            <span class="hljs-keyword">if</span>(d[maxLength] &lt; nums[i])&#123;<br>                d[++maxLength] = nums[i];<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-comment">// Search for the last less than nums[i] index, because question require strictly increasing</span><br>            <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>, right = maxLength;<br>            <span class="hljs-keyword">while</span>(left &lt; right)&#123;<br>                <span class="hljs-type">int</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> left + (right - left &gt;&gt; <span class="hljs-number">1</span>);<br>                <span class="hljs-keyword">if</span>(d[mid] &lt; nums[i])&#123;<br>                    left = mid + <span class="hljs-number">1</span>;<br>                &#125;<span class="hljs-keyword">else</span>&#123;<br>                    right = mid;<br>                &#125;<br>            &#125;<br>            d[left] = nums[i];<br>        &#125;<br>        <span class="hljs-keyword">return</span> maxLength;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>初始化当前时间为 $0$，模拟工人搬运过程，由于关注的是最后一个搬运箱子的工人到达左岸的时间，所以中止条件为箱子搬完且右岸不存在任何工人。</p>
+<p>按照题意，每次循环时，如果右边等桥的人非空，右边等桥的堆顶工人出堆过桥，更新当前时间为过桥后的时间，并将工人放入左边搬运箱子的堆中；否则如果左边等桥的人非空且存在箱子未搬运，就将左边等桥的堆顶工人出堆过桥，更新当前时间为过桥后的时间，并将工人放入右边搬运箱子的堆中，箱子数量减一；如果以上两个条件均不满足，则说明当前时间过小，工人未搬完箱子，更新时间为左右岸搬完箱子的最小时间即可。</p>
+<p>显然在上面的三个判断之前，还需要判断左右岸正在搬箱子的工人，如果已经搬完箱子了，就将其放入等桥的队列中。</p>
+<p>循环结束时，当前时间为答案。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">findCrossingTime</span><span class="hljs-params">(<span class="hljs-type">int</span> n, <span class="hljs-type">int</span> k, <span class="hljs-type">int</span>[][] time)</span> &#123;<br>        Comparator&lt;Integer&gt; cmp = (a, b) -&gt; &#123;<br>            <span class="hljs-keyword">if</span> (time[b][<span class="hljs-number">0</span>] + time[b][<span class="hljs-number">2</span>] != time[a][<span class="hljs-number">0</span>] + time[a][<span class="hljs-number">2</span>]) &#123;<br>                <span class="hljs-keyword">return</span> (time[b][<span class="hljs-number">0</span>] + time[b][<span class="hljs-number">2</span>]) - (time[a][<span class="hljs-number">0</span>] + time[a][<span class="hljs-number">2</span>]);<br>            &#125;<br>            <span class="hljs-keyword">return</span> b - a;<br>        &#125;;<br>        PriorityQueue&lt;Integer&gt; leftBridge = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;(cmp);<br>        PriorityQueue&lt;Integer&gt; rightBridge = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;(cmp);<br>        PriorityQueue&lt;<span class="hljs-type">int</span>[]&gt; leftPuttingNew = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;(Comparator.comparingInt(a -&gt; a[<span class="hljs-number">0</span>]));<br>        PriorityQueue&lt;<span class="hljs-type">int</span>[]&gt; rightPickingOld = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;(Comparator.comparingInt(a -&gt; a[<span class="hljs-number">0</span>]));<br>        leftBridge.addAll(IntStream.range(<span class="hljs-number">0</span>, k).boxed().toList());<br>        <span class="hljs-type">int</span> <span class="hljs-variable">curTime</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span> (n + rightPickingOld.size() + rightBridge.size() &gt; <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">while</span> (!rightPickingOld.isEmpty() &amp;&amp; rightPickingOld.peek()[<span class="hljs-number">0</span>] &lt;= curTime) &#123;<br>                rightBridge.offer(rightPickingOld.poll()[<span class="hljs-number">1</span>]);<br>            &#125;<br>            <span class="hljs-keyword">while</span> (!leftPuttingNew.isEmpty() &amp;&amp; leftPuttingNew.peek()[<span class="hljs-number">0</span>] &lt;= curTime) &#123;<br>                leftBridge.offer(leftPuttingNew.poll()[<span class="hljs-number">1</span>]);<br>            &#125;<br>            <span class="hljs-keyword">if</span> (!rightBridge.isEmpty()) &#123;<br>                <span class="hljs-type">int</span> <span class="hljs-variable">worker</span> <span class="hljs-operator">=</span> Objects.requireNonNull(rightBridge.poll());<br>                curTime += time[worker][<span class="hljs-number">2</span>];<br>                leftPuttingNew.offer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;curTime + time[worker][<span class="hljs-number">3</span>], worker&#125;);<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (n &gt; <span class="hljs-number">0</span> &amp;&amp; !leftBridge.isEmpty()) &#123;<br>                <span class="hljs-type">int</span> <span class="hljs-variable">worker</span> <span class="hljs-operator">=</span> Objects.requireNonNull(leftBridge.poll());<br>                curTime += time[worker][<span class="hljs-number">0</span>];<br>                rightPickingOld.offer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;curTime + time[worker][<span class="hljs-number">1</span>], worker&#125;);<br>                n--;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                curTime = Math.min(<br>                        rightPickingOld.isEmpty() ? Integer.MAX_VALUE : rightPickingOld.peek()[<span class="hljs-number">0</span>], <br>                        leftPuttingNew.isEmpty() ? Integer.MAX_VALUE : leftPuttingNew.peek()[<span class="hljs-number">0</span>]);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> curTime;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
                 
               </div>
             
@@ -298,11 +314,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
+        <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">#优先队列</a>
       
-        <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
-      
-        <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">#二分查找</a>
+        <a href="/tags/%E5%A4%8D%E6%9D%82%E6%A8%A1%E6%8B%9F/">#复杂模拟</a>
       
     </div>
   
@@ -314,8 +328,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LC-300.最长递增子序列</div>
-      <div>https://wecgwm.github.io/2022/12/11/LC-300-最长递增子序列/</div>
+      <div>LC-2532.过桥的时间</div>
+      <div>https://wecgwm.github.io/2023/01/11/LC-2532-过桥的时间/</div>
     </div>
     <div class="license-meta">
       
@@ -327,7 +341,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年12月11日</div>
+          <div>2023年1月11日</div>
         </div>
       
       
@@ -359,18 +373,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/12/11/LC-1691-%E5%A0%86%E5%8F%A0%E9%95%BF%E6%96%B9%E4%BD%93%E7%9A%84%E6%9C%80%E5%A4%A7%E9%AB%98%E5%BA%A6/" title="LC-1691.堆叠长方体的最大高度">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LC-1691.堆叠长方体的最大高度</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/12/08/LC-1687-%E4%BB%8E%E4%BB%93%E5%BA%93%E5%88%B0%E7%A0%81%E5%A4%B4%E8%BF%90%E8%BE%93%E7%AE%B1%E5%AD%90/" title="LC-1687.从仓库到码头运输箱子">
-                        <span class="hidden-mobile">LC-1687.从仓库到码头运输箱子</span>
+                      <a href="/2023/01/08/LC-1658-%E5%B0%86x%E5%87%8F%E5%88%B00%E7%9A%84%E6%9C%80%E5%B0%8F%E6%93%8D%E4%BD%9C%E6%95%B0/" title="LC-1658.将x减到0的最小操作数">
+                        <span class="hidden-mobile">LC-1658.将x减到0的最小操作数</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -393,7 +401,7 @@
         var options = Object.assign(
           {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: 'd29062a99c9b4172bed1ff1b79d4b1d0'
+            id: 'd357943ea84fcbdcf66159d9d24cbb8a'
           }
         )
         var gitalk = new Gitalk(options);
