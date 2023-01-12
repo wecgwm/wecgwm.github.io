@@ -24,7 +24,7 @@
 <meta property="og:description" content="题目描述leetcode 困难题 给你一个整数数组 nums （下标 从 0 开始 计数）以及两个整数：low 和 high ，请返回 漂亮数对 的数目。 漂亮数对 是一个形如 (i, j) 的数对，其中 0 &lt;&#x3D; i &lt; j &lt; nums.length 且 low &lt;&#x3D; (nums[i] XOR nums[j]) &lt;&#x3D; high 。 示">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-01-12T18:31:50.000Z">
-<meta property="article:modified_time" content="2023-01-12T14:27:24.773Z">
+<meta property="article:modified_time" content="2023-01-12T14:50:56.865Z">
 <meta property="article:author" content="yichen">
 <meta property="article:tag" content="字典树">
 <meta property="article:tag" content="容斥原理">
@@ -275,7 +275,7 @@
 <h2 id="01字典树"><a href="#01字典树" class="headerlink" title="01字典树"></a>01字典树</h2><p>题目要求的是异或值在 $[low, high]$ 区间的数对数量，设 $f(x)$ 表示异或值在 $[0, x]$ 区间的数对数量，那么通过容斥原理原问题可以转换成求 $f(high) - f(low - 1)$ 。</p>
 <p>“对于数组异或计数问题，我们通常可以使用01字典树来解决”</p>
 <p>01字典树的定义类似字典树，不同的是01字典树的子节点只存在 $0$、$1$ 结点两种可能，分别代表二进制位的 $0$、$1$，并按照从高位到低位的顺序存储一个数的二进制，即根节点存储最高位的二进制，且通过一个变量 $cnt$ 存储以当前二进制为前缀的数的个数。</p>
-<p>由于数据范围为 $[1, 2 * 10^4]$ ，所以我们只需要存储一个数的 $[0, 14]$ 位二进制即可，因为 $2^{15} &gt; 2*10^4$ 。</p>
+<p>由于数据范围为 $[1, 2 * 10^4]$ ，所以我们只需要存储一个数的 $[0, 14]$ 位二进制即可，因为 $2^{15} - 1 &gt; 2*10^4$ 。</p>
 <p>先设 $search(num, x)$ 表示当前树中与 $num$ 的异或值小于等于 $x$ 的数的数量。那么对于 $f(x)$，只需要顺序遍历数组，累加当前元素的 $search(nums[i], x)$ 并将当前元素加入到01字典树中就能得到结果。</p>
 <p>对于任意一个数 $x &lt; y$ ，都存在一个数 $k$ ，使得他们的二进制表示中的最高位到 $k + 1$ 位都相同，而第 $k$ 位却为小于的关系。</p>
 <p>对于 $search(num, x)$ 的具体实现如下：设结果为 $ret$，我们从根节点开始遍历字典树，设当前遍历到的树节点为 $p$，同时从最高位开始遍历 $num$ 和 $x$ ，设当前遍历到第 $i$ 位，且 $num$ 的第 $i$ 位为 $cur$：</p>
