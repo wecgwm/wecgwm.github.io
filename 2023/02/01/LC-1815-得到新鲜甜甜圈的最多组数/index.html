@@ -24,7 +24,7 @@
 <meta property="og:description" content="题目描述leetcode 困难题 有一个甜甜圈商店，每批次都烤 batchSize 个甜甜圈。这个店铺有个规则，就是在烤一批新的甜甜圈时，之前 所有 甜甜圈都必须已经全部销售完毕。给你一个整数 batchSize 和一个整数数组 groups ，数组中的每个整数都代表一批前来购买甜甜圈的顾客，其中 groups[i] 表示这一批顾客的人数。每一位顾客都恰好只要一个甜甜圈。 当有一批顾客来到商店时，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-02-01T18:52:33.000Z">
-<meta property="article:modified_time" content="2023-02-02T10:56:54.057Z">
+<meta property="article:modified_time" content="2023-02-02T11:05:49.391Z">
 <meta property="article:author" content="yichen">
 <meta property="article:tag" content="记忆化搜索">
 <meta property="article:tag" content="状态压缩">
@@ -274,11 +274,11 @@
 <p>提示1：</p>
 <figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>&lt;= batchSize &lt;= <span class="hljs-number">9</span><br><span class="hljs-symbol">1 </span>&lt;= groups.length &lt;= <span class="hljs-number">30</span><br><span class="hljs-symbol">1 </span>&lt;= groups[i] &lt;= <span class="hljs-number">109</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="状态压缩-记忆化搜索"><a href="#状态压缩-记忆化搜索" class="headerlink" title="状态压缩 + 记忆化搜索"></a>状态压缩 + 记忆化搜索</h2><p>设第 $i$ 批顾客的数量对 $batchSize$ 取模后的结果为 $mod_i$，如果 $(mod_0 + mod_1 + … + mod_i) % batchSize&#x3D;&#x3D; 0$ ，那么该批顾客就是开心的，也就是说其实我们只需要关心每批顾客数量对 $batchSize$ 取模后的结果即可。</p>
-<p>于是我们可以先预处理出 $group[i] %&#x3D; batchSize$ ，这样一来 $group[i]$ 数量范围缩小到了 $1-9$ ，接着我们再对相同的 $group[i]$ 分为一组进行计数，设计数结果其为 $cnt0,cnt1…cnt9$ ，并设 $si &#x3D; cnt_i*i$ （这里的 $i$ 不是 $group$ 下标而是分组后的下标，也就是 $1-9$）。</p>
+<h2 id="状态压缩-记忆化搜索"><a href="#状态压缩-记忆化搜索" class="headerlink" title="状态压缩 + 记忆化搜索"></a>状态压缩 + 记忆化搜索</h2><p>设第 $i$ 批顾客的数量对 $batchSize$ 取模后的结果为 $mod_i$，如果 $(mod_0 + mod_1 + … + mod_i) \% batchSize &#x3D; 0$ ，那么该批顾客就是开心的，也就是说其实我们只需要关心每批顾客数量对 $batchSize$ 取模后的结果即可。</p>
+<p>于是我们可以先预处理出 $group[i] \%&#x3D; batchSize$ ，这样一来 $group[i]$ 数量范围缩小到了 $1-9$ ，接着我们再对相同的 $group[i]$ 分为一组进行计数，设计数结果为 $cnt0,cnt1…cnt9$ ，并设 $si &#x3D; cnt_i*i$ （这里的 $i$ 不是 $group$ 下标而是分组后的下标，也就是 $1-9$）。</p>
 <p>设 $f(s0,s1,…s9)$ 为当 $group$ 取模分组后结果为 $s0, s1…s9$ 时能取到的最大开心组数。如上所说</p>
 <blockquote>
-<p>如果 $(mod_0 + mod_1 + … + mod_i) % batchSize&#x3D;&#x3D; 0$ ，那么该批顾客就是开心的。</p>
+<p>如果 $(mod_0 + mod_1 + … + mod_i) \% batchSize&#x3D;&#x3D; 0$ ，那么该批顾客就是开心的。</p>
 </blockquote>
 <p>由此可以得出，设 <strong>最后一组</strong> 顾客为 $i$，状态转移方程为：</p>
 <p>$$<br>\begin{align}<br>&amp;f(s0…si…s9) &#x3D; f(s0…si - i…s9)　　　　　　　 if　(s0 + s1 + … si - i + s9) \% batchSize !&#x3D; 0 \\<br>&amp;f(s0…si…s9) &#x3D; f(s0…si - i…s9)+ 1　　　   　　if　(s0 + s1 + … si - i + s9) \% batchSize &#x3D;&#x3D; 0 \\<br>\end{align}<br>$$</p>
