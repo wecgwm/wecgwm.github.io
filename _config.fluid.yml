@@ -18,11 +18,11 @@
 
 # 用于浏览器标签的图标
 # Icon for browser tab
-favicon: /img/20221103120102.jpg
+favicon: /img/a6041a455d0d13b8c9b63f30642af1b.jpg
 
 # 用于苹果设备的图标
 # Icon for Apple touch
-apple_touch_icon: /img/20221103120102.jpg
+apple_touch_icon: /img/a6041a455d0d13b8c9b63f30642af1b.jpg
 
 # 浏览器标签页中的标题分隔符，效果： 文章名 - 站点名
 # Title separator in browser tab, eg: article - site
@@ -889,7 +889,7 @@ archive:
   banner_img: /img/20220710105552.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
-  subtitle: "无所谓，我会按时做核酸"
+  subtitle: "归档"
 
 #---------------------------
 # 分类页
@@ -937,7 +937,7 @@ tag:
     unit: px
     start_color: "#BBBBEE"
     end_color: "#337ab7"
-  subtitle: "若批评不自由 则赞美无意义"
+  subtitle: "标签"
 
 #---------------------------
 # 关于页
@@ -946,7 +946,7 @@ tag:
 about:
   enable: true
   #banner_img: /img/default.png
-  banner_img: /img/6a9226f14b7bc83ced367c7035b17ef.jpg
+  banner_img: /img/37834fd8b6327876a1cb5340dd0128b.jpg
   banner_img_height: 60
   banner_mask_alpha: 0.3
   avatar: /img/20221103120102.jpg
@@ -955,9 +955,9 @@ about:
   # 更多图标可从 https://hexo.fluid-dev.com/docs/icon/ 查找，`class` 代表图标的 css class，添加 `qrcode` 后，图标不再是链接而是悬浮二维码
   # More icons can be found from https://hexo.fluid-dev.com/docs/en/icon/  `class` is the css class of the icon. If adding `qrcode`, The icon is no longer a link, but a hovering QR code
   icons:
-    - { class: "iconfont icon-github-fill", link: "https://github.com", tip: "GitHub" }
-    - { class: "iconfont icon-douban-fill", link: "https://douban.com", tip: "豆瓣" }
-    - { class: "iconfont icon-wechat-fill", qrcode: "/img/favicon.png" }
+  #   - { class: "iconfont icon-github-fill", link: "https://github.com", tip: "GitHub" }
+  #   - { class: "iconfont icon-douban-fill", link: "https://douban.com", tip: "豆瓣" }
+  #   - { class: "iconfont icon-wechat-fill", qrcode: "/img/favicon.png" }
   subtitle: "成分复杂"
 
 #---------------------------
