@@ -24,7 +24,7 @@
 <meta property="og:description" content="题目描述leetcode 困难题 有一个甜甜圈商店，每批次都烤 batchSize 个甜甜圈。这个店铺有个规则，就是在烤一批新的甜甜圈时，之前 所有 甜甜圈都必须已经全部销售完毕。给你一个整数 batchSize 和一个整数数组 groups ，数组中的每个整数都代表一批前来购买甜甜圈的顾客，其中 groups[i] 表示这一批顾客的人数。每一位顾客都恰好只要一个甜甜圈。 当有一批顾客来到商店时，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-02-01T18:52:33.000Z">
-<meta property="article:modified_time" content="2023-02-03T17:53:11.176Z">
+<meta property="article:modified_time" content="2023-02-06T16:26:44.954Z">
 <meta property="article:author" content="yichen">
 <meta property="article:tag" content="记忆化搜索">
 <meta property="article:tag" content="状态压缩">
@@ -281,7 +281,7 @@
 <p>如果 $(mod_0 + mod_1 + … + mod_i) \% batchSize&#x3D;&#x3D; 0$ ，那么该批顾客就是开心的。</p>
 </blockquote>
 <p>由此可以得出，设 <strong>最后一组</strong> 顾客为 $i$，状态转移方程为：</p>
-<p>$$<br>\begin{align}<br>&amp;f(s0…si…s9) &#x3D; f(s0…si - i…s9)　　　　　　　 if　(s0 + s1 + … si - i + s9) \% batchSize !&#x3D; 0 \\<br>&amp;f(s0…si…s9) &#x3D; f(s0…si - i…s9)+ 1　　　   　　if　(s0 + s1 + … si - i + s9) \% batchSize &#x3D;&#x3D; 0 \\<br>\end{align}<br>$$</p>
+<p>$$<br>\begin{align}<br>&amp;f(s0…si…s9) &#x3D; f(s0…si - i…s9)　　　　　if　(s0 + s1 + … si - i + s9) \% batchSize !&#x3D; 0 \\<br>&amp;f(s0…si…s9) &#x3D; f(s0…si - i…s9)+ 1　　　if　(s0 + s1 + … si - i + s9) \% batchSize &#x3D;&#x3D; 0 \\<br>\end{align}<br>$$</p>
 <p>剩下问题就是如何表示出 $s0,s1…s9$ 了，一种方法是开九维数组，过于复杂。</p>
 <p>注意到 $1 &lt;&#x3D; groups.length &lt;&#x3D; 30$ ，也就是说 $si$ 均小于 $30$ ，我们可以用 $5$ 个二进制来存储一个 $si$，而 $s0$ 可以不处理，因为只需要将 $mod_0$ 的顾客最先处理，那么他们都是开心的，此时只需要将答案加上 $cnt_0$ 即可。所以我们总共需要 $8 * 5 &#x3D; 40$ 个二进制就可以表示出状态，也就是一个 $long$ 类型。</p>
 <p>具体求解时，可以采用记忆化搜索的方式，答案为当最后一组顾客为 $1…9$ 时所转移出来的最大值再加上 $cnt0$。</p>
