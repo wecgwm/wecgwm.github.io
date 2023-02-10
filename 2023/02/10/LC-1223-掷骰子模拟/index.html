@@ -16,24 +16,22 @@
   <meta name="author" content="yichen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述leetcode 困难题 给你两个下标从 0 开始的整数数组 nums1 和 nums2 ，两者长度都为 n 。 每次操作中，你可以选择交换 nums1 中任意两个下标处的值。操作的 开销 为两个下标的 和 。 你的目标是对于所有的 0 &lt;&#x3D; i &lt;&#x3D; n - 1 ，都满足 nums1[i] !&#x3D; nums2[i] ，你可以进行 任意次 操作，请你">
+    <meta name="description" content="题目描述leetcode 困难题 有一个骰子模拟器会每次投掷的时候生成一个 1 到 6 的随机数。 不过我们在使用它时有个约束，就是使得投掷骰子时，连续 掷出数字 i 的次数不能超过 rollMax[i]（i 从 1 开始编号）。 现在，给你一个整数数组 rollMax 和一个整数 n，请你来计算掷 n 次骰子可得到的不同点数序列的数量。 假如两个序列中至少存在一个元素不同，就认为这两个序列是不同">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LC-2499.让数组不相等的最小总代价">
-<meta property="og:url" content="https://wecgwm.github.io/2022/12/14/LC-2499-%E8%AE%A9%E6%95%B0%E7%BB%84%E4%B8%8D%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E6%80%BB%E4%BB%A3%E4%BB%B7/index.html">
+<meta property="og:title" content="LC-1223.掷骰子模拟">
+<meta property="og:url" content="https://wecgwm.github.io/2023/02/10/LC-1223-%E6%8E%B7%E9%AA%B0%E5%AD%90%E6%A8%A1%E6%8B%9F/index.html">
 <meta property="og:site_name" content="yichen">
-<meta property="og:description" content="题目描述leetcode 困难题 给你两个下标从 0 开始的整数数组 nums1 和 nums2 ，两者长度都为 n 。 每次操作中，你可以选择交换 nums1 中任意两个下标处的值。操作的 开销 为两个下标的 和 。 你的目标是对于所有的 0 &lt;&#x3D; i &lt;&#x3D; n - 1 ，都满足 nums1[i] !&#x3D; nums2[i] ，你可以进行 任意次 操作，请你">
+<meta property="og:description" content="题目描述leetcode 困难题 有一个骰子模拟器会每次投掷的时候生成一个 1 到 6 的随机数。 不过我们在使用它时有个约束，就是使得投掷骰子时，连续 掷出数字 i 的次数不能超过 rollMax[i]（i 从 1 开始编号）。 现在，给你一个整数数组 rollMax 和一个整数 n，请你来计算掷 n 次骰子可得到的不同点数序列的数量。 假如两个序列中至少存在一个元素不同，就认为这两个序列是不同">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-12-14T01:56:13.000Z">
+<meta property="article:published_time" content="2023-02-10T09:17:22.000Z">
 <meta property="article:modified_time" content="2023-02-10T02:21:47.186Z">
 <meta property="article:author" content="yichen">
-<meta property="article:tag" content="贪心">
-<meta property="article:tag" content="思维题">
-<meta property="article:tag" content="分类讨论">
+<meta property="article:tag" content="动态规划">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>LC-2499.让数组不相等的最小总代价 - yichen</title>
+  <title>LC-1223.掷骰子模拟 - yichen</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -187,7 +185,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LC-2499.让数组不相等的最小总代价"></span>
+            <span id="subtitle" data-typed-text="LC-1223.掷骰子模拟"></span>
           
         </div>
 
@@ -198,8 +196,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-12-14 01:56" pubdate>
-          2022年12月14日 凌晨
+        <time datetime="2023-02-10 09:17" pubdate>
+          2023年2月10日 上午
         </time>
       </span>
     
@@ -210,7 +208,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          2.2k 字
         
       </span>
     
@@ -221,7 +219,7 @@
         
         
         
-          12 分钟
+          19 分钟
         
       </span>
     
@@ -259,29 +257,30 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LC-2499.让数组不相等的最小总代价</h1>
+            <h1 style="display: none">LC-1223.掷骰子模拟</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-total-cost-to-make-arrays-unequal/">leetcode 困难题</a></p>
-<p>给你两个下标从 0 开始的整数数组 nums1 和 nums2 ，两者长度都为 n 。</p>
-<p>每次操作中，你可以选择交换 nums1 中任意两个下标处的值。操作的 开销 为两个下标的 和 。</p>
-<p>你的目标是对于所有的 0 &lt;&#x3D; i &lt;&#x3D; n - 1 ，都满足 nums1[i] !&#x3D; nums2[i] ，你可以进行 任意次 操作，请你返回达到这个目标的 最小 总代价。</p>
-<p>请你返回让 nums1 和 nums2 满足上述条件的 最小总代价 ，如果无法达成目标，返回 -1 。</p>
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/dice-roll-simulation/">leetcode 困难题</a></p>
+<p>有一个骰子模拟器会每次投掷的时候生成一个 1 到 6 的随机数。</p>
+<p>不过我们在使用它时有个约束，就是使得投掷骰子时，连续 掷出数字 i 的次数不能超过 rollMax[i]（i 从 1 开始编号）。</p>
+<p>现在，给你一个整数数组 rollMax 和一个整数 n，请你来计算掷 n 次骰子可得到的不同点数序列的数量。</p>
+<p>假如两个序列中至少存在一个元素不同，就认为这两个序列是不同的。由于答案可能很大，所以请返回 模 10^9 + 7 之后的结果。</p>
 <p>示例1：</p>
-<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：nums1 = [1,2,3,4,5], nums2 = [1,2,3,4,5]<br>输出：10<br>解释：<br>实现目标的其中一种方法为：<br>- 交换下标为<span class="hljs-number"> 0 </span>和<span class="hljs-number"> 3 </span>的两个值，代价为<span class="hljs-number"> 0 </span>+<span class="hljs-number"> 3 </span>=<span class="hljs-number"> 3 </span>。现在 nums1 = [4,2,3,1,5] 。<br>- 交换下标为<span class="hljs-number"> 1 </span>和<span class="hljs-number"> 2 </span>的两个值，代价为<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 2 </span>=<span class="hljs-number"> 3 </span>。现在 nums1 = [4,3,2,1,5] 。<br>- 交换下标为<span class="hljs-number"> 0 </span>和<span class="hljs-number"> 4 </span>的两个值，代价为<span class="hljs-number"> 0 </span>+<span class="hljs-number"> 4 </span>=<span class="hljs-number"> 4 </span>。现在 nums1 = [5,3,2,1,4] 。<br>最后，对于每个下标 i ，都有 nums1[i] != nums2[i] 。总代价为<span class="hljs-number"> 10 </span>。<br>还有别的交换值的方法，但是无法得到代价和小于<span class="hljs-number"> 10 </span>的方案。<br></code></pre></td></tr></table></figure>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：n = 2, rollMax = [1,1,2,2,2,3]<br>输出：34<br>解释：我们掷<span class="hljs-number"> 2 </span>次骰子，如果没有约束的话，共有<span class="hljs-number"> 6 </span>*<span class="hljs-number"> 6 </span>=<span class="hljs-number"> 36 </span>种可能的组合。但是根据 rollMax 数组，数字<span class="hljs-number"> 1 </span>和<span class="hljs-number"> 2 </span>最多连续出现一次，所以不会出现序列 (1,1) 和 (2,2)。因此，最终答案是 36-2 = 34。<br></code></pre></td></tr></table></figure>
 
 <p>提示1：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus">n == nums1<span class="hljs-selector-class">.length</span> == nums2<span class="hljs-selector-class">.length</span><br><span class="hljs-number">1</span> &lt;= n &lt;= <span class="hljs-number">105</span><br><span class="hljs-number">1</span> &lt;= nums1<span class="hljs-selector-attr">[i]</span>, nums2<span class="hljs-selector-attr">[i]</span> &lt;= n<br></code></pre></td></tr></table></figure>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs abnf"><span class="hljs-number">1</span> &lt;<span class="hljs-operator">=</span> n &lt;<span class="hljs-operator">=</span> <span class="hljs-number">5000</span><br>rollMax.length <span class="hljs-operator">=</span><span class="hljs-operator">=</span> <span class="hljs-number">6</span><br><span class="hljs-number">1</span> &lt;<span class="hljs-operator">=</span> rollMax[i] &lt;<span class="hljs-operator">=</span> <span class="hljs-number">15</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="分类讨论-贪心"><a href="#分类讨论-贪心" class="headerlink" title="分类讨论 + 贪心"></a>分类讨论 + 贪心</h2><p>定义所有 $num1[i] &#x3D;&#x3D; num2[i]$ 的总次数为 $count$，众数为 $most$，众数相等的次数为 $mostCount$</p>
-<p>分类讨论：</p>
-<ul>
-<li>如果 $mostCount * 2 &lt;&#x3D; count$，则所有交换可以在这些已经相等的元素之间进行，答案为这些相等的元素下标之和</li>
-<li>如果 $mostCount * 2 &gt; count$，则交换无法只在这些相等的元素之间进行，需要与其他原本就不相等的元素进行交换，由于要使代价最小，要尽量使用下标较小的元素，并且该下标的元素不能等于 $most$，每次使用会让 $count + 1$，直至满足 $mostCount * 2 &lt;&#x3D; count$。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">long</span> <span class="hljs-title function_">minimumTotalCost</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums1, <span class="hljs-type">int</span>[] nums2)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, most = <span class="hljs-number">0</span>, n = nums1.length;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span>[] cnt = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n + <span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++)&#123;<br>            <span class="hljs-keyword">if</span>(nums1[i] == nums2[i])&#123;<br>                count++;<br>                cnt[nums1[i]]++;<br>                ans += i;<br>                most = cnt[nums1[i]] &gt; cnt[most] ? nums1[i] : most;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n &amp;&amp; cnt[most] * <span class="hljs-number">2</span> &gt; count; i++)&#123;<br>            <span class="hljs-keyword">if</span>(nums1[i] != nums2[i] &amp;&amp; nums1[i] != most &amp;&amp; nums2[i] != most)&#123;<br>                count++;<br>                ans += i;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> cnt[most] * <span class="hljs-number">2</span> &lt;= count ? ans : -<span class="hljs-number">1</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
-</ul>
-
+<h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>定义 $dp[i][j]$ 表示第 $i$ 次掷骰子结果点数为 $j$ 的序列个数，那么答案为 $\sum\limits_{j&#x3D;1}^6 dp[n][j]$ 。</p>
+<p>先不考虑连续点数上限的限制，那么 $dp[i][j] &#x3D; \sum\limits_{k&#x3D;1}^6dp[i-1][k]$ 。此时只需要再减去以 $j$ 点数结尾并刚好超过 $rollMax[j-1]$ 点数的序列个数即可。</p>
+<p>举例说明，设 $j &#x3D; 3, rollMax[3] &#x3D; 4$ ，考虑 $dp[7][3]$ ，也就是第 $7$ 次掷出 $3$ 时，此时连续出现 $5$ 个 $3$ 的序列个数为多少。显然该序列只会有一种形式，也就是 $x_1x_233333$，其中 $x_2$ 为不等于 $3$ 的任意点数，该序列的数量即 $dp[2][1] + dp[2][2] + dp[2][4] + dp[2][5] + dp[2][6]$。</p>
+<p>也就是说，对于 $dp[i][j]$，我们只需要在上面累加的基础上再减去 $\sum\limits_{k&#x3D;1\&amp;k!&#x3D;j}^6dp[i - rollMax[j - 1] - 1][k]$ 即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">MOD</span> <span class="hljs-operator">=</span> (<span class="hljs-type">int</span>)(<span class="hljs-number">1e9</span> + <span class="hljs-number">7</span>);<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">dieSimulator</span><span class="hljs-params">(<span class="hljs-type">int</span> n, <span class="hljs-type">int</span>[] rollMax)</span> &#123;<br>        <span class="hljs-type">long</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">long</span>[n + <span class="hljs-number">2</span>][<span class="hljs-number">7</span>];<br>        dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= n + <span class="hljs-number">1</span>; i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; j &lt;= <span class="hljs-number">6</span>; j++)&#123;<br>                <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; k &lt;= <span class="hljs-number">6</span>; k++)&#123; <br>                    dp[i][j] = (dp[i][j] + dp[i - <span class="hljs-number">1</span>][k]) % MOD;<br>                &#125;<br>                <span class="hljs-keyword">if</span>(i &lt; n + <span class="hljs-number">1</span> &amp;&amp; i &gt; rollMax[j - <span class="hljs-number">1</span>])&#123;<br>                    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; k &lt;= <span class="hljs-number">6</span>; k++)&#123;<br>                        <span class="hljs-keyword">if</span>(k == j)&#123;<br>                            <span class="hljs-keyword">continue</span>;<br>                        &#125;<br>                        dp[i][j] = dp[i][j] - dp[i - rollMax[j - <span class="hljs-number">1</span>] - <span class="hljs-number">1</span>][k];<br>                        <span class="hljs-keyword">if</span>(dp[i][j] &lt;= <span class="hljs-number">0</span>)&#123;<br>                            dp[i][j] += MOD;<br>                        &#125;<br>                    &#125;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> (<span class="hljs-type">int</span>)dp[n + <span class="hljs-number">1</span>][<span class="hljs-number">1</span>];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>还有另一种更暴力，但是也较为繁琐的解法。</p>
+<p>定义 $dp[i][j][k]$ 表示第 $i$ 次掷骰子结果点数为 $j$ 且此时已经连续出现了 $k$ 次 $j$ 的序列个数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">MOD</span> <span class="hljs-operator">=</span> (<span class="hljs-type">int</span>)(<span class="hljs-number">1e9</span> + <span class="hljs-number">7</span>);<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">dieSimulator</span><span class="hljs-params">(<span class="hljs-type">int</span> n, <span class="hljs-type">int</span>[] rollMax)</span> &#123;<br>        <span class="hljs-type">long</span>[][][] dp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">long</span>[n + <span class="hljs-number">1</span>][<span class="hljs-number">7</span>][<span class="hljs-number">16</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">6</span>; i++)&#123;<br>            dp[<span class="hljs-number">1</span>][i][<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span>; i &lt;= n; i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; j &lt;= <span class="hljs-number">6</span>; j++)&#123; <br>                <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; k &lt;= <span class="hljs-number">15</span>; k++)&#123;<br>                   <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; p &lt;= <span class="hljs-number">6</span>; p++)&#123; <br>                        <span class="hljs-keyword">if</span>(j == p &amp;&amp; k &lt;= rollMax[j - <span class="hljs-number">1</span>])&#123; <br>                            dp[i][j][k] = (dp[i][j][k] + dp[i - <span class="hljs-number">1</span>][p][k - <span class="hljs-number">1</span>]) % MOD;<br>                            <span class="hljs-keyword">continue</span>;<br>                        &#125;<br>                        <span class="hljs-keyword">if</span>(j != p)&#123;<br>                            dp[i][j][<span class="hljs-number">1</span>] = (dp[i][j][<span class="hljs-number">1</span>] + dp[i - <span class="hljs-number">1</span>][p][k]) % MOD;<br>                        &#125;<br>                    &#125; <br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; j &lt;= <span class="hljs-number">6</span>; j++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; k &lt;= rollMax[j - <span class="hljs-number">1</span>]; k++)&#123;<br>                ans = (ans + dp[n][j][k]) % MOD;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> (<span class="hljs-type">int</span>)ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -293,11 +292,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
-      
-        <a href="/tags/%E6%80%9D%E7%BB%B4%E9%A2%98/">#思维题</a>
-      
-        <a href="/tags/%E5%88%86%E7%B1%BB%E8%AE%A8%E8%AE%BA/">#分类讨论</a>
+        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
       
     </div>
   
@@ -309,8 +304,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LC-2499.让数组不相等的最小总代价</div>
-      <div>https://wecgwm.github.io/2022/12/14/LC-2499-让数组不相等的最小总代价/</div>
+      <div>LC-1223.掷骰子模拟</div>
+      <div>https://wecgwm.github.io/2023/02/10/LC-1223-掷骰子模拟/</div>
     </div>
     <div class="license-meta">
       
@@ -322,7 +317,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年12月14日</div>
+          <div>2023年2月10日</div>
         </div>
       
       
@@ -354,18 +349,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/12/14/LC-2503-%E7%9F%A9%E9%98%B5%E6%9F%A5%E8%AF%A2%E5%8F%AF%E8%8E%B7%E5%BE%97%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%86%E6%95%B0/" title="LC-2503.矩阵查询可获得的最大分数">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LC-2503.矩阵查询可获得的最大分数</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/12/11/LC-6262-%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E6%98%9F%E5%92%8C/" title="LC-6262.图中最大星和">
-                        <span class="hidden-mobile">LC-6262.图中最大星和</span>
+                      <a href="/2023/02/06/LC-753-%E7%A0%B4%E8%A7%A3%E4%BF%9D%E9%99%A9%E7%AE%B1/" title="LC-753.破解保险箱">
+                        <span class="hidden-mobile">LC-753.破解保险箱</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -388,7 +377,7 @@
         var options = Object.assign(
           {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: '6a8b3464bdf6deeb0152436b0894be06'
+            id: '1aa36aa421f266e20ba240e48e8cea3f'
           }
         )
         var gitalk = new Gitalk(options);
