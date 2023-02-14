@@ -24,10 +24,10 @@
 <meta property="og:description" content="题目描述leetcode 中等题 给你一个整数数组 nums 和两个整数：left 及 right 。找出 nums 中连续、非空且其中最大元素在范围 [left, right] 内的子数组，并返回满足条件的子数组的个数。 示例1： 123输入：nums &#x3D; [2,1,4,3], left &#x3D; 2, right &#x3D; 3输出：3解释：满足条件的三个子数组：[2], [2, 1], [3]  提示1：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-24T18:05:57.000Z">
-<meta property="article:modified_time" content="2023-02-13T10:47:01.345Z">
+<meta property="article:modified_time" content="2023-02-14T12:49:18.031Z">
 <meta property="article:author" content="yichen">
-<meta property="article:tag" content="双指针&#x2F;多指针">
 <meta property="article:tag" content="单调栈">
+<meta property="article:tag" content="双指针&#x2F;多指针">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -220,7 +220,7 @@
         
         
         
-          21 分钟
+          22 分钟
         
       </span>
     
@@ -275,8 +275,8 @@
 <p>我们初始化左右指针都指向 $0$ ，右指针每次后移一位。<strong>并统计以右指针为子数组右端点且符合题意的子数组个数。</strong></p>
 <p>具体遍历时，分以下三种情况进行处理</p>
 <ul>
-<li>如果当前元素 $left &lt;&#x3D; nums[i] &lt;&#x3D; right$，我们只需要将答案累加 $right - left + 1$ 即可。并且同时维护一个 $lastMatch$，代表最后一个遇到的符合大于 $left$ 小于 $right$ 的元素下标，将其更新为当前下标。</li>
-<li>如果当前元素 $nums[i] &lt; left$ ，我们就需要找到左边第一个满足 $left &lt;&#x3D; nums[i] &lt;&#x3D; right$ 的下标，也就是 $lastMatch$，则显然以 $[lastMatch…right]$ 段任意元素作为左端点的子数组都不符合要求；而对于 $[left…lastMatch]$ 段，每个子数组都至少存在一个 $lastMatch$ 是符合要求的，所以我们将答案累加 $lastMatch - left + 1$ 。</li>
+<li>如果当前元素 $left &lt;&#x3D; nums[i] &lt;&#x3D; right$，我们只需要将答案累加 $rightPoint - leftPoint + 1$ 即可。并且同时维护一个 $lastMatch$，代表最后一个遇到的符合大于 $left$ 小于 $right$ 的元素下标，将其更新为当前下标。</li>
+<li>如果当前元素 $nums[i] &lt; left$ ，我们就需要找到左边第一个满足 $left &lt;&#x3D; nums[i] &lt;&#x3D; right$ 的下标，也就是 $lastMatch$，则显然以 $[lastMatch…rightPoint]$ 段任意元素作为左端点的子数组都不符合要求；而对于 $[leftPoint…lastMatch]$ 段，每个子数组都至少存在一个 $lastMatch$ 是符合要求的，所以我们将答案累加 $lastMatch - leftPoint + 1$ 。</li>
 <li>如果当前元素 $nums &gt; right$ ，我们只需要将左指针移动到 $i + 1$ 并将 $lastMatch$ 置为 $-1$ 即可，因为包含该元素的任意子数组都不符合题目要求。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">numSubarrayBoundedMax</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, lastMatch = -<span class="hljs-number">1</span>, n = nums.length;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">leftPoint</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, rightPoint = <span class="hljs-number">0</span>; rightPoint &lt; n; rightPoint++)&#123;<br>            <span class="hljs-keyword">if</span>(left &lt;= nums[rightPoint]  &amp;&amp; nums[rightPoint] &lt;= right)&#123;<br>                lastMatch = rightPoint;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(nums[rightPoint] &gt; right)&#123;<br>                lastMatch = -<span class="hljs-number">1</span>;<br>                leftPoint = rightPoint + <span class="hljs-number">1</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(lastMatch != - <span class="hljs-number">1</span>)&#123;<br>                ans += lastMatch - leftPoint + <span class="hljs-number">1</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h2><p>前面双指针的做法相当于每次求解以遍历到的当前元素作为右端点的合法子数组数量，另一种方法则是求解以当前元素作为子数组最大值的合法子数组数量。</p>
@@ -295,9 +295,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88-%E5%A4%9A%E6%8C%87%E9%92%88/">#双指针/多指针</a>
-      
         <a href="/tags/%E5%8D%95%E8%B0%83%E6%A0%88/">#单调栈</a>
+      
+        <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88-%E5%A4%9A%E6%8C%87%E9%92%88/">#双指针/多指针</a>
       
     </div>
   
