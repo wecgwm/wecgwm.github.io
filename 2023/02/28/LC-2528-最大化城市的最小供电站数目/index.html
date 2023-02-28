@@ -16,22 +16,24 @@
   <meta name="author" content="yichen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述leetcode 困难题 有一个需要密码才能打开的保险箱。密码是 n 位数, 密码的每一位都是范围 [0, k - 1] 中的一个数字。 保险箱有一种特殊的密码校验方法，你可以随意输入密码序列，保险箱会自动记住 最后 n 位输入 ，如果匹配，则能够打开保险箱。 例如，正确的密码是 “345” ，并且你输入的是 “012345” ：输入 0 之后，最后 3 位输入是 “0” ，不正确。输入">
+    <meta name="description" content="题目描述leetcode 困难题 给你一个下标从 0 开始长度为 n 的整数数组 stations ，其中 stations[i] 表示第 i 座城市的供电站数目。 每个供电站可以在一定 范围 内给所有城市提供电力。换句话说，如果给定的范围是 r ，在城市 i 处的供电站可以给所有满足 |i - j| &lt;&#x3D; r 且 0 &lt;&#x3D; i, j &lt;&#x3D; n -">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LC-753.破解保险箱">
-<meta property="og:url" content="https://wecgwm.github.io/2023/02/06/LC-753-%E7%A0%B4%E8%A7%A3%E4%BF%9D%E9%99%A9%E7%AE%B1/index.html">
+<meta property="og:title" content="LC-2528.最大化城市的最小供电站数目">
+<meta property="og:url" content="https://wecgwm.github.io/2023/02/28/LC-2528-%E6%9C%80%E5%A4%A7%E5%8C%96%E5%9F%8E%E5%B8%82%E7%9A%84%E6%9C%80%E5%B0%8F%E4%BE%9B%E7%94%B5%E7%AB%99%E6%95%B0%E7%9B%AE/index.html">
 <meta property="og:site_name" content="yichen">
-<meta property="og:description" content="题目描述leetcode 困难题 有一个需要密码才能打开的保险箱。密码是 n 位数, 密码的每一位都是范围 [0, k - 1] 中的一个数字。 保险箱有一种特殊的密码校验方法，你可以随意输入密码序列，保险箱会自动记住 最后 n 位输入 ，如果匹配，则能够打开保险箱。 例如，正确的密码是 “345” ，并且你输入的是 “012345” ：输入 0 之后，最后 3 位输入是 “0” ，不正确。输入">
+<meta property="og:description" content="题目描述leetcode 困难题 给你一个下标从 0 开始长度为 n 的整数数组 stations ，其中 stations[i] 表示第 i 座城市的供电站数目。 每个供电站可以在一定 范围 内给所有城市提供电力。换句话说，如果给定的范围是 r ，在城市 i 处的供电站可以给所有满足 |i - j| &lt;&#x3D; r 且 0 &lt;&#x3D; i, j &lt;&#x3D; n -">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-02-06T17:02:07.000Z">
+<meta property="article:published_time" content="2023-02-28T16:01:09.000Z">
 <meta property="article:modified_time" content="2023-02-28T11:52:23.805Z">
 <meta property="article:author" content="yichen">
-<meta property="article:tag" content="欧拉图">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="二分查找">
+<meta property="article:tag" content="差分">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>LC-753.破解保险箱 - yichen</title>
+  <title>LC-2528.最大化城市的最小供电站数目 - yichen</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -185,7 +187,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LC-753.破解保险箱"></span>
+            <span id="subtitle" data-typed-text="LC-2528.最大化城市的最小供电站数目"></span>
           
         </div>
 
@@ -196,8 +198,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-02-06 17:02" pubdate>
-          2023年2月6日 下午
+        <time datetime="2023-02-28 16:01" pubdate>
+          2023年2月28日 下午
         </time>
       </span>
     
@@ -208,7 +210,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          2.3k 字
         
       </span>
     
@@ -219,7 +221,7 @@
         
         
         
-          11 分钟
+          20 分钟
         
       </span>
     
@@ -257,23 +259,28 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LC-753.破解保险箱</h1>
+            <h1 style="display: none">LC-2528.最大化城市的最小供电站数目</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/cracking-the-safe/">leetcode 困难题</a></p>
-<p>有一个需要密码才能打开的保险箱。密码是 n 位数, 密码的每一位都是范围 [0, k - 1] 中的一个数字。</p>
-<p>保险箱有一种特殊的密码校验方法，你可以随意输入密码序列，保险箱会自动记住 最后 n 位输入 ，如果匹配，则能够打开保险箱。</p>
-<p>例如，正确的密码是 “345” ，并且你输入的是 “012345” ：<br>输入 0 之后，最后 3 位输入是 “0” ，不正确。<br>输入 1 之后，最后 3 位输入是 “01” ，不正确。<br>输入 2 之后，最后 3 位输入是 “012” ，不正确。<br>输入 3 之后，最后 3 位输入是 “123” ，不正确。<br>输入 4 之后，最后 3 位输入是 “234” ，不正确。<br>输入 5 之后，最后 3 位输入是 “345” ，正确，打开保险箱。<br>在只知道密码位数 n 和范围边界 k 的前提下，请你找出并返回确保在输入的 某个时刻 能够打开保险箱的任一 最短 密码序列 。</p>
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximize-the-minimum-powered-city/">leetcode 困难题</a></p>
+<p>给你一个下标从 0 开始长度为 n 的整数数组 stations ，其中 stations[i] 表示第 i 座城市的供电站数目。</p>
+<p>每个供电站可以在一定 范围 内给所有城市提供电力。换句话说，如果给定的范围是 r ，在城市 i 处的供电站可以给所有满足 |i - j| &lt;&#x3D; r 且 0 &lt;&#x3D; i, j &lt;&#x3D; n - 1 的城市 j 供电。</p>
+<p>|x| 表示 x 的 绝对值 。比方说，|7 - 5| &#x3D; 2 ，|3 - 10| &#x3D; 7 。<br>一座城市的 电量 是所有能给它供电的供电站数目。</p>
+<p>政府批准了可以额外建造 k 座供电站，你需要决定这些供电站分别应该建在哪里，这些供电站与已经存在的供电站有相同的供电范围。</p>
+<p>给你两个整数 r 和 k ，如果以最优策略建造额外的发电站，返回所有城市中，最小供电站数目的最大值是多少。</p>
+<p>这 k 座供电站可以建在多个城市。</p>
 <p>示例1：</p>
-<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs excel">输入：<span class="hljs-built_in">n</span> = <span class="hljs-number">2</span>, k = <span class="hljs-number">2</span><br>输出：<span class="hljs-string">&quot;01100&quot;</span><br>解释：对于每种可能的密码：<br>- <span class="hljs-string">&quot;00&quot;</span> 从第 <span class="hljs-number">4</span> 位开始输入。<br>- <span class="hljs-string">&quot;01&quot;</span> 从第 <span class="hljs-number">1</span> 位开始输入。<br>- <span class="hljs-string">&quot;10&quot;</span> 从第 <span class="hljs-number">3</span> 位开始输入。<br>- <span class="hljs-string">&quot;11&quot;</span> 从第 <span class="hljs-number">2</span> 位开始输入。<br>因此 <span class="hljs-string">&quot;01100&quot;</span> 可以确保打开保险箱。<span class="hljs-string">&quot;01100&quot;</span>、<span class="hljs-string">&quot;10011&quot;</span> 和 <span class="hljs-string">&quot;11001&quot;</span> 也可以确保打开保险箱。<br></code></pre></td></tr></table></figure>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：stations = [1,2,4,5,0], r = 1, k = 2<br>输出：5<br>解释：<br>最优方案之一是把<span class="hljs-number"> 2 </span>座供电站都建在城市<span class="hljs-number"> 1 </span>。<br>每座城市的供电站数目分别为 [1,4,4,5,0] 。<br>- 城市<span class="hljs-number"> 0 </span>的供电站数目为<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 4 </span>=<span class="hljs-number"> 5 </span>。<br>- 城市<span class="hljs-number"> 1 </span>的供电站数目为<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 4 </span>+<span class="hljs-number"> 4 </span>=<span class="hljs-number"> 9 </span>。<br>- 城市<span class="hljs-number"> 2 </span>的供电站数目为<span class="hljs-number"> 4 </span>+<span class="hljs-number"> 4 </span>+<span class="hljs-number"> 5 </span>=<span class="hljs-number"> 13 </span>。<br>- 城市<span class="hljs-number"> 3 </span>的供电站数目为<span class="hljs-number"> 5 </span>+<span class="hljs-number"> 4 </span>=<span class="hljs-number"> 9 </span>。<br>- 城市<span class="hljs-number"> 4 </span>的供电站数目为<span class="hljs-number"> 5 </span>+<span class="hljs-number"> 0 </span>=<span class="hljs-number"> 5 </span>。<br>供电站数目最少是<span class="hljs-number"> 5 </span>。<br>无法得到更优解，所以我们返回<span class="hljs-number"> 5 </span>。<br></code></pre></td></tr></table></figure>
 
 <p>提示1：</p>
-<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>&lt;= n &lt;= <span class="hljs-number">4</span><br><span class="hljs-symbol">1 </span>&lt;= k &lt;= <span class="hljs-number">10</span><br><span class="hljs-symbol">1 </span>&lt;= kn &lt;= <span class="hljs-number">4096</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">n</span> == stations.length<br><span class="hljs-attribute">1</span> &lt;= n &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">5</span><br><span class="hljs-attribute">0</span> &lt;= stations[i] &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">5</span><br><span class="hljs-attribute">0</span> &lt;= r &lt;= n - <span class="hljs-number">1</span><br><span class="hljs-attribute">0</span> &lt;= k &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">9</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="Hierholzer-算法"><a href="#Hierholzer-算法" class="headerlink" title="Hierholzer 算法"></a>Hierholzer 算法</h2><p>实际上是求以所有 $n - 1$ 位密码组合作为顶点所构成图的 <a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/euler/#hierholzer-%E7%AE%97%E6%B3%95">欧拉回路</a> 。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> numRange;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> mod;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>    <span class="hljs-keyword">private</span> Set&lt;Integer&gt; visit = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">crackSafe</span><span class="hljs-params">(<span class="hljs-type">int</span> n, <span class="hljs-type">int</span> k)</span> &#123;<br>        numRange = k;<br>        mod = (<span class="hljs-type">int</span>)Math.pow(<span class="hljs-number">10</span>, n - <span class="hljs-number">1</span>); <br>        hierholzer(<span class="hljs-number">0</span>); <span class="hljs-comment">// 实际上起点是 n - 1 个 0 , 但是 * 10 后都为 0 , 所以直接取 0 也行</span><br>        <span class="hljs-keyword">return</span> ans.append(<span class="hljs-string">&quot;0&quot;</span>.repeat(n - <span class="hljs-number">1</span>)).toString();<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">hierholzer</span><span class="hljs-params">(<span class="hljs-type">int</span> p)</span>&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; numRange; i++)&#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">e</span> <span class="hljs-operator">=</span> p * <span class="hljs-number">10</span> + i;<br>            <span class="hljs-keyword">if</span>(!visit.add(e))&#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            hierholzer(e % mod); <span class="hljs-comment">// 用简单回路替换 i 点      </span><br>            ans.append(i);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p>题目求最小供电站数量的最大值，设其为 $ans$，显然如果新建 $k$ 个发电站能取到 $ans$ ，那么小于 $ans$ 的数量也能取到，且大于 $ans$ 的都取不到，所以我们可以二分答案，答案为二分右边界。</p>
+<p>此时问题转换成对于某个 $ans$ ，如何判断其能否在 $k$ 条件下取得。首先对于城市 $i$ 供其用电的发电站数量可以通过前缀和 $preSum[i + r - 1] - preSum[i - r]$ 取得，设处理后数组为 $power$ 。在判断 $ans$ 是否合法时，我们可以顺序遍历 $power$ ，对于每个小于 $ans$ 的城市，我们都新建供电站使其满足 $ans$ ，假设当前遍历到第 $i$ 个城市，由于 $i$ 之前的城市经过处理都满足 $ans$ ，所以对于 $i$ 城市需要新建的供电站，我们贪心的建在右边最远 $i + r$ 处，此时供电站覆盖到的范围为 $[i, i + 2 * r]$ ，整体遍历完毕后再判断需要新建的数量是否小于等于 $k$ 即可。</p>
+<p>容易发现每次新建 $i + r$ 处的供电站时，都需要区间更新 $[i, i + 2 * r]$ 处的城市供电站数量，我们可以通过类似差分的做法来实现。不同于普通差分，我们在所有更新完成之前就需要进行查询，但注意到这里存在顺序更新、查询的特点，所以我们可以在更新的过程中实时维护前缀和以达到查询的目的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">long</span> <span class="hljs-title function_">maxPower</span><span class="hljs-params">(<span class="hljs-type">int</span>[] stations, <span class="hljs-type">int</span> r, <span class="hljs-type">int</span> k)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> stations.length;<br>        <span class="hljs-type">long</span>[] preSum = <span class="hljs-keyword">new</span> <span class="hljs-title class_">long</span>[n + <span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; n + <span class="hljs-number">1</span>; i++)&#123;<br>            preSum[i] = preSum[i - <span class="hljs-number">1</span>] + stations[i - <span class="hljs-number">1</span>];<br>        &#125;<br>        <span class="hljs-type">long</span>[] power = <span class="hljs-keyword">new</span> <span class="hljs-title class_">long</span>[n];<br>        <span class="hljs-type">long</span> <span class="hljs-variable">min</span> <span class="hljs-operator">=</span> Long.MAX_VALUE;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++)&#123;<br>            <span class="hljs-type">long</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> preSum[Math.max(<span class="hljs-number">0</span>, i - r)];<br>            <span class="hljs-type">long</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> preSum[Math.min(n, i + r + <span class="hljs-number">1</span>)];<br>            power[i] = b - a;<br>            min = Math.min(min, power[i]);<br>        &#125;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> min, right = min + k + <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span>(left &lt; right)&#123;<br>            <span class="hljs-type">long</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> left + (right - left &gt;&gt; <span class="hljs-number">1</span>);<br>            <span class="hljs-keyword">if</span>(!check(mid, r, k, n, stations, power))&#123;<br>                right = mid;<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                left = mid + <span class="hljs-number">1</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> left - <span class="hljs-number">1</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">check</span><span class="hljs-params">(<span class="hljs-type">long</span> require, <span class="hljs-type">int</span> r, <span class="hljs-type">int</span> k, <span class="hljs-type">int</span> n, <span class="hljs-type">int</span>[] stations, <span class="hljs-type">long</span>[] power)</span>&#123;<br>        <span class="hljs-type">long</span>[] diff = <span class="hljs-keyword">new</span> <span class="hljs-title class_">long</span>[n];<br>        <span class="hljs-type">long</span> <span class="hljs-variable">needCreate</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">sum</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++)&#123;<br>            sum += diff[i];<br>            <span class="hljs-type">long</span> <span class="hljs-variable">curNeed</span> <span class="hljs-operator">=</span> require - (power[i] + sum);<br>            <span class="hljs-keyword">if</span>(curNeed &lt;= <span class="hljs-number">0</span>)&#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            needCreate += curNeed;<br>            <span class="hljs-keyword">if</span>(needCreate &gt; k)&#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>            diff[i] += curNeed;<br>            <span class="hljs-keyword">if</span>(i + <span class="hljs-number">2</span> * r + <span class="hljs-number">1</span> &lt;= n - <span class="hljs-number">1</span>)&#123;<br>                diff[i + <span class="hljs-number">2</span> * r + <span class="hljs-number">1</span>] -= curNeed;<br>            &#125;<br>            sum += curNeed;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -285,7 +292,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%AC%A7%E6%8B%89%E5%9B%BE/">#欧拉图</a>
+        <a href="/tags/%E8%B4%AA%E5%BF%83/">#贪心</a>
+      
+        <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">#二分查找</a>
+      
+        <a href="/tags/%E5%B7%AE%E5%88%86/">#差分</a>
       
     </div>
   
@@ -297,8 +308,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LC-753.破解保险箱</div>
-      <div>https://wecgwm.github.io/2023/02/06/LC-753-破解保险箱/</div>
+      <div>LC-2528.最大化城市的最小供电站数目</div>
+      <div>https://wecgwm.github.io/2023/02/28/LC-2528-最大化城市的最小供电站数目/</div>
     </div>
     <div class="license-meta">
       
@@ -310,7 +321,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年2月6日</div>
+          <div>2023年2月28日</div>
         </div>
       
       
@@ -342,18 +353,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/02/10/LC-1223-%E6%8E%B7%E9%AA%B0%E5%AD%90%E6%A8%A1%E6%8B%9F/" title="LC-1223.掷骰子模拟">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LC-1223.掷骰子模拟</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/02/06/LC-1819-%E5%BA%8F%E5%88%97%E4%B8%AD%E4%B8%8D%E5%90%8C%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" title="LC-1819.序列中不同最大公约数的数目">
-                        <span class="hidden-mobile">LC-1819.序列中不同最大公约数的数目</span>
+                      <a href="/2023/02/22/LC-407-%E6%8E%A5%E9%9B%A8%E6%B0%B4II/" title="LC-407.接雨水II">
+                        <span class="hidden-mobile">LC-407.接雨水II</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -376,7 +381,7 @@
         var options = Object.assign(
           {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: '9a0d09531010dac62a815f085b61c764'
+            id: '868e8d10ede17a5febe6ded697eedfeb'
           }
         )
         var gitalk = new Gitalk(options);
