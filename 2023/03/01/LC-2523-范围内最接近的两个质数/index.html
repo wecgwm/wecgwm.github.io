@@ -16,22 +16,22 @@
   <meta name="author" content="yichen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述leetcode 困难题 有一个需要密码才能打开的保险箱。密码是 n 位数, 密码的每一位都是范围 [0, k - 1] 中的一个数字。 保险箱有一种特殊的密码校验方法，你可以随意输入密码序列，保险箱会自动记住 最后 n 位输入 ，如果匹配，则能够打开保险箱。 例如，正确的密码是 “345” ，并且你输入的是 “012345” ：输入 0 之后，最后 3 位输入是 “0” ，不正确。输入">
+    <meta name="description" content="题目描述leetcode 困难题 给你两个正整数 left 和 right ，请你找到两个整数 num1 和 num2 ，它们满足： left &lt;&#x3D; nums1 &lt; nums2 &lt;&#x3D; right  。nums1 和 nums2 都是 质数 。nums2 - nums1 是满足上述条件的质数对中的 最小值 。请你返回正整数数组 ans &#x3D; [nums1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LC-753.破解保险箱">
-<meta property="og:url" content="https://wecgwm.github.io/2023/02/06/LC-753-%E7%A0%B4%E8%A7%A3%E4%BF%9D%E9%99%A9%E7%AE%B1/index.html">
+<meta property="og:title" content="LC-2523.范围内最接近的两个质数">
+<meta property="og:url" content="https://wecgwm.github.io/2023/03/01/LC-2523-%E8%8C%83%E5%9B%B4%E5%86%85%E6%9C%80%E6%8E%A5%E8%BF%91%E7%9A%84%E4%B8%A4%E4%B8%AA%E8%B4%A8%E6%95%B0/index.html">
 <meta property="og:site_name" content="yichen">
-<meta property="og:description" content="题目描述leetcode 困难题 有一个需要密码才能打开的保险箱。密码是 n 位数, 密码的每一位都是范围 [0, k - 1] 中的一个数字。 保险箱有一种特殊的密码校验方法，你可以随意输入密码序列，保险箱会自动记住 最后 n 位输入 ，如果匹配，则能够打开保险箱。 例如，正确的密码是 “345” ，并且你输入的是 “012345” ：输入 0 之后，最后 3 位输入是 “0” ，不正确。输入">
+<meta property="og:description" content="题目描述leetcode 困难题 给你两个正整数 left 和 right ，请你找到两个整数 num1 和 num2 ，它们满足： left &lt;&#x3D; nums1 &lt; nums2 &lt;&#x3D; right  。nums1 和 nums2 都是 质数 。nums2 - nums1 是满足上述条件的质数对中的 最小值 。请你返回正整数数组 ans &#x3D; [nums1">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-02-06T17:02:07.000Z">
-<meta property="article:modified_time" content="2023-03-01T16:03:00.896Z">
+<meta property="article:published_time" content="2023-03-01T23:14:04.000Z">
+<meta property="article:modified_time" content="2023-03-01T16:03:00.892Z">
 <meta property="article:author" content="yichen">
-<meta property="article:tag" content="欧拉图">
+<meta property="article:tag" content="质数">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>LC-753.破解保险箱 - yichen</title>
+  <title>LC-2523.范围内最接近的两个质数 - yichen</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -185,7 +185,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LC-753.破解保险箱"></span>
+            <span id="subtitle" data-typed-text="LC-2523.范围内最接近的两个质数"></span>
           
         </div>
 
@@ -196,8 +196,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-02-06 17:02" pubdate>
-          2023年2月6日 下午
+        <time datetime="2023-03-01 23:14" pubdate>
+          2023年3月1日 晚上
         </time>
       </span>
     
@@ -208,7 +208,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          2.1k 字
         
       </span>
     
@@ -219,7 +219,7 @@
         
         
         
-          11 分钟
+          18 分钟
         
       </span>
     
@@ -257,23 +257,25 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LC-753.破解保险箱</h1>
+            <h1 style="display: none">LC-2523.范围内最接近的两个质数</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/cracking-the-safe/">leetcode 困难题</a></p>
-<p>有一个需要密码才能打开的保险箱。密码是 n 位数, 密码的每一位都是范围 [0, k - 1] 中的一个数字。</p>
-<p>保险箱有一种特殊的密码校验方法，你可以随意输入密码序列，保险箱会自动记住 最后 n 位输入 ，如果匹配，则能够打开保险箱。</p>
-<p>例如，正确的密码是 “345” ，并且你输入的是 “012345” ：<br>输入 0 之后，最后 3 位输入是 “0” ，不正确。<br>输入 1 之后，最后 3 位输入是 “01” ，不正确。<br>输入 2 之后，最后 3 位输入是 “012” ，不正确。<br>输入 3 之后，最后 3 位输入是 “123” ，不正确。<br>输入 4 之后，最后 3 位输入是 “234” ，不正确。<br>输入 5 之后，最后 3 位输入是 “345” ，正确，打开保险箱。<br>在只知道密码位数 n 和范围边界 k 的前提下，请你找出并返回确保在输入的 某个时刻 能够打开保险箱的任一 最短 密码序列 。</p>
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/closest-prime-numbers-in-range/">leetcode 困难题</a></p>
+<p>给你两个正整数 left 和 right ，请你找到两个整数 num1 和 num2 ，它们满足：</p>
+<p>left &lt;&#x3D; nums1 &lt; nums2 &lt;&#x3D; right  。<br>nums1 和 nums2 都是 质数 。<br>nums2 - nums1 是满足上述条件的质数对中的 最小值 。<br>请你返回正整数数组 ans &#x3D; [nums1, nums2] 。如果有多个整数对满足上述条件，请你返回 nums1 最小的质数对。如果不存在符合题意的质数对，请你返回 [-1, -1] 。</p>
+<p>如果一个整数大于 1 ，且只能被 1 和它自己整除，那么它是一个质数。</p>
 <p>示例1：</p>
-<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs excel">输入：<span class="hljs-built_in">n</span> = <span class="hljs-number">2</span>, k = <span class="hljs-number">2</span><br>输出：<span class="hljs-string">&quot;01100&quot;</span><br>解释：对于每种可能的密码：<br>- <span class="hljs-string">&quot;00&quot;</span> 从第 <span class="hljs-number">4</span> 位开始输入。<br>- <span class="hljs-string">&quot;01&quot;</span> 从第 <span class="hljs-number">1</span> 位开始输入。<br>- <span class="hljs-string">&quot;10&quot;</span> 从第 <span class="hljs-number">3</span> 位开始输入。<br>- <span class="hljs-string">&quot;11&quot;</span> 从第 <span class="hljs-number">2</span> 位开始输入。<br>因此 <span class="hljs-string">&quot;01100&quot;</span> 可以确保打开保险箱。<span class="hljs-string">&quot;01100&quot;</span>、<span class="hljs-string">&quot;10011&quot;</span> 和 <span class="hljs-string">&quot;11001&quot;</span> 也可以确保打开保险箱。<br></code></pre></td></tr></table></figure>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：left = 10, right = 19<br>输出：[11,13]<br>解释：10 到<span class="hljs-number"> 19 </span>之间的质数为<span class="hljs-number"> 11 </span>，13 ，17 和<span class="hljs-number"> 19 </span>。<br>质数对的最小差值是<span class="hljs-number"> 2 </span>，[11,13] 和 [17,19] 都可以得到最小差值。<br>由于<span class="hljs-number"> 11 </span>比<span class="hljs-number"> 17 </span>小，我们返回第一个质数对。<br></code></pre></td></tr></table></figure>
 
 <p>提示1：</p>
-<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>&lt;= n &lt;= <span class="hljs-number">4</span><br><span class="hljs-symbol">1 </span>&lt;= k &lt;= <span class="hljs-number">10</span><br><span class="hljs-symbol">1 </span>&lt;= kn &lt;= <span class="hljs-number">4096</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>&lt;= left &lt;= right &lt;= <span class="hljs-number">106</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="Hierholzer-算法"><a href="#Hierholzer-算法" class="headerlink" title="Hierholzer 算法"></a>Hierholzer 算法</h2><p>实际上是求以所有 $n - 1$ 位密码组合作为顶点所构成图的 <a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/euler/#hierholzer-%E7%AE%97%E6%B3%95">欧拉回路</a> 。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> numRange;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> mod;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>    <span class="hljs-keyword">private</span> Set&lt;Integer&gt; visit = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">crackSafe</span><span class="hljs-params">(<span class="hljs-type">int</span> n, <span class="hljs-type">int</span> k)</span> &#123;<br>        numRange = k;<br>        mod = (<span class="hljs-type">int</span>)Math.pow(<span class="hljs-number">10</span>, n - <span class="hljs-number">1</span>); <br>        hierholzer(<span class="hljs-number">0</span>); <span class="hljs-comment">// 实际上起点是 n - 1 个 0 , 但是 * 10 后都为 0 , 所以直接取 0 也行</span><br>        <span class="hljs-keyword">return</span> ans.append(<span class="hljs-string">&quot;0&quot;</span>.repeat(n - <span class="hljs-number">1</span>)).toString();<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">hierholzer</span><span class="hljs-params">(<span class="hljs-type">int</span> p)</span>&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; numRange; i++)&#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">e</span> <span class="hljs-operator">=</span> p * <span class="hljs-number">10</span> + i;<br>            <span class="hljs-keyword">if</span>(!visit.add(e))&#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            hierholzer(e % mod); <span class="hljs-comment">// 用简单回路替换 i 点      </span><br>            ans.append(i);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="埃氏筛"><a href="#埃氏筛" class="headerlink" title="埃氏筛"></a>埃氏筛</h2><p><a target="_blank" rel="noopener" href="https://oi-wiki.org/math/number-theory/sieve/#%E5%9F%83%E6%8B%89%E6%89%98%E6%96%AF%E7%89%B9%E5%B0%BC%E7%AD%9B%E6%B3%95">参考</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span>[] isPrime = <span class="hljs-keyword">new</span> <span class="hljs-title class_">boolean</span>[<span class="hljs-number">1000001</span>];<br>    <span class="hljs-keyword">static</span>&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span>; i &lt; isPrime.length; i++)&#123;<br>            isPrime[i] = <span class="hljs-literal">true</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span>; i * i &lt; isPrime.length; i++)&#123;<br>            <span class="hljs-keyword">if</span>(!isPrime[i])&#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">long</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">1L</span> * i * i; j &lt; isPrime.length; j += i)&#123;<br>                isPrime[(<span class="hljs-type">int</span>)j] = <span class="hljs-literal">false</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span>[] closestPrimes(<span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right) &#123;<br>        <span class="hljs-type">int</span>[] ans = &#123;-<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>&#125;;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">pre</span> <span class="hljs-operator">=</span> -<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> left; i &lt;= right; i++)&#123;<br>            <span class="hljs-keyword">if</span>(!isPrime[i])&#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(pre == -<span class="hljs-number">1</span>)&#123;<br>                pre = i;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(ans[<span class="hljs-number">0</span>] == -<span class="hljs-number">1</span>)&#123;<br>                ans[<span class="hljs-number">0</span>] = pre;<br>                ans[<span class="hljs-number">1</span>] = i;<br>                pre = i;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(i - pre &lt; ans[<span class="hljs-number">1</span>] - ans[<span class="hljs-number">0</span>])&#123;<br>                ans[<span class="hljs-number">0</span>] = pre;<br>                ans[<span class="hljs-number">1</span>] = i;<br>            &#125;<br>            pre = i;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="线性筛（欧拉筛）"><a href="#线性筛（欧拉筛）" class="headerlink" title="线性筛（欧拉筛）"></a>线性筛（欧拉筛）</h2><p><a target="_blank" rel="noopener" href="https://oi-wiki.org/math/number-theory/sieve/#%E7%BA%BF%E6%80%A7%E7%AD%9B%E6%B3%95">参考</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">static</span> <span class="hljs-type">int</span>[] prime = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[<span class="hljs-number">1000001</span>];<br>    <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span>[] visit = <span class="hljs-keyword">new</span> <span class="hljs-title class_">boolean</span>[<span class="hljs-number">1000001</span>];<br>    <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-variable">cnt</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">static</span>&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span>; i &lt; visit.length; i++)&#123;<br>            <span class="hljs-keyword">if</span>(!visit[i])&#123;<br>                prime[cnt++] = i;<br>            &#125;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; cnt; j++)&#123;<br>                <span class="hljs-keyword">if</span>(<span class="hljs-number">1l</span> * i * prime[j] &gt;= visit.length)&#123;<br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>                visit[i * prime[j]] = <span class="hljs-literal">true</span>;<br>                <span class="hljs-keyword">if</span>(i % prime[j] == <span class="hljs-number">0</span>)&#123;<br>                    <span class="hljs-keyword">break</span>;<br>                &#125;<br>            &#125;<br>        &#125;<br>        cnt--;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span>[] closestPrimes(<span class="hljs-type">int</span> left, <span class="hljs-type">int</span> right) &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">p</span> <span class="hljs-operator">=</span> -<span class="hljs-number">1</span>, q = - <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> leftBound(left); i &lt; cnt; i++)&#123;<br>            <span class="hljs-keyword">if</span>(prime[i] &lt; left)&#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(prime[i + <span class="hljs-number">1</span>] &gt; right)&#123;<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(p == -<span class="hljs-number">1</span> || prime[i + <span class="hljs-number">1</span>] - prime[i] &lt; q - p)&#123;<br>                p = prime[i];<br>                q = prime[i + <span class="hljs-number">1</span>];<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;p, q&#125;;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">leftBound</span><span class="hljs-params">(<span class="hljs-type">int</span> target)</span>&#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, right = cnt + <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span>(left &lt; right)&#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> left + (right - left &gt;&gt; <span class="hljs-number">1</span>);<br>            <span class="hljs-keyword">if</span>(prime[mid] &lt; target)&#123;<br>                left = mid + <span class="hljs-number">1</span>;<br>            &#125;<span class="hljs-keyword">else</span>&#123; <br>                right = mid;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> left; <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -285,7 +287,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%AC%A7%E6%8B%89%E5%9B%BE/">#欧拉图</a>
+        <a href="/tags/%E8%B4%A8%E6%95%B0/">#质数</a>
       
     </div>
   
@@ -297,8 +299,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LC-753.破解保险箱</div>
-      <div>https://wecgwm.github.io/2023/02/06/LC-753-破解保险箱/</div>
+      <div>LC-2523.范围内最接近的两个质数</div>
+      <div>https://wecgwm.github.io/2023/03/01/LC-2523-范围内最接近的两个质数/</div>
     </div>
     <div class="license-meta">
       
@@ -310,7 +312,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年2月6日</div>
+          <div>2023年3月1日</div>
         </div>
       
       
@@ -342,18 +344,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/02/10/LC-1223-%E6%8E%B7%E9%AA%B0%E5%AD%90%E6%A8%A1%E6%8B%9F/" title="LC-1223.掷骰子模拟">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LC-1223.掷骰子模拟</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/02/06/LC-1819-%E5%BA%8F%E5%88%97%E4%B8%AD%E4%B8%8D%E5%90%8C%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" title="LC-1819.序列中不同最大公约数的数目">
-                        <span class="hidden-mobile">LC-1819.序列中不同最大公约数的数目</span>
+                      <a href="/2023/02/28/LC-2528-%E6%9C%80%E5%A4%A7%E5%8C%96%E5%9F%8E%E5%B8%82%E7%9A%84%E6%9C%80%E5%B0%8F%E4%BE%9B%E7%94%B5%E7%AB%99%E6%95%B0%E7%9B%AE/" title="LC-2528.最大化城市的最小供电站数目">
+                        <span class="hidden-mobile">LC-2528.最大化城市的最小供电站数目</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -376,7 +372,7 @@
         var options = Object.assign(
           {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: '9a0d09531010dac62a815f085b61c764'
+            id: '01a0ec68e4aea905d366e6de1a009604'
           }
         )
         var gitalk = new Gitalk(options);
