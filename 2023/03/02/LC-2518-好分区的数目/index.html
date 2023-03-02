@@ -16,23 +16,22 @@
   <meta name="author" content="yichen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述leetcode 困难题 共有 k 位工人计划将 n 个箱子从旧仓库移动到新仓库。给你两个整数 n 和 k，以及一个二维整数数组 time ，数组的大小为 k x 4 ，其中 time[i] &#x3D; [leftToRighti, pickOldi, rightToLefti, putNewi] 。 一条河将两座仓库分隔，只能通过一座桥通行。旧仓库位于河的右岸，新仓库在河的左岸。开始时">
+    <meta name="description" content="题目描述leetcode 困难题 给你一个正整数数组 nums 和一个整数 k 。 分区 的定义是：将数组划分成两个有序的 组 ，并满足每个元素 恰好 存在于 某一个 组中。如果分区中每个组的元素和都大于等于 k ，则认为分区是一个好分区。 返回 不同 的好分区的数目。由于答案可能很大，请返回对 10^9 + 7 取余 后的结果。 如果在两个分区中，存在某个元素 nums[i] 被分在不同的组中，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LC-2532.过桥的时间">
-<meta property="og:url" content="https://wecgwm.github.io/2023/01/11/LC-2532-%E8%BF%87%E6%A1%A5%E7%9A%84%E6%97%B6%E9%97%B4/index.html">
+<meta property="og:title" content="LC-2518.好分区的数目">
+<meta property="og:url" content="https://wecgwm.github.io/2023/03/02/LC-2518-%E5%A5%BD%E5%88%86%E5%8C%BA%E7%9A%84%E6%95%B0%E7%9B%AE/index.html">
 <meta property="og:site_name" content="yichen">
-<meta property="og:description" content="题目描述leetcode 困难题 共有 k 位工人计划将 n 个箱子从旧仓库移动到新仓库。给你两个整数 n 和 k，以及一个二维整数数组 time ，数组的大小为 k x 4 ，其中 time[i] &#x3D; [leftToRighti, pickOldi, rightToLefti, putNewi] 。 一条河将两座仓库分隔，只能通过一座桥通行。旧仓库位于河的右岸，新仓库在河的左岸。开始时">
+<meta property="og:description" content="题目描述leetcode 困难题 给你一个正整数数组 nums 和一个整数 k 。 分区 的定义是：将数组划分成两个有序的 组 ，并满足每个元素 恰好 存在于 某一个 组中。如果分区中每个组的元素和都大于等于 k ，则认为分区是一个好分区。 返回 不同 的好分区的数目。由于答案可能很大，请返回对 10^9 + 7 取余 后的结果。 如果在两个分区中，存在某个元素 nums[i] 被分在不同的组中，">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-01-11T17:49:08.000Z">
+<meta property="article:published_time" content="2023-03-02T21:21:34.000Z">
 <meta property="article:modified_time" content="2023-03-02T14:11:36.772Z">
 <meta property="article:author" content="yichen">
-<meta property="article:tag" content="复杂模拟">
-<meta property="article:tag" content="优先队列">
+<meta property="article:tag" content="动态规划">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>LC-2532.过桥的时间 - yichen</title>
+  <title>LC-2518.好分区的数目 - yichen</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -186,7 +185,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LC-2532.过桥的时间"></span>
+            <span id="subtitle" data-typed-text="LC-2518.好分区的数目"></span>
           
         </div>
 
@@ -197,8 +196,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-01-11 17:49" pubdate>
-          2023年1月11日 下午
+        <time datetime="2023-03-02 21:21" pubdate>
+          2023年3月2日 晚上
         </time>
       </span>
     
@@ -209,7 +208,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.4k 字
+          1.3k 字
         
       </span>
     
@@ -220,7 +219,7 @@
         
         
         
-          29 分钟
+          11 分钟
         
       </span>
     
@@ -258,51 +257,27 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LC-2532.过桥的时间</h1>
+            <h1 style="display: none">LC-2518.好分区的数目</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/time-to-cross-a-bridge/">leetcode 困难题</a></p>
-<p>共有 k 位工人计划将 n 个箱子从旧仓库移动到新仓库。给你两个整数 n 和 k，以及一个二维整数数组 time ，数组的大小为 k x 4 ，其中 time[i] &#x3D; [leftToRighti, pickOldi, rightToLefti, putNewi] 。</p>
-<p>一条河将两座仓库分隔，只能通过一座桥通行。旧仓库位于河的右岸，新仓库在河的左岸。开始时，所有 k 位工人都在桥的左侧等待。为了移动这些箱子，第 i 位工人（下标从 0 开始）可以：</p>
-<ul>
-<li>从左岸（新仓库）跨过桥到右岸（旧仓库），用时 leftToRighti 分钟。</li>
-<li>从旧仓库选择一个箱子，并返回到桥边，用时 pickOldi 分钟。不同工人可以同时搬起所选的箱子。</li>
-<li>从右岸（旧仓库）跨过桥到左岸（新仓库），用时 rightToLefti 分钟。</li>
-<li>将箱子放入新仓库，并返回到桥边，用时 putNewi 分钟。不同工人可以同时放下所选的箱子。</li>
-</ul>
-<p>如果满足下面任一条件，则认为工人 i 的 效率低于 工人 j ：</p>
-<ul>
-<li>leftToRighti + rightToLefti &gt; leftToRightj + rightToLeftj</li>
-<li>leftToRighti + rightToLefti &#x3D;&#x3D; leftToRightj + rightToLeftj 且 i &gt; j</li>
-</ul>
-<p>工人通过桥时需要遵循以下规则：</p>
-<ul>
-<li>如果工人 x 到达桥边时，工人 y 正在过桥，那么工人 x 需要在桥边等待。</li>
-<li>如果没有正在过桥的工人，那么在桥右边等待的工人可以先过桥。如果同时有多个工人在右边等待，那么 效率最低 的工人会先过桥。</li>
-<li>如果没有正在过桥的工人，且桥右边也没有在等待的工人，同时旧仓库还剩下至少一个箱子需要搬运，此时在桥左边的工人可以过桥。如果同时有多个工人在左边等待，那么 效率最低 的工人会先过桥。</li>
-</ul>
-<p>所有 n 个盒子都需要放入新仓库，请你返回最后一个搬运箱子的工人 到达河左岸 的时间。</p>
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/number-of-great-partitions/">leetcode 困难题</a></p>
+<p>给你一个正整数数组 nums 和一个整数 k 。</p>
+<p>分区 的定义是：将数组划分成两个有序的 组 ，并满足每个元素 恰好 存在于 某一个 组中。如果分区中每个组的元素和都大于等于 k ，则认为分区是一个好分区。</p>
+<p>返回 不同 的好分区的数目。由于答案可能很大，请返回对 10^9 + 7 取余 后的结果。</p>
+<p>如果在两个分区中，存在某个元素 nums[i] 被分在不同的组中，则认为这两个分区不同。</p>
 <p>示例1：</p>
-<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：n = 3, k = 2, time = [[1,9,1,8],[10,10,10,10]]<br>输出：50<br>解释：<br>从<span class="hljs-number"> 0 </span>到<span class="hljs-number"> 10 </span>：工人<span class="hljs-number"> 1 </span>从左岸过桥到达右岸。<br>从<span class="hljs-number"> 10 </span>到<span class="hljs-number"> 20 </span>：工人<span class="hljs-number"> 1 </span>从旧仓库搬起一个箱子。<br>从<span class="hljs-number"> 10 </span>到<span class="hljs-number"> 11 </span>：工人<span class="hljs-number"> 0 </span>从左岸过桥到达右岸。<br>从<span class="hljs-number"> 11 </span>到<span class="hljs-number"> 20 </span>：工人<span class="hljs-number"> 0 </span>从旧仓库搬起一个箱子。<br>从<span class="hljs-number"> 20 </span>到<span class="hljs-number"> 30 </span>：工人<span class="hljs-number"> 1 </span>从右岸过桥到达左岸。<br>从<span class="hljs-number"> 30 </span>到<span class="hljs-number"> 40 </span>：工人<span class="hljs-number"> 1 </span>将箱子放入新仓库。<br>从<span class="hljs-number"> 30 </span>到<span class="hljs-number"> 31 </span>：工人<span class="hljs-number"> 0 </span>从右岸过桥到达左岸。<br>从<span class="hljs-number"> 31 </span>到<span class="hljs-number"> 39 </span>：工人<span class="hljs-number"> 0 </span>将箱子放入新仓库。<br>从<span class="hljs-number"> 39 </span>到<span class="hljs-number"> 40 </span>：工人<span class="hljs-number"> 0 </span>从左岸过桥到达右岸。<br>从<span class="hljs-number"> 40 </span>到<span class="hljs-number"> 49 </span>：工人<span class="hljs-number"> 0 </span>从旧仓库搬起一个箱子。<br>从<span class="hljs-number"> 49 </span>到<span class="hljs-number"> 50 </span>：工人<span class="hljs-number"> 0 </span>从右岸过桥到达左岸。<br>从<span class="hljs-number"> 50 </span>到<span class="hljs-number"> 58 </span>：工人<span class="hljs-number"> 0 </span>将箱子放入新仓库。<br>整个过程在<span class="hljs-number"> 58 </span>分钟后结束。因为问题关注的是最后一个工人到达左岸的时间，所以返回<span class="hljs-number"> 50 </span>。<br></code></pre></td></tr></table></figure>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs inform7">输入：nums = <span class="hljs-comment">[1,2,3,4]</span>, k = 4<br>输出：6<br>解释：好分区的情况是 (<span class="hljs-comment">[1,2,3]</span>, <span class="hljs-comment">[4]</span>), (<span class="hljs-comment">[1,3]</span>, <span class="hljs-comment">[2,4]</span>), (<span class="hljs-comment">[1,4]</span>, <span class="hljs-comment">[2,3]</span>), (<span class="hljs-comment">[2,3]</span>, <span class="hljs-comment">[1,4]</span>), (<span class="hljs-comment">[2,4]</span>, <span class="hljs-comment">[1,3]</span>) 和 (<span class="hljs-comment">[4]</span>, <span class="hljs-comment">[1,2,3]</span>) 。<br></code></pre></td></tr></table></figure>
 
 <p>提示1：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-number">1</span> &lt;= n, k &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">4</span><br><span class="hljs-selector-tag">time</span><span class="hljs-selector-class">.length</span> == k<br><span class="hljs-selector-tag">time</span><span class="hljs-selector-attr">[i]</span><span class="hljs-selector-class">.length</span> == <span class="hljs-number">4</span><br><span class="hljs-number">1</span> &lt;= leftToRighti, pickOldi, rightToLefti, putNewi &lt;= <span class="hljs-number">1000</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>&lt;= nums.length, k &lt;= <span class="hljs-number">1000</span><br><span class="hljs-symbol">1 </span>&lt;= nums[i] &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">9</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="模拟"><a href="#模拟" class="headerlink" title="模拟"></a>模拟</h2><p>通过四个堆进行模拟，分别是：</p>
-<ul>
-<li>$leftBridge$ 左边等桥的工人序号，堆顶为效率最小的工人。</li>
-<li>$rightBridge$ 右边等桥的工人序号，堆顶为效率最小的工人。</li>
-<li>$leftPuttingNew$ 左边正在搬箱子的工人，$int[0]$ 为该工人搬运当前箱子完成的时间，$int[1]$ 为工人序号，堆顶为搬运完成时间最早的工人。</li>
-<li>$rightPickingOld$ 右边正在搬箱子的工人，$int[0]$ 为该工人搬运当前箱子完成的时间，$int[1]$ 为工人序号，堆顶为搬运完成时间最早的工人。</li>
-</ul>
-<p>初始化当前时间为 $0$，模拟工人搬运过程，由于关注的是最后一个搬运箱子的工人到达左岸的时间，所以中止条件为箱子搬完且右岸不存在任何工人。</p>
-<p>按照题意，每次循环时，如果右边等桥的人非空，右边等桥的堆顶工人出堆过桥，更新当前时间为过桥后的时间，并将工人放入左边搬运箱子的堆中；否则如果左边等桥的人非空且存在箱子未搬运，就将左边等桥的堆顶工人出堆过桥，更新当前时间为过桥后的时间，并将工人放入右边搬运箱子的堆中，箱子数量减一；如果以上两个条件均不满足，则说明当前时间过小，工人未搬完箱子，更新时间为左右岸搬完箱子的最小时间即可。</p>
-<p>显然在上面的三个判断之前，还需要判断左右岸正在搬箱子的工人，如果已经搬完箱子了，就将其放入等桥的队列中。</p>
-<p>循环结束时，当前时间为答案。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">findCrossingTime</span><span class="hljs-params">(<span class="hljs-type">int</span> n, <span class="hljs-type">int</span> k, <span class="hljs-type">int</span>[][] time)</span> &#123;<br>        Comparator&lt;Integer&gt; cmp = (a, b) -&gt; &#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">d</span> <span class="hljs-operator">=</span> (time[b][<span class="hljs-number">0</span>] + time[b][<span class="hljs-number">2</span>]) - (time[a][<span class="hljs-number">0</span>] + time[a][<span class="hljs-number">2</span>]);<br>            <span class="hljs-keyword">return</span> d != <span class="hljs-number">0</span> ? d : b - a;<br>        &#125;;<br>        PriorityQueue&lt;Integer&gt; leftBridge = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;(cmp);<br>        PriorityQueue&lt;Integer&gt; rightBridge = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;(cmp);<br>        PriorityQueue&lt;<span class="hljs-type">int</span>[]&gt; leftPuttingNew = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;(Comparator.comparingInt(a -&gt; a[<span class="hljs-number">0</span>]));<br>        PriorityQueue&lt;<span class="hljs-type">int</span>[]&gt; rightPickingOld = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;(Comparator.comparingInt(a -&gt; a[<span class="hljs-number">0</span>]));<br>        leftBridge.addAll(IntStream.range(<span class="hljs-number">0</span>, k).boxed().toList());<br>        <span class="hljs-type">int</span> <span class="hljs-variable">curTime</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span> (n + rightPickingOld.size() + rightBridge.size() &gt; <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">while</span> (!rightPickingOld.isEmpty() &amp;&amp; rightPickingOld.peek()[<span class="hljs-number">0</span>] &lt;= curTime) &#123;<br>                rightBridge.offer(rightPickingOld.poll()[<span class="hljs-number">1</span>]);<br>            &#125;<br>            <span class="hljs-keyword">while</span> (!leftPuttingNew.isEmpty() &amp;&amp; leftPuttingNew.peek()[<span class="hljs-number">0</span>] &lt;= curTime) &#123;<br>                leftBridge.offer(leftPuttingNew.poll()[<span class="hljs-number">1</span>]);<br>            &#125;<br>            <span class="hljs-keyword">if</span> (!rightBridge.isEmpty()) &#123;<br>                <span class="hljs-type">int</span> <span class="hljs-variable">worker</span> <span class="hljs-operator">=</span> Objects.requireNonNull(rightBridge.poll());<br>                curTime += time[worker][<span class="hljs-number">2</span>];<br>                leftPuttingNew.offer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;curTime + time[worker][<span class="hljs-number">3</span>], worker&#125;);<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (n &gt; <span class="hljs-number">0</span> &amp;&amp; !leftBridge.isEmpty()) &#123;<br>                <span class="hljs-type">int</span> <span class="hljs-variable">worker</span> <span class="hljs-operator">=</span> Objects.requireNonNull(leftBridge.poll());<br>                curTime += time[worker][<span class="hljs-number">0</span>];<br>                rightPickingOld.offer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;curTime + time[worker][<span class="hljs-number">1</span>], worker&#125;);<br>                n--;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                curTime = Math.min(<br>                        rightPickingOld.isEmpty() ? Integer.MAX_VALUE : rightPickingOld.peek()[<span class="hljs-number">0</span>], <br>                        leftPuttingNew.isEmpty() ? Integer.MAX_VALUE : leftPuttingNew.peek()[<span class="hljs-number">0</span>]);<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> curTime;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
-
+<h2 id="反向思维"><a href="#反向思维" class="headerlink" title="反向思维"></a>反向思维</h2><p>该题的关键在于，由于 $nums[i]$ 能取到 $10^9$ ，也就是说子序列的元素和最大能取到 $10^{12}$ ，我们很难定义该容量的背包，所以需要对原问题进行转化，尝试将原问题转化成求所有坏分区的数目，此时用总分区数目减去坏分区数目即为原问题答案。</p>
+<p>当数组总和小于 $2*k$ 时，显然无论怎么划分都无法得出好分区，所以可以提前返回 $0$ 。</p>
+<p>我们可以先尝试求出元素总和小于 $k$ 的子序列数目，由于 $k$ 最大取到 $1000$ ，所以通过背包 $dp$ 就能很容易的求出该数目。</p>
+<p>设元素总和小于 $k$ 的子序列数目为 $badCnt$ ，由于对于数组总和小于 $2*k$ 的用例我们都直接返回，所以此时这些坏序列所对应的另一半序列的和，都必然是大于 $k$ 的，也就是说不存在互相配对的情况，而又因为该子序列可以是分区的左边或者右边，所以此时坏分区的数目就为 $2 * badCnt$ 。 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">MOD</span> <span class="hljs-operator">=</span> (<span class="hljs-type">int</span>)(<span class="hljs-number">1e9</span> + <span class="hljs-number">7</span>);<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">countPartitions</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> k)</span> &#123;<br>        <span class="hljs-keyword">if</span>(Arrays.stream(nums).mapToLong(Long::valueOf).sum() &lt; <span class="hljs-number">2L</span> * k)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">allCnt</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br>        <span class="hljs-type">long</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">long</span>[k];<br>        dp[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; nums.length + <span class="hljs-number">1</span>; i++)&#123;<br>            allCnt = (allCnt * <span class="hljs-number">2</span>) % MOD;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> k - nums[i - <span class="hljs-number">1</span>] - <span class="hljs-number">1</span>; j &gt;= <span class="hljs-number">0</span> ; j--)&#123;<br>                dp[j + nums[i - <span class="hljs-number">1</span>]] = (dp[j + nums[i - <span class="hljs-number">1</span>]] + dp[j]) % MOD;<br>            &#125;<br>        &#125;<br>        <span class="hljs-type">long</span> <span class="hljs-variable">badCnt</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">long</span> i : dp)&#123;<br>            badCnt = (badCnt + i) % MOD;<br>        &#125;<br>        badCnt = (badCnt * <span class="hljs-number">2</span>) % MOD;<br>        <span class="hljs-keyword">return</span> (<span class="hljs-type">int</span>)((allCnt - badCnt + MOD) % MOD);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -314,9 +289,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%A4%8D%E6%9D%82%E6%A8%A1%E6%8B%9F/">#复杂模拟</a>
-      
-        <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">#优先队列</a>
+        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
       
     </div>
   
@@ -328,8 +301,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LC-2532.过桥的时间</div>
-      <div>https://wecgwm.github.io/2023/01/11/LC-2532-过桥的时间/</div>
+      <div>LC-2518.好分区的数目</div>
+      <div>https://wecgwm.github.io/2023/03/02/LC-2518-好分区的数目/</div>
     </div>
     <div class="license-meta">
       
@@ -341,7 +314,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年1月11日</div>
+          <div>2023年3月2日</div>
         </div>
       
       
@@ -373,18 +346,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/01/12/LC-1803-%E7%BB%9F%E8%AE%A1%E5%BC%82%E6%88%96%E5%80%BC%E5%9C%A8%E8%8C%83%E5%9B%B4%E5%86%85%E7%9A%84%E6%95%B0%E5%AF%B9%E6%9C%89%E5%A4%9A%E5%B0%91/" title="LC-1803.统计异或值在范围内的数对有多少">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LC-1803.统计异或值在范围内的数对有多少</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/01/08/LC-1658-%E5%B0%86x%E5%87%8F%E5%88%B00%E7%9A%84%E6%9C%80%E5%B0%8F%E6%93%8D%E4%BD%9C%E6%95%B0/" title="LC-1658.将x减到0的最小操作数">
-                        <span class="hidden-mobile">LC-1658.将x减到0的最小操作数</span>
+                      <a href="/2023/03/01/LC-2523-%E8%8C%83%E5%9B%B4%E5%86%85%E6%9C%80%E6%8E%A5%E8%BF%91%E7%9A%84%E4%B8%A4%E4%B8%AA%E8%B4%A8%E6%95%B0/" title="LC-2523.范围内最接近的两个质数">
+                        <span class="hidden-mobile">LC-2523.范围内最接近的两个质数</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -407,7 +374,7 @@
         var options = Object.assign(
           {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: 'd357943ea84fcbdcf66159d9d24cbb8a'
+            id: 'f7595238fff37547dc04ffc325f6a816'
           }
         )
         var gitalk = new Gitalk(options);
