@@ -86,7 +86,7 @@ class UnionFind{
 
     public UnionFind(int n){
         fa = IntStream.range(0, n).toArray();
-        size = new int[n];
+        size = IntStream.generate(() -> 1).limit(n).toArray();
     }
 
     public void union(int a, int b){
