@@ -16,22 +16,24 @@
   <meta name="author" content="yichen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述leetcode 简单题 写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项（即 F(N)）。斐波那契数列的定义如下： 123F(0) &#x3D; 0,   F(1) &#x3D; 1F(N) &#x3D; F(N - 1) + F(N - 2), 其中 N &gt; 1.  斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。 答案需要取模 1e9+7（1000000">
+    <meta name="description" content="题目描述leetcode 困难题 给你一棵 二叉树 的根节点 root ，树中有 n 个节点。每个节点都可以被分配一个从 1 到 n 且互不相同的值。另给你一个长度为 m 的数组 queries 。 你必须在树上执行 m 个 独立 的查询，其中第 i 个查询你需要执行以下操作： 从树中 移除 以 queries[i] 的值作为根节点的子树。题目所用测试用例保证 queries[i] 不 等于根节点">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LC-10-I.斐波那契数列">
-<meta property="og:url" content="https://wecgwm.github.io/2022/11/04/LC-10-I-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/index.html">
+<meta property="og:title" content="LC-2458.移除子树后的二叉树高度">
+<meta property="og:url" content="https://wecgwm.github.io/2023/03/08/LC-2458-%E7%A7%BB%E9%99%A4%E5%AD%90%E6%A0%91%E5%90%8E%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91%E9%AB%98%E5%BA%A6/index.html">
 <meta property="og:site_name" content="yichen">
-<meta property="og:description" content="题目描述leetcode 简单题 写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项（即 F(N)）。斐波那契数列的定义如下： 123F(0) &#x3D; 0,   F(1) &#x3D; 1F(N) &#x3D; F(N - 1) + F(N - 2), 其中 N &gt; 1.  斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。 答案需要取模 1e9+7（1000000">
+<meta property="og:description" content="题目描述leetcode 困难题 给你一棵 二叉树 的根节点 root ，树中有 n 个节点。每个节点都可以被分配一个从 1 到 n 且互不相同的值。另给你一个长度为 m 的数组 queries 。 你必须在树上执行 m 个 独立 的查询，其中第 i 个查询你需要执行以下操作： 从树中 移除 以 queries[i] 的值作为根节点的子树。题目所用测试用例保证 queries[i] 不 等于根节点">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-04T23:08:04.000Z">
+<meta property="og:image" content="https://wecgwm.github.io/img/Snipaste_2023-03-08_12-37-17.png">
+<meta property="article:published_time" content="2023-03-08T10:48:40.000Z">
 <meta property="article:modified_time" content="2023-03-08T06:19:49.786Z">
 <meta property="article:author" content="yichen">
-<meta property="article:tag" content="矩阵快速幂">
+<meta property="article:tag" content="树">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://wecgwm.github.io/img/Snipaste_2023-03-08_12-37-17.png">
   
   
   
-  <title>LC-10-I.斐波那契数列 - yichen</title>
+  <title>LC-2458.移除子树后的二叉树高度 - yichen</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -185,7 +187,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LC-10-I.斐波那契数列"></span>
+            <span id="subtitle" data-typed-text="LC-2458.移除子树后的二叉树高度"></span>
           
         </div>
 
@@ -196,8 +198,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-04 23:08" pubdate>
-          2022年11月4日 晚上
+        <time datetime="2023-03-08 10:48" pubdate>
+          2023年3月8日 上午
         </time>
       </span>
     
@@ -208,7 +210,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.9k 字
         
       </span>
     
@@ -219,7 +221,7 @@
         
         
         
-          11 分钟
+          16 分钟
         
       </span>
     
@@ -257,22 +259,34 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LC-10-I.斐波那契数列</h1>
+            <h1 style="display: none">LC-2458.移除子树后的二叉树高度</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/fei-bo-na-qi-shu-lie-lcof/">leetcode 简单题</a></p>
-<p>写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项（即 F(N)）。斐波那契数列的定义如下：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">F</span><span class="hljs-params">(<span class="hljs-number">0</span>)</span></span> = <span class="hljs-number">0</span>,   <span class="hljs-built_in">F</span>(<span class="hljs-number">1</span>) = <span class="hljs-number">1</span><br><br><span class="hljs-function"><span class="hljs-title">F</span><span class="hljs-params">(N)</span></span> = <span class="hljs-built_in">F</span>(N - <span class="hljs-number">1</span>) + <span class="hljs-built_in">F</span>(N - <span class="hljs-number">2</span>), 其中 N &gt; <span class="hljs-number">1</span>.<br></code></pre></td></tr></table></figure>
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/height-of-binary-tree-after-subtree-removal-queries/submissions/">leetcode 困难题</a></p>
+<p>给你一棵 二叉树 的根节点 root ，树中有 n 个节点。每个节点都可以被分配一个从 1 到 n 且互不相同的值。另给你一个长度为 m 的数组 queries 。</p>
+<p>你必须在树上执行 m 个 独立 的查询，其中第 i 个查询你需要执行以下操作：</p>
+<p>从树中 移除 以 queries[i] 的值作为根节点的子树。题目所用测试用例保证 queries[i] 不 等于根节点的值。<br>返回一个长度为 m 的数组 answer ，其中 answer[i] 是执行第 i 个查询后树的高度。</p>
+<p>注意：</p>
+<ul>
+<li>查询之间是独立的，所以在每个查询执行后，树会回到其 初始 状态。</li>
+<li>树的高度是从根到树中某个节点的 最长简单路径中的边数 。</li>
+</ul>
+<p> </p>
+<p>示例1：</p>
+<p><img src="/../img/Snipaste_2023-03-08_12-37-17.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs livescript">输入：root = [<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">2</span>,<span class="hljs-literal">null</span>,<span class="hljs-number">6</span>,<span class="hljs-number">5</span>,<span class="hljs-literal">null</span>,<span class="hljs-literal">null</span>,<span class="hljs-literal">null</span>,<span class="hljs-literal">null</span>,<span class="hljs-literal">null</span>,<span class="hljs-number">7</span>], queries = [<span class="hljs-number">4</span>]<br>输出：[<span class="hljs-number">2</span>]<br>解释：上图展示了从树中移除以 <span class="hljs-number">4</span> 为根节点的子树。<br>树的高度是 <span class="hljs-number">2</span>（路径为 <span class="hljs-number">1</span> -&gt; <span class="hljs-number">3</span> -&gt; <span class="hljs-number">2</span>）。<br></code></pre></td></tr></table></figure>
 
-<p>斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。</p>
-<p>答案需要取模 1e9+7（1000000007）</p>
-<h2 id="朴素解法"><a href="#朴素解法" class="headerlink" title="朴素解法"></a>朴素解法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-variable">MOD</span> <span class="hljs-operator">=</span> (<span class="hljs-type">int</span>)(<span class="hljs-number">1E9</span> + <span class="hljs-number">7</span>);<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">fib</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;<br>        <span class="hljs-keyword">if</span>(n &lt;= <span class="hljs-number">1</span>)&#123;<br>            <span class="hljs-keyword">return</span> n;<br>        &#125;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, b = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span>; i &lt;= n; i++)&#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> (a + b) % MOD; <br>            a = b;<br>            b = temp;<br>        &#125;<br>        <span class="hljs-keyword">return</span> b;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>提示1：</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs excel">树中节点的数目是 <span class="hljs-built_in">n</span><br><span class="hljs-number">2</span> &lt;= <span class="hljs-built_in">n</span> &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">5</span><br><span class="hljs-number">1</span> &lt;= Node.val &lt;= <span class="hljs-built_in">n</span><br>树中的所有值 互不相同<br>m == queries.length<br><span class="hljs-number">1</span> &lt;= m &lt;= <span class="hljs-built_in">min</span>(<span class="hljs-built_in">n</span>, <span class="hljs-number">10</span>^<span class="hljs-number">4</span>)<br><span class="hljs-number">1</span> &lt;= queries[i] &lt;= <span class="hljs-built_in">n</span><br>queries[i] != root.val<br></code></pre></td></tr></table></figure>
 
-<h2 id="矩阵快速幂"><a href="#矩阵快速幂" class="headerlink" title="矩阵快速幂"></a>矩阵快速幂</h2><p>对于数列递推问题，可以使用矩阵快速幂进行加速，矩阵快速幂的时间复杂度能够突破线性达到 <code>O(logN)</code>。</p>
-<p><a target="_blank" rel="noopener" href="https://oi-wiki.org/math/binary-exponentiation/">OI-WIKI-快速幂</a>　　<a target="_blank" rel="noopener" href="https://oi-wiki.org/math/linear-algebra/matrix/#%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95">OI-WIKI-矩阵乘法</a>　　<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzU4NDE3MTEyMA==&mid=2247488198&idx=1&sn=8272ca6b0ef6530413da4a270abb68bc&chksm=fd9cb9d9caeb30cf6c2defab0f5204adc158969d64418916e306f6bf50ae0c38518d4e4ba146&token=1067450240&lang=zh_CN#rd">宫水三叶-矩阵快速幂</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-variable">MOD</span> <span class="hljs-operator">=</span> (<span class="hljs-type">int</span>)(<span class="hljs-number">1E9</span> + <span class="hljs-number">7</span>);<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">fib</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;<br>        <span class="hljs-keyword">if</span> (n &lt;= <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-keyword">return</span> n;<br>        &#125;<br>        <span class="hljs-type">long</span>[][] matrix = &#123;<br>                &#123;<span class="hljs-number">1</span>, <span class="hljs-number">1</span>&#125;,<br>                &#123;<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;<br>        &#125;;<br>        <span class="hljs-type">long</span>[][] ans = &#123;<br>            &#123;<span class="hljs-number">1</span>, <span class="hljs-number">0</span>&#125;,<br>            &#123;<span class="hljs-number">0</span>, <span class="hljs-number">1</span>&#125;<br>        &#125;; <span class="hljs-comment">// 矩阵中的1，对角线为1</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> n - <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span> (k != <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">if</span> ((k &amp; <span class="hljs-number">1</span>) != <span class="hljs-number">0</span>) &#123;<br>                ans = mul(matrix, ans); <span class="hljs-comment">// 快速幂，将对应二进制位为 1 时的整系数幂乘起来</span><br>            &#125;<br>            matrix = mul(matrix, matrix);<br>            k &gt;&gt;= <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> (<span class="hljs-type">int</span>)(ans[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] % MOD); <span class="hljs-comment">// 实际上为 ans[0][0] * f(1) + ans[0][1] * f(0)</span><br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">long</span>[][] mul(<span class="hljs-type">long</span>[][] matrix1, <span class="hljs-type">long</span>[][] matrix2) &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> matrix1.length;<br>        <span class="hljs-type">long</span>[][] ret = <span class="hljs-keyword">new</span> <span class="hljs-title class_">long</span>[n][n];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; j &lt; n; j++) &#123;<br>                ret[i][j] = (((matrix1[i][<span class="hljs-number">0</span>] * matrix2[<span class="hljs-number">0</span>][j]) % MOD) + ((matrix1[i][<span class="hljs-number">1</span>] * matrix2[<span class="hljs-number">1</span>][j]) % MOD)) % MOD; <span class="hljs-comment">// 同余</span><br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ret;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="dfs"><a href="#dfs" class="headerlink" title="dfs"></a>dfs</h2><p>设当前节点为 $p$ ，以 $p.left$ 为例，询问结果为 </p>
+<p>$max(depth(p) + height(right), depth(p.father) + height(p.father.otherChild))$ </p>
+<p>其中 $depth(x)$ 为某个节点 $x$ 的深度， $height(x)$ 为以 $x$ 节点作为根节点的子树高度。表达式前者表示经过 $p$ 以及 $p.right$ 时的最大路径长度，后者为不经过 $p$ 时的最大路径长度，显然答案为两者的最大值。</p>
+<p>具体可以通过两次 $dfs$ 来实现， 其中第一次 $dfs$ 预处理出 $height$ 和 $depth$ ， 第二次 $dfs$ 处理出对于每个节点的询问答案。</p>
+<p>时间复杂度 $O(n)$ ，$n$ 为节点个数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">import</span> java.util.Optional;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map&lt;Integer, Integer&gt; height = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map&lt;Integer, Integer&gt; depth = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map&lt;Integer, Integer&gt; ans = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span>[] treeQueries(TreeNode root, <span class="hljs-type">int</span>[] queries) &#123;<br>        dfs(root, <span class="hljs-number">0</span>);<br>        dfsAns(root, <span class="hljs-number">0</span>);<br>        <span class="hljs-keyword">return</span> Arrays.stream(queries).map(ans::get).toArray();<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">dfs</span><span class="hljs-params">(TreeNode p, <span class="hljs-type">int</span> depthVal)</span>&#123;<br>        <span class="hljs-keyword">if</span>(p == <span class="hljs-literal">null</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">heightVal</span> <span class="hljs-operator">=</span> Math.max(dfs(p.left, depthVal + <span class="hljs-number">1</span>), dfs(p.right, depthVal + <span class="hljs-number">1</span>)) + <span class="hljs-number">1</span>;<br>        height.put(p.val, heightVal - <span class="hljs-number">1</span>);<br>        depth.put(p.val, depthVal);<br>        <span class="hljs-keyword">return</span> heightVal;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">dfsAns</span><span class="hljs-params">(TreeNode p, <span class="hljs-type">int</span> result)</span>&#123;<br>        <span class="hljs-keyword">if</span>(p == <span class="hljs-literal">null</span>)&#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        ans.put(p.val, result);<br>        <br>        dfsAns(p.left, Math.max(depth.get(p.val) + <br>        height.getOrDefault(Optional.ofNullable(p.right).orElseGet(TreeNode::<span class="hljs-keyword">new</span>).val, -<span class="hljs-number">1</span>) + <span class="hljs-number">1</span>, result));<br><br>        dfsAns(p.right, Math.max(depth.get(p.val) + <br>        height.getOrDefault(Optional.ofNullable(p.left).orElseGet(TreeNode::<span class="hljs-keyword">new</span>).val, -<span class="hljs-number">1</span>) + <span class="hljs-number">1</span>, result));<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -284,7 +298,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%9F%A9%E9%98%B5%E5%BF%AB%E9%80%9F%E5%B9%82/">#矩阵快速幂</a>
+        <a href="/tags/%E6%A0%91/">#树</a>
       
     </div>
   
@@ -296,8 +310,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LC-10-I.斐波那契数列</div>
-      <div>https://wecgwm.github.io/2022/11/04/LC-10-I-斐波那契数列/</div>
+      <div>LC-2458.移除子树后的二叉树高度</div>
+      <div>https://wecgwm.github.io/2023/03/08/LC-2458-移除子树后的二叉树高度/</div>
     </div>
     <div class="license-meta">
       
@@ -309,7 +323,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月4日</div>
+          <div>2023年3月8日</div>
         </div>
       
       
@@ -341,18 +355,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/05/LC-375-%E7%8C%9C%E6%95%B0%E5%AD%97%E5%A4%A7%E5%B0%8FII/" title="LC-375.猜数字大小II">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LC-375.猜数字大小II</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/11/03/LC-464-%E6%88%91%E8%83%BD%E8%B5%A2%E5%90%97/" title="LC-464.我能赢吗">
-                        <span class="hidden-mobile">LC-464.我能赢吗</span>
+                      <a href="/2023/03/06/LC-2467-%E6%A0%91%E4%B8%8A%E6%9C%80%E5%A4%A7%E5%BE%97%E5%88%86%E5%92%8C%E8%B7%AF%E5%BE%84/" title="LC-2467.树上最大得分和路径">
+                        <span class="hidden-mobile">LC-2467.树上最大得分和路径</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -375,7 +383,7 @@
         var options = Object.assign(
           {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: '9ebd82b1dcaefe41862908203636f2d5'
+            id: '583a2956c35804dea165aad788612c40'
           }
         )
         var gitalk = new Gitalk(options);
