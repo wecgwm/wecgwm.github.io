@@ -16,23 +16,23 @@
   <meta name="author" content="yichen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目描述leetcode 困难题 给你两个字符串 s 和 t 。 你可以从字符串 t 中删除任意数目的字符。 如果没有从字符串 t 中删除字符，那么得分为 0 ，否则： 令 left 为删除字符中的最小下标。令 right 为删除字符中的最大下标。字符串的得分为 right - left + 1 。 请你返回使 t 成为 s 子序列的最小得分。 一个字符串的 子序列 是从原字符串中删除一些字符后（">
+    <meta name="description" content="题目描述leetcode 困难题 给你一个下标从 0 开始的非负整数数组 nums 。对于 nums 中每一个整数，你必须找到对应元素的 第二大 整数。 如果 nums[j] 满足以下条件，那么我们称它为 nums[i] 的 第二大 整数： j &gt; inums[j] &gt; nums[i]恰好存在 一个 k 满足 i &lt; k &lt; j 且 nums[k] &gt; nums[i]">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LC-6357.最少得分子序列">
-<meta property="og:url" content="https://wecgwm.github.io/2023/02/13/LC-6357-%E6%9C%80%E5%B0%91%E5%BE%97%E5%88%86%E5%AD%90%E5%BA%8F%E5%88%97/index.html">
+<meta property="og:title" content="LC-2454.下一个更大元素IV">
+<meta property="og:url" content="https://wecgwm.github.io/2023/03/10/LC-2454-%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%A7%E5%85%83%E7%B4%A0IV/index.html">
 <meta property="og:site_name" content="yichen">
-<meta property="og:description" content="题目描述leetcode 困难题 给你两个字符串 s 和 t 。 你可以从字符串 t 中删除任意数目的字符。 如果没有从字符串 t 中删除字符，那么得分为 0 ，否则： 令 left 为删除字符中的最小下标。令 right 为删除字符中的最大下标。字符串的得分为 right - left + 1 。 请你返回使 t 成为 s 子序列的最小得分。 一个字符串的 子序列 是从原字符串中删除一些字符后（">
+<meta property="og:description" content="题目描述leetcode 困难题 给你一个下标从 0 开始的非负整数数组 nums 。对于 nums 中每一个整数，你必须找到对应元素的 第二大 整数。 如果 nums[j] 满足以下条件，那么我们称它为 nums[i] 的 第二大 整数： j &gt; inums[j] &gt; nums[i]恰好存在 一个 k 满足 i &lt; k &lt; j 且 nums[k] &gt; nums[i]">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-02-13T16:46:33.000Z">
-<meta property="article:modified_time" content="2023-03-13T12:59:16.685Z">
+<meta property="article:published_time" content="2023-03-10T10:58:03.000Z">
+<meta property="article:modified_time" content="2023-03-13T12:59:16.681Z">
 <meta property="article:author" content="yichen">
-<meta property="article:tag" content="双指针&#x2F;多指针">
-<meta property="article:tag" content="前后缀分解">
+<meta property="article:tag" content="单调队列">
+<meta property="article:tag" content="优先队列">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>LC-6357.最少得分子序列 - yichen</title>
+  <title>LC-2454.下一个更大元素IV - yichen</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -186,7 +186,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LC-6357.最少得分子序列"></span>
+            <span id="subtitle" data-typed-text="LC-2454.下一个更大元素IV"></span>
           
         </div>
 
@@ -197,8 +197,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-02-13 16:46" pubdate>
-          2023年2月13日 下午
+        <time datetime="2023-03-10 10:58" pubdate>
+          2023年3月10日 上午
         </time>
       </span>
     
@@ -209,7 +209,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          2.3k 字
         
       </span>
     
@@ -220,7 +220,7 @@
         
         
         
-          13 分钟
+          20 分钟
         
       </span>
     
@@ -258,33 +258,29 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LC-6357.最少得分子序列</h1>
+            <h1 style="display: none">LC-2454.下一个更大元素IV</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/subsequence-with-the-minimum-score/">leetcode 困难题</a></p>
-<p>给你两个字符串 s 和 t 。</p>
-<p>你可以从字符串 t 中删除任意数目的字符。</p>
-<p>如果没有从字符串 t 中删除字符，那么得分为 0 ，否则：</p>
-<p>令 left 为删除字符中的最小下标。<br>令 right 为删除字符中的最大下标。<br>字符串的得分为 right - left + 1 。</p>
-<p>请你返回使 t 成为 s 子序列的最小得分。</p>
-<p>一个字符串的 子序列 是从原字符串中删除一些字符后（也可以一个也不删除），剩余字符不改变顺序得到的字符串。（比方说 “ace” 是 “abcde” 的子序列，但是 “aec” 不是）。</p>
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/next-greater-element-iv/">leetcode 困难题</a></p>
+<p>给你一个下标从 0 开始的非负整数数组 nums 。对于 nums 中每一个整数，你必须找到对应元素的 第二大 整数。</p>
+<p>如果 nums[j] 满足以下条件，那么我们称它为 nums[i] 的 第二大 整数：</p>
+<p>j &gt; i<br>nums[j] &gt; nums[i]<br>恰好存在 一个 k 满足 i &lt; k &lt; j 且 nums[k] &gt; nums[i] 。<br>如果不存在 nums[j] ，那么第二大整数为 -1 。</p>
+<p>比方说，数组 [1, 2, 4, 3] 中，1 的第二大整数是 4 ，2 的第二大整数是 3 ，3 和 4 的第二大整数是 -1 。<br>请你返回一个整数数组 answer ，其中 answer[i]是 nums[i] 的第二大整数。</p>
 <p>示例1：</p>
-<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs excel">输入：s = <span class="hljs-string">&quot;abacaba&quot;</span>, <span class="hljs-built_in">t</span> = <span class="hljs-string">&quot;bzaa&quot;</span><br>输出：<span class="hljs-number">1</span><br>解释：这个例子中，我们删除下标 <span class="hljs-number">1</span> 处的字符 <span class="hljs-string">&quot;z&quot;</span> （下标从 <span class="hljs-number">0</span> 开始）。<br>字符串 <span class="hljs-built_in">t</span> 变为 <span class="hljs-string">&quot;baa&quot;</span> ，它是字符串 <span class="hljs-string">&quot;abacaba&quot;</span> 的子序列，得分为 <span class="hljs-number">1</span> - <span class="hljs-number">1</span> + <span class="hljs-number">1</span> = <span class="hljs-number">1</span> 。<br><span class="hljs-number">1</span> 是能得到的最小得分。<br></code></pre></td></tr></table></figure>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：nums = [2,4,0,9,6]<br>输出：[9,6,6,-1,-1]<br>解释：<br>下标为<span class="hljs-number"> 0 </span>处：2 的右边，4 是大于<span class="hljs-number"> 2 </span>的第一个整数，9 是第二个大于<span class="hljs-number"> 2 </span>的整数。<br>下标为<span class="hljs-number"> 1 </span>处：4 的右边，9 是大于<span class="hljs-number"> 4 </span>的第一个整数，6 是第二个大于<span class="hljs-number"> 4 </span>的整数。<br>下标为<span class="hljs-number"> 2 </span>处：0 的右边，9 是大于<span class="hljs-number"> 0 </span>的第一个整数，6 是第二个大于<span class="hljs-number"> 0 </span>的整数。<br>下标为<span class="hljs-number"> 3 </span>处：右边不存在大于<span class="hljs-number"> 9 </span>的整数，所以第二大整数为 -1 。<br>下标为<span class="hljs-number"> 4 </span>处：右边不存在大于<span class="hljs-number"> 6 </span>的整数，所以第二大整数为 -1 。<br>所以我们返回 [9,6,6,-1,-1] 。<br></code></pre></td></tr></table></figure>
 
 <p>提示1：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">1</span> &lt;= s.length, t.length &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">5</span><br><span class="hljs-attribute">s</span> 和 t 都只包含小写英文字母<br></code></pre></td></tr></table></figure>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span>&lt;= nums.length &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">5</span><br><span class="hljs-symbol">0 </span>&lt;= nums[i] &lt;= <span class="hljs-number">10</span>^<span class="hljs-number">9</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="前后缀分解-双指针"><a href="#前后缀分解-双指针" class="headerlink" title="前后缀分解 + 双指针"></a>前后缀分解 + 双指针</h2><p>注意到得分只取决于删除的最大&#x2F;最小下标，那么我们不妨将 $left, right$ 之间的元素全部删除，这样既不影响得分，$t$ 也依旧是 $s$ 的一个子序列。也就是说此时除了 $t[left…right]$ 区间的元素，$t$ 中剩余的元素都必须与 $s$ 的子序列匹配。</p>
-<p>这样一来我们就可以进行前后缀分解，设 $i$ 为 $s$ 的某个下标</p>
-<ul>
-<li>$pre[i]$ 表示 $s[0…i]$ 子序列能够在 $t$ 中匹配到的最长前缀</li>
-<li>$suf[i]$ 表示 $s[i…n]$ 子序列能够在 $t$ 中匹配到的最长后缀</li>
-</ul>
-<p>那么显然答案就为 $max( suf[i + 1] - 1 - (pre[i] + 1) + 1 )$ 。</p>
-<p>接下来考虑如何维护 $pre$ 和 $suf$ ，可以通过双指针进行维护。以 $pre$ 为例，初始时指针 $i、j$ 分别指向 $s、t$ 的 $0$ 下标处，匹配过程中每次 $i$ 往后移动一位，而当 $s[i] &#x3D;&#x3D; t[j]$ 时，说明匹配成功，$j$ 往后移动一位，每次更新 $pre[i]$ 为 $j - 1$ 即可。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">minimumScore</span><span class="hljs-params">(String s, String t)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> s.length();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">m</span> <span class="hljs-operator">=</span> t.length();<br>        <span class="hljs-type">int</span>[] pre = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>; i &lt; n &amp;&amp; j &lt; m; i++)&#123;   <br>            <span class="hljs-keyword">if</span>(s.charAt(i) == t.charAt(j))&#123;<br>                j++;<br>            &#125;<br>            pre[i] = j - <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(pre[n - <span class="hljs-number">1</span>] == m - <span class="hljs-number">1</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-type">int</span>[] suf = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n + <span class="hljs-number">1</span>];<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> n - <span class="hljs-number">1</span>, j = m - <span class="hljs-number">1</span>; i &gt;= <span class="hljs-number">0</span> &amp;&amp; j &gt;= <span class="hljs-number">0</span>; i--)&#123; <br>            <span class="hljs-keyword">if</span>(s.charAt(i) == t.charAt(j))&#123;<br>                j--;<br>            &#125;<br>            suf[i] = j + <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> suf[<span class="hljs-number">0</span>] - <span class="hljs-number">1</span> - (-<span class="hljs-number">1</span> + <span class="hljs-number">1</span>) + <span class="hljs-number">1</span>; <span class="hljs-comment">// i.e. suf[0]</span><br>        suf[n] = m;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++)&#123;<br>            ans = Math.min(ans, suf[i + <span class="hljs-number">1</span>] - <span class="hljs-number">1</span> - (pre[i] + <span class="hljs-number">1</span>) + <span class="hljs-number">1</span>); <span class="hljs-comment">// i.e. suf[i + 1] - pre[i] - 1</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> Math.max(ans, <span class="hljs-number">0</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="单调栈-优先队列"><a href="#单调栈-优先队列" class="headerlink" title="单调栈+优先队列"></a>单调栈+优先队列</h2><p>先考虑找 $nums[i]$ 的第一大元素，显然我们可以通过单调栈求出，那么此时在第一大元素后面第一个大于 $nums[i]$ 的数即为第二大元素。</p>
+<p>具体来说，顺序遍历数组，维护一个栈顶到栈底单调递增的单调栈，对于每个 $nums[i]$ ，如果大于栈顶元素，则当前元素为栈顶元素的第一大元素，弹出该栈顶，此时显然右边第一个大于栈顶的元素为栈顶的第二大元素。那么类似找第一个元素的过程，我们可以第二个单调栈保存所弹出的元素，后续遍历过程中只要某个元素 $nums[i]$ 大于第二个单调栈的栈顶，说明 $nums[i]$ 为第二个单调栈的栈顶的第二大元素。</p>
+<p>需要注意的是，类似第一个单调栈，第二个单调栈也需要维护栈顶到栈底单调递增的性质，一种方法是在对第一个栈做弹出时，使用一个临时栈来保存所弹出顺序。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span>[] secondGreaterElement(<span class="hljs-type">int</span>[] nums) &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-type">int</span>[] ans = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n];<br>        Arrays.fill(ans, -<span class="hljs-number">1</span>);<br>        Deque&lt;Integer&gt; monoStack  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayDeque</span>&lt;&gt;();<br>        Deque&lt;Integer&gt; secondMonoStack = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayDeque</span>&lt;&gt;();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>            <span class="hljs-keyword">while</span>(!secondMonoStack.isEmpty() &amp;&amp; nums[secondMonoStack.peek()] &lt; nums[i])&#123;<br>                ans[secondMonoStack.pop()] = nums[i];<br>            &#125;<br>            Deque&lt;Integer&gt; temp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayDeque</span>&lt;&gt;();<br>            <span class="hljs-keyword">while</span> (!monoStack.isEmpty() &amp;&amp; nums[monoStack.peek()] &lt; nums[i]) &#123;<br>                temp.push(monoStack.pop());<br>            &#125;<br>            monoStack.push(i);<br>            <span class="hljs-keyword">while</span>(!temp.isEmpty())&#123;<br>                secondMonoStack.push(temp.pop());<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>也可以直接用优先队列来省去一些代码，但对应时间复杂度会多一个 $log$。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span>[] secondGreaterElement(<span class="hljs-type">int</span>[] nums) &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> nums.length;<br>        <span class="hljs-type">int</span>[] ans = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n];<br>        Arrays.fill(ans, -<span class="hljs-number">1</span>);<br>        Deque&lt;Integer&gt; monoStack  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayDeque</span>&lt;&gt;();<br>        PriorityQueue&lt;Integer&gt; secondHigherQueue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;((a, b) -&gt; nums[a] - nums[b]);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>            <span class="hljs-keyword">while</span>(!secondHigherQueue.isEmpty() &amp;&amp; nums[secondHigherQueue.peek()] &lt; nums[i])&#123;<br>                ans[secondHigherQueue.poll()] = nums[i];<br>            &#125;<br>            <span class="hljs-keyword">while</span> (!monoStack.isEmpty() &amp;&amp; nums[monoStack.peek()] &lt; nums[i]) &#123;<br>                secondHigherQueue.offer(monoStack.pop());<br>            &#125;<br>            monoStack.push(i);<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
                 
               </div>
             
@@ -296,9 +292,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88-%E5%A4%9A%E6%8C%87%E9%92%88/">#双指针/多指针</a>
+        <a href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">#单调队列</a>
       
-        <a href="/tags/%E5%89%8D%E5%90%8E%E7%BC%80%E5%88%86%E8%A7%A3/">#前后缀分解</a>
+        <a href="/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">#优先队列</a>
       
     </div>
   
@@ -310,8 +306,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LC-6357.最少得分子序列</div>
-      <div>https://wecgwm.github.io/2023/02/13/LC-6357-最少得分子序列/</div>
+      <div>LC-2454.下一个更大元素IV</div>
+      <div>https://wecgwm.github.io/2023/03/10/LC-2454-下一个更大元素IV/</div>
     </div>
     <div class="license-meta">
       
@@ -323,7 +319,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年2月13日</div>
+          <div>2023年3月10日</div>
         </div>
       
       
@@ -355,9 +351,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/02/13/LC-1234-%E6%9B%BF%E6%8D%A2%E5%AD%90%E4%B8%B2%E5%BE%97%E5%88%B0%E5%B9%B3%E8%A1%A1%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="LC-1234.替换子串得到平衡字符串">
+                      <a href="/2023/03/12/LC-2547-%E6%8B%86%E5%88%86%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E4%BB%A3%E4%BB%B7/" title="LC-2547.拆分数组的最小代价">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LC-1234.替换子串得到平衡字符串</span>
+                        <span class="hidden-mobile">LC-2547.拆分数组的最小代价</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -365,8 +361,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/02/12/LC-6356-%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%BC%82%E6%88%96%E6%9F%A5%E8%AF%A2/" title="LC-6356.子字符串异或查询">
-                        <span class="hidden-mobile">LC-6356.子字符串异或查询</span>
+                      <a href="/2023/03/08/LC-2458-%E7%A7%BB%E9%99%A4%E5%AD%90%E6%A0%91%E5%90%8E%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91%E9%AB%98%E5%BA%A6/" title="LC-2458.移除子树后的二叉树高度">
+                        <span class="hidden-mobile">LC-2458.移除子树后的二叉树高度</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -389,7 +385,7 @@
         var options = Object.assign(
           {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            id: '406d077ab75090bc483962cc720a386a'
+            id: '39581150c2f3b24ffe388d7de44f5758'
           }
         )
         var gitalk = new Gitalk(options);
