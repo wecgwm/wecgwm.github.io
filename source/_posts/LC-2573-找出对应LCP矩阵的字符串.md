@@ -95,7 +95,7 @@ class UnionFind{
         if(a == b){
             return;
         }
-        if(size[a] > size[b]){
+        if(size[a] < size[b]){
             a = a ^ b;
             b = a ^ b;
             a = a ^ b;
