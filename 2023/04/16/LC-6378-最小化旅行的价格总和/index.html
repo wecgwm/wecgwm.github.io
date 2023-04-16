@@ -1,0 +1,719 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/a6041a455d0d13b8c9b63f30642af1b.jpg">
+  <link rel="icon" href="/img/a6041a455d0d13b8c9b63f30642af1b.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="yichen">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="题目描述leetcode 困难题 现有一棵无向、无根的树，树中有 n 个节点，按从 0 到 n - 1 编号。给你一个整数 n 和一个长度为 n - 1 的二维整数数组 edges ，其中 edges[i] &#x3D; [ai, bi] 表示树中节点 ai 和 bi 之间存在一条边。 每个节点都关联一个价格。给你一个整数数组 price ，其中 price[i] 是第 i 个节点的价格。 给定路">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LC-6378.最小化旅行的价格总和">
+<meta property="og:url" content="https://wecgwm.github.io/2023/04/16/LC-6378-%E6%9C%80%E5%B0%8F%E5%8C%96%E6%97%85%E8%A1%8C%E7%9A%84%E4%BB%B7%E6%A0%BC%E6%80%BB%E5%92%8C/index.html">
+<meta property="og:site_name" content="yichen">
+<meta property="og:description" content="题目描述leetcode 困难题 现有一棵无向、无根的树，树中有 n 个节点，按从 0 到 n - 1 编号。给你一个整数 n 和一个长度为 n - 1 的二维整数数组 edges ，其中 edges[i] &#x3D; [ai, bi] 表示树中节点 ai 和 bi 之间存在一条边。 每个节点都关联一个价格。给你一个整数数组 price ，其中 price[i] 是第 i 个节点的价格。 给定路">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wecgwm.github.io/img/Snipaste_2023-04-17_00-45-04.png">
+<meta property="article:published_time" content="2023-04-16T23:06:47.000Z">
+<meta property="article:modified_time" content="2023-04-16T17:31:19.781Z">
+<meta property="article:author" content="yichen">
+<meta property="article:tag" content="树形DP">
+<meta property="article:tag" content="LCA">
+<meta property="article:tag" content="树上差分">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://wecgwm.github.io/img/Snipaste_2023-04-17_00-45-04.png">
+  
+  
+  
+  <title>LC-6378.最小化旅行的价格总和 - yichen</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"wecgwm.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>yichen</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/20220710105552.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="LC-6378.最小化旅行的价格总和"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-16 23:06" pubdate>
+          2023年4月16日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          40 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">LC-6378.最小化旅行的价格总和</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimize-the-total-price-of-the-trips/solutions/?orderBy=most_votes">leetcode 困难题</a></p>
+<p>现有一棵无向、无根的树，树中有 n 个节点，按从 0 到 n - 1 编号。给你一个整数 n 和一个长度为 n - 1 的二维整数数组 edges ，其中 edges[i] &#x3D; [ai, bi] 表示树中节点 ai 和 bi 之间存在一条边。</p>
+<p>每个节点都关联一个价格。给你一个整数数组 price ，其中 price[i] 是第 i 个节点的价格。</p>
+<p>给定路径的 价格总和 是该路径上所有节点的价格之和。</p>
+<p>另给你一个二维整数数组 trips ，其中 trips[i] &#x3D; [starti, endi] 表示您从节点 starti 开始第 i 次旅行，并通过任何你喜欢的路径前往节点 endi 。</p>
+<p>在执行第一次旅行之前，你可以选择一些 非相邻节点 并将价格减半。</p>
+<p>返回执行所有旅行的最小价格总和。</p>
+<p>示例1：<br><img src="/../img/Snipaste_2023-04-17_00-45-04.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs tap">输入：n = 4, edges = [[0,1],[1,2],[1,3]], price = [2,2,10,6], trips = [[0,3],[2,1],[2,3]]<br>输出：23<br>解释：<br>上图表示将节点<span class="hljs-number"> 2 </span>视为根之后的树结构。<br>第一个图表示初始树，第二个图表示选择节点<span class="hljs-number"> 0 </span>、2 和<span class="hljs-number"> 3 </span>并使其价格减半后的树。<br>第<span class="hljs-number"> 1 </span>次旅行，选择路径 [0,1,3] 。路径的价格总和为<span class="hljs-number"> 1 </span>+<span class="hljs-number"> 2 </span>+<span class="hljs-number"> 3 </span>=<span class="hljs-number"> 6 </span>。<br>第<span class="hljs-number"> 2 </span>次旅行，选择路径 [2,1] 。路径的价格总和为<span class="hljs-number"> 2 </span>+<span class="hljs-number"> 5 </span>=<span class="hljs-number"> 7 </span>。<br>第<span class="hljs-number"> 3 </span>次旅行，选择路径 [2,1,3] 。路径的价格总和为<span class="hljs-number"> 5 </span>+<span class="hljs-number"> 2 </span>+<span class="hljs-number"> 3 </span>=<span class="hljs-number"> 10 </span>。<br>所有旅行的价格总和为<span class="hljs-number"> 6 </span>+<span class="hljs-number"> 7 </span>+<span class="hljs-number"> 10 </span>=<span class="hljs-number"> 23 </span>。可以证明，23 是可以实现的最小答案。<br></code></pre></td></tr></table></figure>
+
+<p>提示1：</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs excel"><span class="hljs-number">1</span> &lt;= <span class="hljs-built_in">n</span> &lt;= <span class="hljs-number">50</span><br>edges.length == <span class="hljs-built_in">n</span> - <span class="hljs-number">1</span><br><span class="hljs-number">0</span> &lt;= ai, bi &lt;= <span class="hljs-built_in">n</span> - <span class="hljs-number">1</span><br>edges 表示一棵有效的树<br>price.length == <span class="hljs-built_in">n</span><br><span class="hljs-built_in">price</span>[i] 是一个偶数<br><span class="hljs-number">1</span> &lt;= <span class="hljs-built_in">price</span>[i] &lt;= <span class="hljs-number">1000</span><br><span class="hljs-number">1</span> &lt;= trips.length &lt;= <span class="hljs-number">100</span><br><span class="hljs-number">0</span> &lt;= starti, endi &lt;= <span class="hljs-built_in">n</span> - <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="树形-DP"><a href="#树形-DP" class="headerlink" title="树形 DP"></a>树形 DP</h2><p>需要注意的是贪心解法是错的，也就是说价格减半的点并不止两种情况，可以参考打家劫舍或者以下这个例子</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1000 </span>-&gt; <span class="hljs-number">1</span> -&gt; <span class="hljs-number">1</span> -&gt; <span class="hljs-number">1000</span><br></code></pre></td></tr></table></figure>
+<p>最优的选择明显是将第一个和最后一个节点价格减半，而不是分奇偶节点。</p>
+<p>没有陷入贪心解法的误区的话，其实问题就类似<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/house-robber-iii/">打家劫舍</a>了。</p>
+<p>不同的是我们需要求出每个节点的实际价格，而由于树上任意节点间的路径固定，所有我们只需要求出每个节点经过的次数，将该次数乘上原价格即可得出该节点的实际价格。</p>
+<p>求每个节点的经过次数有两种做法：</p>
+<h3 id="暴力-DFS"><a href="#暴力-DFS" class="headerlink" title="暴力 DFS"></a>暴力 DFS</h3><p>注意到题目数据规模较小，可以暴力枚举所有旅行，将经过的点计数加一即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    Map&lt;Integer, List&lt;Integer&gt;&gt; g = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>    <span class="hljs-type">int</span>[] cnt;<br>    <span class="hljs-type">int</span>[] price;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">minimumTotalPrice</span><span class="hljs-params">(<span class="hljs-type">int</span> n, <span class="hljs-type">int</span>[][] edges, <span class="hljs-type">int</span>[] price, <span class="hljs-type">int</span>[][] trips)</span> &#123;<br>        <span class="hljs-built_in">this</span>.price = price;<br>        cnt = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n];<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span>[] e : edges) &#123;<br>            g.computeIfAbsent(e[<span class="hljs-number">1</span>], __ -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;())<br>                    .add(e[<span class="hljs-number">0</span>]);<br>            g.computeIfAbsent(e[<span class="hljs-number">0</span>], __ -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;())<br>                    .add(e[<span class="hljs-number">1</span>]);<br>        &#125;<br>        Arrays.stream(trips).forEach(t -&gt; tripCnt(t[<span class="hljs-number">0</span>], t[<span class="hljs-number">1</span>], -<span class="hljs-number">1</span>));<br>        <span class="hljs-keyword">return</span> Arrays.stream(dfs(<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>)).min().orElseThrow();<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">tripCnt</span><span class="hljs-params">(<span class="hljs-type">int</span> node, <span class="hljs-type">int</span> end, <span class="hljs-type">int</span> fa)</span> &#123;<br>        <span class="hljs-keyword">if</span> (node == end) &#123;<br>            cnt[end]++;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> connect : g.getOrDefault(node, Collections.emptyList())) &#123;<br>            <span class="hljs-keyword">if</span> (connect == fa) &#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (tripCnt(connect, end, node)) &#123;<br>                cnt[node]++;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span>[] dfs(<span class="hljs-type">int</span> node, <span class="hljs-type">int</span> fa) &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">val</span> <span class="hljs-operator">=</span> cnt[node] * price[node];<br>        <span class="hljs-type">int</span>[] ret = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;val, val / <span class="hljs-number">2</span>&#125;;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> connect : g.getOrDefault(node, Collections.emptyList())) &#123;<br>            <span class="hljs-keyword">if</span> (connect == fa) &#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-type">int</span>[] dp = dfs(connect, node);<br>            <span class="hljs-comment">// 当前不减半，相邻取小</span><br>            ret[<span class="hljs-number">0</span>] +=  Math.min(dp[<span class="hljs-number">0</span>], dp[<span class="hljs-number">1</span>]);<br>            <span class="hljs-comment">// 当前减半，相邻必然不能减半</span><br>            ret[<span class="hljs-number">1</span>] += dp[<span class="hljs-number">0</span>]; <br>        &#125;<br>        <span class="hljs-keyword">return</span> ret;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="Tarjan-LCA-树上差分"><a href="#Tarjan-LCA-树上差分" class="headerlink" title="Tarjan LCA + 树上差分"></a>Tarjan LCA + 树上差分</h3><p>树上任意两个节点 $a、b$ 的路径等价于 $a -&gt; lca(a, b) -&gt; b$ ，维护 $cnt[i]$ 表示节点 $i$ 对其祖先节点的贡献，那么节点 $a$ 经过次数即为 $i$ 子树下所有 $cnt[i]$ 之和。</p>
+<p>而 $cnt$ 的维护过程依赖差分，假设存在 $(a, b)$ 旅行，有:</p>
+<ul>
+<li>$cnt[a]$++</li>
+<li>$cnt[b]$++</li>
+<li>$cnt[lca]$++</li>
+<li>$cnt[fa[lca]]$++</li>
+</ul>
+<p>总体更新完毕后，再自底向上更新差分值即可。</p>
+<p>剩下问题为求旅行节点的 $lca$ ，可以通过 <a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/lca/#tarjan-%E7%AE%97%E6%B3%95">Tarjan</a> 求出。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    Map&lt;Integer, List&lt;Integer&gt;&gt; g = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>    Map&lt;Integer, List&lt;<span class="hljs-type">int</span>[]&gt;&gt; tripMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>    Map&lt;Integer, Integer&gt; lcaMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>    Map&lt;Integer, Integer&gt; faMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>    <span class="hljs-type">int</span>[] uf;<br>    <span class="hljs-type">int</span>[] cnt;<br>    <span class="hljs-type">int</span>[] price;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">minimumTotalPrice</span><span class="hljs-params">(<span class="hljs-type">int</span> n, <span class="hljs-type">int</span>[][] edges, <span class="hljs-type">int</span>[] price, <span class="hljs-type">int</span>[][] trips)</span> &#123;<br>        <span class="hljs-built_in">this</span>.price = price;<br>        cnt = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[n];<br>        uf = IntStream.range(<span class="hljs-number">0</span>, n).toArray();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span>[] e : edges) &#123;<br>            g.computeIfAbsent(e[<span class="hljs-number">1</span>], __ -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;())<br>                    .add(e[<span class="hljs-number">0</span>]);<br>            g.computeIfAbsent(e[<span class="hljs-number">0</span>], __ -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;())<br>                    .add(e[<span class="hljs-number">1</span>]);<br>        &#125;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; trips.length; i++) &#123;<br>            tripMap.computeIfAbsent(trips[i][<span class="hljs-number">0</span>], __ -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;())<br>                    .add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;trips[i][<span class="hljs-number">1</span>], i&#125;);<br>            tripMap.computeIfAbsent(trips[i][<span class="hljs-number">1</span>], __ -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;())<br>                    .add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;trips[i][<span class="hljs-number">0</span>], i&#125;);<br>        &#125;<br>        tarjanLca(<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;());<br>        diffCnt(trips);<br>        <span class="hljs-keyword">return</span> Arrays.stream(dfs(<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>)).min().orElseThrow();<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">tarjanLca</span><span class="hljs-params">(<span class="hljs-type">int</span> node, <span class="hljs-type">int</span> fa, Set&lt;Integer&gt; visit)</span> &#123;<br>        faMap.put(node, fa);<br>        visit.add(node);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> connect : g.getOrDefault(node, Collections.emptyList())) &#123;<br>            <span class="hljs-keyword">if</span> (connect == fa) &#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            tarjanLca(connect, node, visit);<br>            uf[connect] = node;<br>        &#125;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span>[] q : tripMap.getOrDefault(node, Collections.emptyList())) &#123;<br>            <span class="hljs-keyword">if</span> (!visit.contains(q[<span class="hljs-number">0</span>])) &#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            lcaMap.put(q[<span class="hljs-number">1</span>], find(q[<span class="hljs-number">0</span>]));<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">diffCnt</span><span class="hljs-params">(<span class="hljs-type">int</span>[][] trips)</span> &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; trips.length; i++) &#123;<br>            <span class="hljs-type">int</span>[] t = trips[i];<br>            cnt[t[<span class="hljs-number">0</span>]]++;<br>            cnt[t[<span class="hljs-number">1</span>]]++;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">lca</span> <span class="hljs-operator">=</span> lcaMap.get(i);<br>            <span class="hljs-type">int</span> <span class="hljs-variable">lcaFa</span> <span class="hljs-operator">=</span> faMap.getOrDefault(lca, -<span class="hljs-number">1</span>);<br>            <span class="hljs-keyword">if</span> (lcaFa != -<span class="hljs-number">1</span>) &#123;<br>                cnt[lcaFa]--;<br>            &#125;<br>            cnt[lca]--;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span>[] dfs(<span class="hljs-type">int</span> node, <span class="hljs-type">int</span> fa) &#123;<br>        <span class="hljs-type">int</span>[] ret = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> connect : g.getOrDefault(node, Collections.emptyList())) &#123;<br>            <span class="hljs-keyword">if</span> (connect == fa) &#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-type">int</span>[] dp = dfs(connect, node);<br>            <span class="hljs-comment">// 当前不减半，相邻取小</span><br>            ret[<span class="hljs-number">0</span>] +=  Math.min(dp[<span class="hljs-number">0</span>], dp[<span class="hljs-number">1</span>]);<br>            <span class="hljs-comment">// 当前减半，相邻必然不能减半</span><br>            ret[<span class="hljs-number">1</span>] += dp[<span class="hljs-number">0</span>];<br>            cnt[node] += cnt[connect];<br>        &#125;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">val</span> <span class="hljs-operator">=</span> price[node] * cnt[node];<br>        ret[<span class="hljs-number">0</span>] += val;<br>        ret[<span class="hljs-number">1</span>] += val / <span class="hljs-number">2</span>;<br>        <span class="hljs-keyword">return</span> ret;<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">find</span><span class="hljs-params">(<span class="hljs-type">int</span> point)</span> &#123;<br>        <span class="hljs-keyword">if</span> (point != uf[point]) &#123;<br>            uf[point] = find(uf[point]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> uf[point];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%A0%91%E5%BD%A2DP/">#树形DP</a>
+      
+        <a href="/tags/LCA/">#LCA</a>
+      
+        <a href="/tags/%E6%A0%91%E4%B8%8A%E5%B7%AE%E5%88%86/">#树上差分</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>LC-6378.最小化旅行的价格总和</div>
+      <div>https://wecgwm.github.io/2023/04/16/LC-6378-最小化旅行的价格总和/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>yichen</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/03/17/LC-2421-%E5%A5%BD%E8%B7%AF%E5%BE%84%E7%9A%84%E6%95%B0%E7%9B%AE/" title="LC-2421.好路径的数目">
+                        <span class="hidden-mobile">LC-2421.好路径的数目</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: 'cb451b74c0b37b78a96027db4a718ff9'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
