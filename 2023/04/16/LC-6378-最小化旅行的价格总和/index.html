@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://wecgwm.github.io/img/Snipaste_2023-04-17_00-45-04.png">
 <meta property="article:published_time" content="2023-04-16T23:06:47.000Z">
-<meta property="article:modified_time" content="2023-04-16T17:31:19.781Z">
+<meta property="article:modified_time" content="2023-04-16T17:34:48.040Z">
 <meta property="article:author" content="yichen">
 <meta property="article:tag" content="树形DP">
 <meta property="article:tag" content="LCA">
@@ -293,8 +293,8 @@
 <ul>
 <li>$cnt[a]$++</li>
 <li>$cnt[b]$++</li>
-<li>$cnt[lca]$++</li>
-<li>$cnt[fa[lca]]$++</li>
+<li>$cnt[lca]$–</li>
+<li>$cnt[fa[lca]]$–</li>
 </ul>
 <p>总体更新完毕后，再自底向上更新差分值即可。</p>
 <p>剩下问题为求旅行节点的 $lca$ ，可以通过 <a target="_blank" rel="noopener" href="https://oi-wiki.org/graph/lca/#tarjan-%E7%AE%97%E6%B3%95">Tarjan</a> 求出。</p>
