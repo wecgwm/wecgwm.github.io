@@ -143,6 +143,25 @@
   
   
   <entry>
+    <title>题单</title>
+    <link href="/2023/03/05/%E9%A2%98%E5%8D%95/"/>
+    <url>/2023/03/05/%E9%A2%98%E5%8D%95/</url>
+    
+    <content type="html"><![CDATA[<h2 id="DP"><a href="#DP" class="headerlink" title="DP"></a>DP</h2><p>dp 步步最优，贪心局部最优。 <a href="https://leetcode.cn/problems/maximum-deletions-on-a-string/">2430. 对字母串可执行的最大删除数</a></p><p>dp 求具体方案 <a href="https://leetcode.cn/problems/shortest-common-supersequence/solutions/?orderBy=most_votes">1092. 最短公共超序列</a></p><h2 id="区间DP"><a href="#区间DP" class="headerlink" title="区间DP"></a>区间DP</h2><p><a href="https://leetcode.cn/problems/minimum-cost-to-merge-stones/">1000. 合并石头的最低成本</a></p><h2 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h2><h3 id="中位数"><a href="#中位数" class="headerlink" title="中位数"></a>中位数</h3><p><a href="https://leetcode.cn/problems/minimum-moves-to-equal-array-elements-ii/description/">462. 最小操作次数使数组元素相等 II</a></p><h3 id="奇偶性"><a href="#奇偶性" class="headerlink" title="奇偶性"></a>奇偶性</h3><p><a href="https://leetcode.cn/problems/minimum-number-of-operations-to-make-arrays-similar/description/">2449. 使数组相似的最少操作次数</a></p><h2 id="树"><a href="#树" class="headerlink" title="树"></a>树</h2><p><a href="https://leetcode.cn/problems/most-profitable-path-in-a-tree/description/">2467. 树上最大得分和路径</a></p><h2 id="ELSE"><a href="#ELSE" class="headerlink" title="ELSE"></a>ELSE</h2><h3 id="中缀表达式"><a href="#中缀表达式" class="headerlink" title="中缀表达式"></a>中缀表达式</h3><p><a href="https://leetcode.cn/problems/brace-expansion-ii/">1096. 花括号展开 II</a></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Uncategorized</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LC-2518.好分区的数目</title>
     <link href="/2023/03/02/LC-2518-%E5%A5%BD%E5%88%86%E5%8C%BA%E7%9A%84%E6%95%B0%E7%9B%AE/"/>
     <url>/2023/03/02/LC-2518-%E5%A5%BD%E5%88%86%E5%8C%BA%E7%9A%84%E6%95%B0%E7%9B%AE/</url>
