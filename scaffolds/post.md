@@ -5,7 +5,7 @@ tags:
 ---
 
 ## 题目描述
-[leetcode 中等题]()
+[leetcode hard]()
 
 
 
