@@ -1,0 +1,727 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/a6041a455d0d13b8c9b63f30642af1b.jpg">
+  <link rel="icon" href="/img/a6041a455d0d13b8c9b63f30642af1b.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="yichen">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="目标基础设施：Kubernetes、Helm、Ingress-nginx、kubernetes-dashboard、Prometheus、Grafana、Github-Action 最终效果是实现例如 spring boot 的项目开发完毕提交到 github 后，可以自动化部署到 kubernetes 集群上，能直接通过 $https$ 路径 www.wecgwm.com&#x2F;spring-boot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kubernetes记录">
+<meta property="og:url" content="https://wecgwm.github.io/2023/07/13/kubernetes%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="yichen">
+<meta property="og:description" content="目标基础设施：Kubernetes、Helm、Ingress-nginx、kubernetes-dashboard、Prometheus、Grafana、Github-Action 最终效果是实现例如 spring boot 的项目开发完毕提交到 github 后，可以自动化部署到 kubernetes 集群上，能直接通过 $https$ 路径 www.wecgwm.com&#x2F;spring-boot">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wecgwm.github.io/img/Snipaste_2023-07-13_19-27-52.png">
+<meta property="article:published_time" content="2023-07-13T16:25:35.000Z">
+<meta property="article:modified_time" content="2023-07-13T11:33:27.015Z">
+<meta property="article:author" content="yichen">
+<meta property="article:tag" content="容器">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://wecgwm.github.io/img/Snipaste_2023-07-13_19-27-52.png">
+  
+  
+  
+  <title>kubernetes记录 - yichen</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"wecgwm.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>yichen</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/20220710105552.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="kubernetes记录"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-13 16:25" pubdate>
+          2023年7月13日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">kubernetes记录</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p>基础设施：<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/home/">Kubernetes</a>、<a target="_blank" rel="noopener" href="https://helm.sh/">Helm</a>、<a target="_blank" rel="noopener" href="https://github.com/kubernetes/ingress-nginx">Ingress-nginx</a>、<a target="_blank" rel="noopener" href="https://github.com/kubernetes/dashboard">kubernetes-dashboard</a>、<a target="_blank" rel="noopener" href="https://prometheus.io/">Prometheus</a>、<a target="_blank" rel="noopener" href="https://grafana.com/">Grafana</a>、<a target="_blank" rel="noopener" href="https://github.com/actions/runner">Github-Action</a></p>
+<p>最终效果是实现例如 <code>spring boot</code> 的项目开发完毕提交到 <code>github</code> 后，可以自动化部署到 <code>kubernetes</code> 集群上，能直接通过 $https$ 路径 <code>www.wecgwm.com/spring-boot-sample/up</code> 访问，基础指标和自定义指标可以选择性的暴露给 <code>prometheus</code>，且可以通过 <code>Grafana</code> 和 <code>dashboard</code> 进行管理。</p>
+<h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2><p>本文不会过多的写关于 <code>k8s</code> 中的概念以及一些其他服务的部署细节，因为更好的做法是直接参考<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/home/">官方文档</a>。</p>
+<p>主要是记录整体的搭建流程，以及记录一些官方文档中没提及、有收获的、花费了较多时间的问题，最后就是一些存在疑惑的地方也会记录下来。</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>VPS： <a target="_blank" rel="noopener" href="https://www.vultr.com/">Vultr</a>，两台 <code>4G</code>、两核的 <code>Debian11</code>。</p>
+<p>域名：<a target="_blank" rel="noopener" href="https://dash.cloudflare.com/login">Cloud flare</a>，提供免费的代理和 <code>SSL/TLS</code> 证书管理功能。</p>
+<h2 id="Kubernetes、Helm"><a href="#Kubernetes、Helm" class="headerlink" title="Kubernetes、Helm"></a>Kubernetes、Helm</h2><p><code>k8s</code> 的官方文档还是写的很详细的，基本上只要按照文档中的步骤进行部署即可，遇到的问题也能直接在官方文档的 <code>FAQ</code> 等地方中找到。网络插件选择<a target="_blank" rel="noopener" href="https://github.com/cilium/cilium">cilium</a>。</p>
+<p><code>Helm</code> 的部署比较简单，就不说了。</p>
+<h2 id="部署方式"><a href="#部署方式" class="headerlink" title="部署方式"></a>部署方式</h2><p>对于以下项目的部署一般存在两种方式：<code>yaml清单</code> 或者 <code>Helm</code> ，这里不会单独选择某种方式，这是因为不同项目实际上对于不同部署方式的支持程度并不一致。</p>
+<p>举例来说目前 <code>Ingress-nginx</code> 建议使用 <code>Helm</code> 的方式，这是因为目前该项目的一些维护者在回复 <code>issue</code> 时基本都是采用的 <code>helm show values</code> 的方式进行回答。</p>
+<p>而对于 <code>kube-prometheus</code> 项目更建议使用 <code>yaml清单</code> 的方式部署，因为该项目的 <code>helm chart</code> 并不由 <code>kube-prometheus</code> 项目维护，所以可以看到很多 <code>issue</code> 只要是使用了 <code>Helm</code> 进行部署的，基本会被直接 close 。</p>
+<p>总的来说最好是按照官方文档推荐的部署方式进行部署，如果文档没有指出，最好能够过一下 <code>issue</code> 区，看下维护者更偏向使用哪种方式进行回复。</p>
+<h2 id="Ingress-nginx"><a href="#Ingress-nginx" class="headerlink" title="Ingress-nginx"></a>Ingress-nginx</h2><blockquote>
+<p><code>Kubernetes</code> 集群内的服务访问方式有 <code>CluterIp</code> 等，而集群外的访问方式有 <code>NodePort</code>、<code>port-forward</code>、<code>LoadBalancer</code>、<code>ingress</code>。</p>
+<p>而为了让 Ingress 资源工作，集群必须有一个正在运行的 Ingress 控制器。</p>
+</blockquote>
+<p>实际上感觉裸机集群部署 <code>ingress-nginx</code> 的难度要更大点，大概原因是因为裸机集群没有开箱即用的 <code>LoadBalancer</code> 类型的 <code>service</code>，更具体的原因可以参考<a target="_blank" rel="noopener" href="https://kubernetes.github.io/ingress-nginx/deploy/baremetal/">这里</a>。</p>
+<p>可以看到 <a target="_blank" rel="noopener" href="https://kubernetes.github.io/ingress-nginx/deploy/baremetal/">当前文档</a> 中对于裸机集群主要有以下几种解决方案：</p>
+<ol>
+<li>MetalLB</li>
+<li>NodePort</li>
+<li>主机网络</li>
+<li>自配置边缘</li>
+<li>外部ip</li>
+</ol>
+<p>而官方比较推荐的是第一种方案，实际上在一些 <a target="_blank" rel="noopener" href="https://github.com/kubernetes/ingress-nginx/issues/9749">issue</a> 中也可以看到对于裸机集群出现的问题，维护者都是假设使用了 <code>MetalLB</code>， 甚至对于没有使用 <code>MetalLB</code> 的用户，无法提供很好的支持。</p>
+<p>所以实际上一开始我也是使用的 <code>MetalLB</code> 方式进行部署，而对于 <code>MetalLB</code>:</p>
+<blockquote>
+<p>In short, it allows you to create Kubernetes services of type LoadBalancer in clusters that don’t run on a cloud provider</p>
+</blockquote>
+<p>可以看到，该服务实际上就是为了解决裸机集群没有 <code>LoadBalancer</code> 问题的，<strong>此时看起来一切很合理</strong>。而该项目有两种模式，分别是: <code>第二层模式</code>、<code>BGP模式</code>。</p>
+<p>第二层模式需要一个 <code>ip</code> 地址池，好在 <code>Vultr</code> 的 <code>ip</code> 地址并不贵，所以也能接受，但主要问题是比较详细的看完二层模式后，如该项目的官方文档所说：</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs tap">在第<span class="hljs-number"> 2 </span>层模式下，服务 IP 的所有流量都会流向一个节点。从那里， kube-proxy将流量传播到所有服务的 Pod。<br>从这个意义上说，第<span class="hljs-number"> 2 </span>层没有实现负载均衡器。相反，它实现了故障转移机制，以便在当前领导节点由于某种原因发生故障时，另一个节点可以接管。<br><br>第<span class="hljs-number"> 2 </span>层模式有两个主要限制：单节点瓶颈和潜在的缓慢故障转移。<br><br>如上所述，在第<span class="hljs-number"> 2 </span>层模式中，单个当选的领导者节点接收服务 IP 的所有流量。<br></code></pre></td></tr></table></figure>
+
+<p>这是我存疑的地方，如果我理解正确的话，那么单独使用第二层模式的话是比较鸡肋的，可能还要借助一些中间件，实际上可能正因为如此在 <code>ingress-nginx-issue</code> 区中，对于裸机集群，感觉还是有蛮多用户没有使用 <code>MetalLB</code> 的。如果非要使用 <code>MetalLB</code> 的话，目前感觉比较合理的方式是使用 BGP 模式，但该模式对于我来说还是学习成本太高了。</p>
+<p>所以最后转向了其他解决方案，其他方案也各有缺点，最后是选择了<a target="_blank" rel="noopener" href="https://kubernetes.github.io/ingress-nginx/deploy/baremetal/#via-the-host-network">主机网络</a>的方式进行配置，起码对于我来说，该方式是优于其他方案，并且优于 <code>MetalLB</code> 的第二层模式的。</p>
+<p>在 <code>ingress-nginx</code> 配置完后，还需要进行 <code>https</code> 证书的配置。</p>
+<h3 id="SSL-x2F-TLS证书"><a href="#SSL-x2F-TLS证书" class="headerlink" title="SSL&#x2F;TLS证书"></a>SSL&#x2F;TLS证书</h3><blockquote>
+<p>你可以通过设定包含 TLS 私钥和证书的Secret 来保护 Ingress。 </p>
+<p>TLS 连接终止于 Ingress 节点（与 Service 及其 Pod 之间的流量都以明文传输）。</p>
+</blockquote>
+<p>目前对于 <code>SSL/TLS</code> 证书的自动化管理比较主流的解决方案是 <a target="_blank" rel="noopener" href="https://letsencrypt.org/">Let’s Encrypt</a> + <a target="_blank" rel="noopener" href="https://github.com/cert-manager/cert-manager">cert-manager</a> ，前者是 <code>CA</code> ，进行证书的签发(90天过期)，后者负责证书的自动更新。</p>
+<p>但由于我的域名提供商是 <a target="_blank" rel="noopener" href="https://dash.cloudflare.com/login">Cloud flare</a>，所以暂时不需要 <code>Let&#39;s Encrypt + cert-manager</code> 的方案。</p>
+<p>这是因为 <code>Cloud flare</code> 免费提供了代理服务，也就是说由客户端发出的请求会先到达代理，再到达服务器。如果将客户端与代理通信过程中的证书称为边缘证书，那么边缘证书需要由 <code>CA</code> 签发，这是因为客户端只信任 <code>CA</code>，这意味着边缘证书的更新由 <code>Cloud flare</code> 负责；而对于代理与服务器之间的通信，就可以使用 <code>Cloud flare</code> 签发的证书了，那么该证书的有效期可以长达15年，也就是说服务器可以不用关心证书的更新问题。具体细节可以参考<a target="_blank" rel="noopener" href="https://developers.cloudflare.com/ssl/">这里</a>。</p>
+<p>配置完证书、ingress后的最终效果如图：</p>
+<p><img src="/../img/Snipaste_2023-07-13_19-27-52.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="kubernetes-dashboard"><a href="#kubernetes-dashboard" class="headerlink" title="kubernetes-dashboard"></a>kubernetes-dashboard</h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%AE%B9%E5%99%A8/">#容器</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>kubernetes记录</div>
+      <div>https://wecgwm.github.io/2023/07/13/kubernetes记录/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>yichen</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年7月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/05/18/LC-2281-%E5%B7%AB%E5%B8%88%E7%9A%84%E6%80%BB%E5%8A%9B%E9%87%8F%E5%92%8C/" title="2281.巫师的总力量和">
+                        <span class="hidden-mobile">2281.巫师的总力量和</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"1096f1c7268a50f806bc","clientSecret":"b6690c9eaf9f05ae4a82e85a3192aba6fd722d0c","repo":"wecgwm.github.io","owner":"wecgwm","admin":["wecgwm"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":false,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: 'e9e7fb5b02281e8833cdc0928dad940a'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
