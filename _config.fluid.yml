@@ -100,7 +100,7 @@ fun_features:
     # 在指定页面开启，不填则在所有页面开启
     # Enable in specified page, all pages by default
     # Options: home | post | tag | category | about | links | page | 404
-    scope: [post, tag, category, about, links, page, 404, archives]
+    scope: [post, category, about, links, page, 404, archives]
 
   # 为文章内容中的标题添加锚图标
   # Add an anchor icon to the title on the post page
@@ -937,7 +937,7 @@ tag:
     unit: px
     start_color: "#BBBBEE"
     end_color: "#337ab7"
-  subtitle: "标签"
+  subtitle: " "
 
 #---------------------------
 # 关于页
