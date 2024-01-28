@@ -46,49 +46,54 @@ public class CLHLock {
 
 # AQS（AbstractQueuedSynchronizer）
 
-先整体过一遍 `AQS` 中比较重要的属性以及内部类，代码中为了保持简洁会删减一些无关的东西
+`AQS` 其底层依赖于一个 **同步队列** 实现，该条件队列的结构类似 `CLH` 队列的变体。
+
+我们先通过 `AQS` 中比较重要的属性以及内部类来了解其基本原理。
+
+注意代码为了简洁会删减无关的东西
 
 ```Java
 // AQS 作为一个框架提供。其子类可以是独占/共享、公平/非公平，子类应该被定义为非公共内部类
 // {@link ReentrantLock.Sync}
 public abstract class AbstractQueuedSynchronizer {
 
-	// 等待队列节点类，该队列是 “CLH” 锁定队列的变体, 虽然 CLH 锁通常用于自旋锁
+	// 队列节点类，该队列是 “CLH” 锁队列的变体, 虽然 CLH 锁通常用于自旋锁
 	// 采用与 CLH 类似的策略，在前驱节点中保存当前节点的一些信息，每个线程会被包装在一个节点中
-    // 如果要加入队列，只需要尝试将节点变成新的尾部
+    // 如果要加入同步队列，只需要尝试将节点变成新的尾部
 	//      @see AbstractQueuedSynchronizer#addWaiter Call compareAndSetTail
-	// 如果节点位于队列中的第一个（不包括 head)，则可能会尝试获取锁，如果成功则成为新的head
+	// 如果节点位于同步队列中的第一个（不包括 head)，则可能会尝试获取锁，如果成功则成为新的head
 	//      @see AbstractQueuedSynchronizer#acquireQueued Call setHead
 	static final class Node {
 		// SIGNAL 
 		//        当前节点在获取锁时发现前驱节点为该值，当前节点会 park 当前线程
         //              @see AbstractQueuedSynchronizer#acquireQueued Call shouldParkAfterFailedAcquire
-		//        当前节点在释放锁时发现当前节点为该值，当前节点会 unpark 后续节点的线程
+		//        当前节点在释放锁时发现当前节点不为 0，当前节点会 unpark 后续节点的线程
         //              @see AbstractQueuedSynchronizer#release Call unparkSuccessor
         // CANCELLED
         //        当前节点被取消
         // CONDITION
-        //        当前节点正在条件队列中，直到条件改变前都不会用作同步队列，暂时忽略
+        //        当前节点正在条件队列中，直到条件改变前都不会加入同步队列
         // PROPAGATE 略
 		volatile int waitStatus;
 
         volatile Node prev;
         volatile Node next;
         volatile Thread thread;
-        // 条件队列，Condition 相关，暂时忽略
+        // 条件队列中的下一个节点，Condition 相关
         Node nextWaiter; 
 	}
 
 	// 头结点
-    // CLH 队列的头尾节点不会在初始就创建，而是在第一次发生争用时构造节点并设置
+    // 同步队列的头尾节点不会在初始就创建，而是在第一次发生争用时构造节点并设置
     // 对于头结点，存在两种情况：
-    //      1.当前持有锁的线程对应的节点，这种情况比较显然，也就是在
-    //              @see AbstractQueuedSynchronizer#setHead
-    //      2.假设有 thread1 第一次成功获取锁，此时没有争用，不需要 CLH 队列；
-    //        然后 thread2 获取锁，产生争用，发现 head/tail 为空，于是初始化队列
-    //        并加入，等待 thread1 唤醒；
-    //        此时的 head 的节点实际上只是个虚拟节点，并不代表 thread1
-    //              @see AbstractQueuedSynchronizer#initializeSyncQueue
+    //      1.包装了当前持有锁的线程，这种情况比较显然，也就是在
+    //              @see AbstractQueuedSynchronizer#acquireQueued Call setHead
+    //      2.假设有 thread1 第一次成功获取锁，此时没有争用，不需要 CLH 同步队列
+    //        然后 thread2 获取锁，产生争用，发现 head/tail 为空，于是初始化头尾并加入
+    //        后续自旋过程中更改前驱 head 的 waitStatus，阻塞等待 thread1 唤醒
+    //        此时的 head 并没有包装任何线程
+    //        但是 thread1 在释放锁时也会去判断 head 的 waitStatus
+    //              @see AbstractQueuedSynchronizer#addWaiter Call initializeSyncQueue
 	private transient volatile Node head;
 	
 	// 阻塞的尾节点，每个新的节点进来，都成为新的tail
@@ -100,7 +105,7 @@ public abstract class AbstractQueuedSynchronizer {
 }
 ```
 
-## ReentrantLock
+# ReentrantLock
 > Lock取代了synchronized方法和语句的使用，而Condition则取代了对象监视方法的使用
 
 对于具体的 `Lock` ，大多情况下的用法为：
@@ -117,7 +122,7 @@ public abstract class AbstractQueuedSynchronizer {
 
 我们以 `ReentrantLock` 的非公平锁为例，讲述 `lock()` 和 `unlock()` 的整体流程
 
-### lock()
+## lock()
 
 ![](../img/微信图片_20240127211035.png)
 
@@ -125,7 +130,7 @@ public abstract class AbstractQueuedSynchronizer {
     public final void acquire(int arg) {
         // 尝试获取锁, 如果获取成功免去队列操作
         if (!tryAcquire(arg) &&
-            // addWaiter加入阻塞队列  acquireQueued直到成功获取锁或者被中断时返回, 返回值为中断状态
+            // addWaiter加入同步队列  acquireQueued直到成功获取锁返回, 返回值为中断状态
             acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
             selfInterrupt();
     }
@@ -161,7 +166,7 @@ public abstract class AbstractQueuedSynchronizer {
 
     ...
 
-    // 将当前结点加入到阻塞队列的尾部，mode = Node.EXCLUSIVE
+    // 将当前结点加入到同步队列的尾部，mode = Node.EXCLUSIVE
     private Node addWaiter(Node mode) {
         // node 后继指向 mode
         Node node = new Node(mode);
@@ -251,7 +256,7 @@ public abstract class AbstractQueuedSynchronizer {
         return false;
     }
 ```
-### unlock()
+## unlock()
 `unlock` 的逻辑相对比较简单
 ```Java
 public void unlock() {
@@ -260,9 +265,12 @@ public void unlock() {
 public final boolean release(int arg) {
 	// 尝试释放锁，当计数器为 0 时成功
 	if (tryRelease(arg)) {
+        // 释放成功
+        // 使用 head, 无论 head 是否包装了当前线程
+        //          （如果是第一次发生争抢，head 有可能是虚拟节点，也就是不包装任何线程）
+        // 唤醒后继
 		Node h = head;
 		if (h != null && h.waitStatus != 0)
-			// 唤醒后继
 			unparkSuccessor(h);
 		return true;
 	}
@@ -319,5 +327,258 @@ private void unparkSuccessor(Node node) {
 	if (s != null)
 		// 唤醒后继节点
 		LockSupport.unpark(s.thread);
+}
+```
+
+## 非公平锁
+
+在调用 `lock` 时，两种锁都会先通过一次 `CAS` 也就是 `tryAcquire` 来尝试获取锁。
+
+在 `tryAcquire` 方法中，如果发现锁这个时候被释放了（state == 0），非公平锁会直接 CAS 抢锁，返回 CAS 结果；但是公平锁会判断等待队列是否有线程处于等待状态，如果没有也是返回 CAS 结果，如果有则不去抢锁，直接返回失败。
+
+后续的加解锁流程两者是没有区别的。
+
+相对来说，非公平锁会有更好的性能，因为它的吞吐量比较大。当然，非公平锁让获取锁的时间变得更加不确定，可能会导致在阻塞队列中的线程长期处于饥饿状态。
+
+# Condition
+
+`Condition` 需要与 `Lock` 结合使用。`Condition` 实例本质上绑定一个锁的实例，以下是 `JDK11` 源码中给出的使用示例：
+```Java
+  class BoundedBuffer<E> {
+    final Lock lock = new ReentrantLock();
+    final Condition notFull  = lock.newCondition(); 
+    final Condition notEmpty = lock.newCondition(); 
+ 
+    final Object[] items = new Object[100];
+    int putptr, takeptr, count;
+ 
+    public void put(E x) throws InterruptedException {
+      lock.lock();
+      try {
+        while (count == items.length)
+          notFull.await();
+        items[putptr] = x;
+        if (++putptr == items.length) putptr = 0;
+        ++count;
+        notEmpty.signal();
+      } finally {
+        lock.unlock();
+      }
+    }
+ 
+    public E take() throws InterruptedException {
+      lock.lock();
+      try {
+        while (count == 0)
+          notEmpty.await();
+        E x = (E) items[takeptr];
+        if (++takeptr == items.length) takeptr = 0;
+        --count;
+        notFull.signal();
+        return x;
+      } finally {
+        lock.unlock();
+      }
+    }
+  }
+```
+
+注意事项：
+- 当等待Condition时，通常允许发生“虚假唤醒”，因此Condition应该始终在循环中等待，测试正在等待的状态谓词。
+
+在上面的示例中，`newCondition` 最终会调用到
+
+```Java
+final ConditionObject newCondition() {
+    return new ConditionObject();
+}
+```
+
+`AQS` 中的内部类 `ConditionObject` 是 `Condtion` 的一个具体实现，其底层同样依赖于一个**条件队列**，该条件队列的结构同样类似 `CLH` 队列的变体。
+
+条件队列中的节点 `Node` 实际上和同步队列中的 `Node` 是同一个类，只是条件队列和同步队列用到的属性有所不同，而也正是因为是同一个类，所以才能实现在 `signal` 唤醒时，可以直接将 `Node` 从条件队列中转移到同步队列，注意 `Node` 在同一时刻只会处于一个队列中。
+
+我们先了解该类的一些重要字段
+
+```Java
+public class ConditionObject implements Condition{
+        /** 条件队列的第一个节点 */
+        private transient Node firstWaiter;
+        /** 条件队列的最后一个节点 */
+        private transient Node lastWaiter;
+}
+```
+
+实际上该类中只存在两个重要的字段，再回过头看先前 `Node` 提到的相关属性
+
+```Java
+public abstract class AbstractQueuedSynchronizer{
+	static final class Node {
+		// ...
+        // CONDITION
+        //        当前节点正在条件队列中，直到条件改变前都不会加入同步队列
+		volatile int waitStatus;
+
+        // 注意如果该节点如果位于条件队列，那么 prev 和 next 都为空。
+        // 也就是说这两个字段只有在节点位于同步队列时会赋值
+        volatile Node prev;
+        volatile Node next;
+
+        // 与上面的相反，只有在节点位于条件队列中，该值才会不为空
+        Node nextWaiter; // 条件队列中的下一个节点，Condition 相关
+	}
+}
+```
+
+我们还是以 `await`、`signal` 为例，讲述整体流程。
+
+**需要注意的是不会有线程问题，因为只有持有锁的线程可以 `await` 和 `signal`。**
+
+## await
+
+```Java
+public final void await() throws InterruptedException {
+    if (Thread.interrupted())
+        throw new InterruptedException();
+    // 加入条件队列
+    Node node = addConditionWaiter();
+    // 完全释放锁（不管重入几次）并唤醒同步队列的后继节点，保存释放前的 state
+    int savedState = fullyRelease(node);
+    int interruptMode = 0;
+    // 阻塞直到其他线程通过 signal 将该节点转移到同步队列或者被中断
+    while (!isOnSyncQueue(node)) {
+        LockSupport.park(this);
+        if ((interruptMode = checkInterruptWhileWaiting(node)) != 0)
+            break;
+    }
+    // 通过 savedState 重新自旋以获取锁，此时的节点已经在 signal 时被传输到同步队列中
+    if (acquireQueued(node, savedState) && interruptMode != THROW_IE)
+        interruptMode = REINTERRUPT;
+    if (node.nextWaiter != null) // clean up if cancelled
+        // 遍历删除所有取消的节点
+        unlinkCancelledWaiters();
+    // 报告中断
+    if (interruptMode != 0)
+        reportInterruptAfterWait(interruptMode);
+}
+
+...
+
+// 添加一个新的节点到条件队列中
+private Node addConditionWaiter() {
+    if (!isHeldExclusively())
+        throw new IllegalMonitorStateException();
+    Node t = lastWaiter;
+    // If lastWaiter is cancelled, clean out.
+    // 遍历删除所有取消的节点
+    if (t != null && t.waitStatus != Node.CONDITION) {
+        unlinkCancelledWaiters();
+        t = lastWaiter;
+    }
+    // 新建一个node，这里没有复用同步队列中 node ，原因后文再解释
+    Node node = new Node(Node.CONDITION);
+    // 加入条件队列
+    if (t == null)
+        firstWaiter = node;
+    else
+        t.nextWaiter = node;
+    lastWaiter = node;
+    return node;
+}
+
+...
+
+fullyRelease() // 完全释放锁。该方法调用到的 release 在前文中的 unlock 有提到，不再赘述
+
+...
+
+// 返回节点是否已经被转移到同步队列。由其他线程通过 signal 将该节点转移到同步队列
+final boolean isOnSyncQueue(Node node) {
+    if (node.waitStatus == Node.CONDITION || node.prev == null)
+        // 如果 waitStatus 为 CONDITION 
+        // 或者 prev 为空的话（因为如果在同步队列的话后继可能为空，
+        //                      但是 prev 一定不为空，因为有 head）
+        // 就必然还在条件队列中
+        return false;
+    if (node.next != null) // If has successor, it must be on queue
+        // 如果 next 不为空，就必然在同步队列
+        // 条件队列的后继用的是 Node#nextWaiter 字段，不会用 next
+        return true;
+    /*
+    * node.prev can be non-null, but not yet on queue because
+    * the CAS to place it on queue can fail. So we have to
+    * traverse from tail to make sure it actually made it.  It
+    * will always be near the tail in calls to this method, and
+    * unless the CAS failed (which is unlikely), it will be
+    * there, so we hardly ever traverse much.
+    */
+    // 从尾部开始遍历同步队列并比较，确保确实成功了
+    // 这是因为当 node.prev 不为空时，可能由于 CAS 失败导致暂时还未加入同步队列成功
+    return findNodeFromTail(node);
+}
+
+...
+
+acquireQueued(node, savedState) // 自旋获取锁，该方法在前文中的 lock 有提到，不再赘述
+```
+
+
+
+注意`Node` 只在被 `signal` 唤醒时做了复用，从条件队列转移到同步队列中，也就是后文提到的 `ConditionObject#doSignal Call transferForSignal`；
+
+但是在这里当被 `await` 需要加入到条件队列时，`ConditionObject` 的做法是先新建一个 `Node` 加入条件队列，然后调用 `release` 去释放锁，没有选择复用 `Node`。
+
+这么做的原因其实是同步队列还需要原先的节点 （其实就是 `head`） ，我们回想前文同步队列的相关知识，当线程释放锁时，唤醒后继节点，相当于后继节点获得了 `CAS` 争用锁的资格，但实际上争用的这个动作不是发生在当前线程，并且是否成功或者哪个线程成功，哪个节点作为新的 `head` ，其实都是未定且未发生的，也就是说异步发生的，所以在这个时候还是需要保留先前的 `head` 节点。
+
+## signal
+
+`signal` 的过程比较简单一点
+
+```Java
+public final void signal() {
+    if (!isHeldExclusively())
+        throw new IllegalMonitorStateException();
+    Node first = firstWaiter;
+    if (first != null)
+        doSignal(first);
+}
+
+...
+
+// 尝试将条件队列的第一个节点进行转移，如果失败的话就向后面的节点尝试
+private void doSignal(Node first) {
+    do {
+        if ( (firstWaiter = first.nextWaiter) == null)
+            lastWaiter = null;
+        first.nextWaiter = null;
+    } while (!transferForSignal(first) &&
+                (first = firstWaiter) != null);
+}
+
+...
+
+// 将节点从条件队列转移到同步队列。如果成功则返回 true。
+final boolean transferForSignal(Node node) {
+    /*
+    * If cannot change waitStatus, the node has been cancelled.
+    */
+    // 清除条件状态
+    if (!node.compareAndSetWaitStatus(Node.CONDITION, 0))
+        return false;
+
+    /*
+    * Splice onto queue and try to set waitStatus of predecessor to
+    * indicate that thread is (probably) waiting. If cancelled or
+    * attempt to set waitStatus fails, wake up to resync (in which
+    * case the waitStatus can be transiently and harmlessly wrong).
+    */
+    // 加入同步队列，返回其前驱节点
+    Node p = enq(node);
+    int ws = p.waitStatus;
+    // 将前驱的状态设置为 SIGNAL ，以让其唤醒该节点的线程
+    if (ws > 0 || !p.compareAndSetWaitStatus(ws, Node.SIGNAL))
+        // 如果前驱被取消了或者状态设置失败，由当前线程唤醒该节点的线程
+        LockSupport.unpark(node.thread);
+    return true;
 }
 ```
