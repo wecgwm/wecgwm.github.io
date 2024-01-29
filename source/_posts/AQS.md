@@ -72,14 +72,21 @@ public abstract class AbstractQueuedSynchronizer {
         // CANCELLED
         //        当前节点被取消
         // CONDITION
-        //        当前节点正在条件队列中，直到条件改变前都不会加入同步队列
-        // PROPAGATE 略
+        //        当前节点正在条件队列中，直到条件改变前都不会加入同步队列。
+        //        条件队列只有独占模式的锁才会用到
+        // PROPAGATE 
+        //        指示 releaseShared 应该传播到其他节点。
+        //        这是在 doReleaseShared 中设置的（仅适用于头节点），以确保传播继续
+        //        共享模式下使用
 		volatile int waitStatus;
 
         volatile Node prev;
         volatile Node next;
         volatile Thread thread;
-        // 条件队列中的下一个节点，Condition 相关
+        // 两种情况：
+        //         1. 条件队列中的下一个节点
+        //         2. 特殊值EXCLUSIVE/SHARED，因为只有在独占模式下才会使用到条件队列
+        //            所以可以通过该值指示共享模式
         Node nextWaiter; 
 	}
 
@@ -342,7 +349,7 @@ private void unparkSuccessor(Node node) {
 
 # Condition
 
-`Condition` 需要与 `Lock` 结合使用。`Condition` 实例本质上绑定一个锁的实例，以下是 `JDK11` 源码中给出的使用示例：
+`Condition` 需要与 `Lock` 结合使用。`Condition` 实例本质上绑定一个锁的实例，以下是 `JDK11` 给出的使用示例：
 ```Java
   class BoundedBuffer<E> {
     final Lock lock = new ReentrantLock();
@@ -424,13 +431,16 @@ public abstract class AbstractQueuedSynchronizer{
         volatile Node prev;
         volatile Node next;
 
-        // 与上面的相反，只有在节点位于条件队列中，该值才会不为空
-        Node nextWaiter; // 条件队列中的下一个节点，Condition 相关
+        // 两种情况：
+        //         1. 条件队列中的下一个节点
+        //         2. 特殊值EXCLUSIVE/SHARED，因为只有在独占模式下才会使用到条件队列
+        //            所以可以通过该值指示共享模式
+        Node nextWaiter;
 	}
 }
 ```
 
-我们还是以 `await`、`signal` 为例，讲述整体流程。
+下面以 `await`、`signal` 为例，讲述 `Condition` 的工作原理。
 
 **需要注意的是不会有线程问题，因为只有持有锁的线程可以 `await` 和 `signal`。**
 
@@ -580,5 +590,186 @@ final boolean transferForSignal(Node node) {
         // 如果前驱被取消了或者状态设置失败，由当前线程唤醒该节点的线程
         LockSupport.unpark(node.thread);
     return true;
+}
+```
+# CountDownLatch
+
+`CountDownLatch` 是共享模式下的锁，且计数无法被重置。
+
+先了解 `JDK11` 给出的使用示例
+```Java
+class Driver {
+
+    public static void main(String[] args) throws InterruptedException {
+        int N = 10;
+        CountDownLatch startSignal = new CountDownLatch(1);
+        CountDownLatch doneSignal = new CountDownLatch(N);
+        for (int i = 0; i < N-2; ++i){ // create and start threads
+             new Thread(new Worker(startSignal, doneSignal)).start();
+        }
+
+        doSomethingElse(); //don't let run yet
+        startSignal.countDown(); // let all threads proceed
+        doSomethingElse();
+        doneSignal.await(); //wait for all to finish
+    }
+
+    private static void doSomethingElse() {}
+
+
+    static class Worker implements Runnable {
+        private final CountDownLatch startSignal;
+        private final CountDownLatch doneSignal;
+
+        Worker(CountDownLatch startSignal, CountDownLatch doneSignal) {
+            this.startSignal = startSignal;
+            this.doneSignal = doneSignal;
+        }
+
+        public void run() {
+            try {
+                startSignal.await();
+                doWork();
+                doneSignal.countDown();
+            } catch (InterruptedException ex) {
+                // do something
+            }
+            System.out.println(111);
+        }
+
+        void doWork() {}
+    }
+
+}
+
+```
+
+在 `CountDownLatch` 构造方法传入的计数，实际上该计数最后会被设置到 `AQS#state` 中。而每次调用 `countDown()` 就会将 `state` 减 1 ，直到计数归 0 ，代表锁释放。
+
+下面以 `await` 和 `countDown` 为例，讲述 `CountDownLatch` 的工作原理
+
+## await
+
+```Java
+// 导致当前线程等待，直到计数器归零。除非线程被中断，如果当前计数为零，则此方法立即返回
+// 调用countDown方法可以使计数减一
+public void await() throws InterruptedException {
+    sync.acquireSharedInterruptibly(1);
+}
+
+// 以共享模式获取
+// 类似 lock 的流程，会先通过一次简单的尝试检查计数器是否已经为0
+//                 成功的话直接返回
+//                 失败的话再自旋入队或者阻塞
+public final void acquireSharedInterruptibly(int arg)
+        throws InterruptedException {
+    if (Thread.interrupted())
+        throw new InterruptedException();
+    // 尝试
+    if (tryAcquireShared(arg) < 0)
+
+        doAcquireSharedInterruptibly(arg);
+}
+
+...
+
+// 简单的检查计数器是否已经为 0
+protected int tryAcquireShared(int acquires) {
+    return (getState() == 0) ? 1 : -1;
+}
+
+...
+
+// 流程类似 lock 中的 acquireQueued
+// 新建一个共享模式的节点，加入到同步队列中
+// 如果节点的前驱是头节点，检查计数器是否已经为0
+//              如果为 0 则设置头节点并向后传播
+// 如果前驱不是头节点或者计数不为 0
+//              检查是否应该阻塞
+private void doAcquireSharedInterruptibly(int arg)
+    throws InterruptedException {
+    // 新建一个共享模式的节点，加入到同步队列中，参考 lock
+    final Node node = addWaiter(Node.SHARED);
+    try {
+        for (;;) {
+            final Node p = node.predecessor();
+            if (p == head) {
+                // 如果节点的前驱是头节点，检查计数器是否已经为0
+                int r = tryAcquireShared(arg);
+                if (r >= 0) {
+                    // 设置头节点并向后传播
+                    setHeadAndPropagate(node, r);
+                    p.next = null; // help GC
+                    return;
+                }
+            }
+            // 如果前驱不是头节点或者计数不为 0
+            // 检查是否应该阻塞
+            if (shouldParkAfterFailedAcquire(p, node) &&
+                    // 阻塞并且检查中断
+                parkAndCheckInterrupt())
+                throw new InterruptedException();
+        }
+    } catch (Throwable t) {
+        cancelAcquire(node);
+        throw t;
+    }
+}
+
+...
+
+// 设置头节点并向后传播
+setHeadAndPropagate(node, r); // 该方法主要调用了 doReleaseShared 
+                              // 而对于 doReleaseShared 在 countDown 流程中提到，参考下文
+
+...
+
+shouldParkAfterFailedAcquire() // 检查是否应该阻塞的方法复用了 lock 中的相同方法，参考前文
+
+```
+
+## countDown
+
+```Java
+// 递减锁存器的计数，如果计数达到零，则释放所有等待线程。如果计数器在递减前就为0，则什么都不会做
+public void countDown() {
+    sync.releaseShared(1);
+}
+// 在共享模式下释放
+public final boolean releaseShared(int arg) {
+    // CAS 设置计数减一，当减一后计数为 0 时返回 true。比较简单，略
+    if (tryReleaseShared(arg)) {
+        // 计数到达0
+        // 在共享模式下释放：唤醒后继节点并向后传播
+        doReleaseShared();
+        return true;
+    }
+    return false;
+}
+
+...
+
+// 在共享模式下释放：唤醒后继节点并向后传播
+private void doReleaseShared() {
+    // 通过循环以防在执行此操作时添加新节点。
+    for (;;) {
+        Node h = head;
+        if (h != null && h != tail) {
+            int ws = h.waitStatus;
+               
+            // 如果 ws == SIGNAL，说明存在后继节点，则尝试以取消后继节点的方式进行传播
+            if (ws == Node.SIGNAL) {
+                if (!h.compareAndSetWaitStatus(Node.SIGNAL, 0))
+                    continue;            // loop to recheck cases
+                unparkSuccessor(h);
+            }
+            // 如果没有后继节点，状态将设置为 PROPAGATE 以确保后续能够继续传播
+            else if (ws == 0 &&
+                        !h.compareAndSetWaitStatus(0, Node.PROPAGATE))
+                continue;                // loop on failed CAS
+        }
+        if (h == head)                   // loop if head changed
+            break;
+    }
 }
 ```
