@@ -773,3 +773,41 @@ private void doReleaseShared() {
     }
 }
 ```
+
+# CyclicBarrier
+先给出一个使用示例：
+```Java
+public class CyclicBarrierDemo {
+    private static CyclicBarrier cb;
+
+    public static void main(String[] args) throws Exception {
+        cb = new CyclicBarrier(3, () -> 
+                System.out.println(Thread.currentThread().getName() + " barrier action"));        
+        for (int i = 0; i < 2; i++) {
+            new WorkerThread().start();
+        }
+        System.out.println(Thread.currentThread().getName() + " going to await");
+        cb.await();
+        System.out.println(Thread.currentThread().getName() + " continue");
+
+    }
+
+
+    static class WorkerThread extends Thread {
+        public void run() {
+            System.out.println(Thread.currentThread().getName() + " going to await");
+            try {
+                cb.await();
+                System.out.println(Thread.currentThread().getName() + " continue");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+```
+`CyclicBarrier` 内部借助一个 `ReentrantLock` 和一个该 `ReentrantLock` 的 `Condition` 实现。
+
+每次调用 `await()`，会先获取该 `ReentrantLock.lock()`，然后将计数减一（无需 CAS，因为此时持有锁，是线程安全的）
+- 如果未归 0，则通过 `Condition.await()` 让出该锁并阻塞；
+- 如果归0，则通过 `Condition.signalAll()` 唤醒先前所有阻塞的线程，并且重置计数器（也就是说 `CyclicBarrier` 是可以重用的）。
