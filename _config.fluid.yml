@@ -530,7 +530,7 @@ index:
 #---------------------------
 post:
   #banner_img: /img/default.png
-  banner_img: /img/20240201213926.jpg
+  banner_img: /img/20240204234916.jpg
 
   banner_img_height: 70
   banner_mask_alpha: 0.3
@@ -928,7 +928,7 @@ category:
 tag:
   enable: true
   #banner_img: /img/default.png
-  banner_img: /img/20221106214415.jpg
+  banner_img: /img/20240204234916.jpg
   banner_img_height: 80
   banner_mask_alpha: 0.3
   tagcloud:
@@ -946,8 +946,8 @@ tag:
 about:
   enable: true
   #banner_img: /img/default.png
-  banner_img: /img/202402012129012.jpg
-  banner_img_height: 60
+  banner_img: /img/20240204234957.jpg
+  banner_img_height: 70
   banner_mask_alpha: 0.3
   avatar: /img/20221103120102.jpg
   name: "yichen"
