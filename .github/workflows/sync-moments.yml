@@ -44,7 +44,14 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # 拉取最新代码
+          git fetch origin main
+          git reset --soft origin/main
+
+          # 添加新生成的moments.json
           git add source/_data/moments.json
+
           if git diff --staged --quiet; then
             echo "无变更，跳过提交"
           else
