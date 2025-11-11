@@ -42,6 +42,7 @@ jobs:
           }' raw-moments.json > source/api/moments.json
 
       - name: 提交更新
+        id: commit-changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -55,8 +56,17 @@ jobs:
 
           if git diff --staged --quiet; then
             echo "无变更，跳过提交"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
           else
             git commit -m "build: 同步时刻记录数据"
             git pull --rebase origin main
             git push
+            echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
+
+      - name: 触发部署 workflow
+        if: steps.commit-changes.outputs.has_changes == 'true'
+        run: |
+          gh workflow run pages.yml
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
