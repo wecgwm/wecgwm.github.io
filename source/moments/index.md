@@ -2,6 +2,9 @@
 title: moments
 date: 2025-11-11
 layout: page
+banner_img: /img/20240201212901.jpg
+banner_img_height: 100
+banner_mask_alpha: 0.3
 ---
 
 <div class="moments-timeline" id="moments-container">
