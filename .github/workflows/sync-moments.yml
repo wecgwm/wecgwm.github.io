@@ -2,7 +2,7 @@ name: Sync Moments from Issues
 
 on:
   issues:
-    types: [opened, edited, closed, labeled, unlabeled]
+    types: [edited, closed, labeled, unlabeled]
 
 jobs:
   sync-moments:
