@@ -4,15 +4,9 @@
       "id": 67,
       "content": "test88888",
       "createdAt": "2025-11-11T10:24:42Z",
-      "updatedAt": "2025-11-11T10:24:42Z"
-    },
-    {
-      "id": 66,
-      "content": "test777",
-      "createdAt": "2025-11-11T10:18:26Z",
-      "updatedAt": "2025-11-11T10:32:24Z"
+      "updatedAt": "2025-11-11T10:32:28Z"
     }
   ],
-  "lastSync": "2025-11-11T10:32:26Z",
-  "totalCount": 2
+  "lastSync": "2025-11-11T10:32:29Z",
+  "totalCount": 1
 }
