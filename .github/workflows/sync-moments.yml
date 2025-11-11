@@ -57,5 +57,6 @@ jobs:
             echo "无变更，跳过提交"
           else
             git commit -m "build: 同步时刻记录数据"
+            git pull --rebase origin main
             git push
           fi
