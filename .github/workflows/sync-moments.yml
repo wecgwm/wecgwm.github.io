@@ -1,0 +1,53 @@
+name: Sync Moments from Issues
+
+on:
+  issues:
+    types: [opened, edited, closed, labeled, unlabeled]
+
+jobs:
+  sync-moments:
+    runs-on: ubuntu-latest
+    # 只处理带 "moment" 标签的 Issue
+    if: contains(github.event.issue.labels.*.name, 'moment')
+
+    steps:
+      - name: Checkout 代码
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 提取 Issues 数据
+        id: fetch-issues
+        run: |
+          gh issue list \
+            --label "moment" \
+            --state open \
+            --json number,body,createdAt,updatedAt \
+            --limit 1000 > raw-moments.json
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 转换为目标格式
+        run: |
+          jq '{
+            moments: [.[] | {
+              id: .number,
+              content: .body,
+              createdAt: .createdAt,
+              updatedAt: .updatedAt
+            }] | sort_by(.createdAt) | reverse,
+            lastSync: (now | todate),
+            totalCount: length
+          }' raw-moments.json > source/_data/moments.json
+
+      - name: 提交更新
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add source/_data/moments.json
+          if git diff --staged --quiet; then
+            echo "无变更，跳过提交"
+          else
+            git commit -m "build: 同步时刻记录数据 [skip ci]"
+            git push
+          fi
