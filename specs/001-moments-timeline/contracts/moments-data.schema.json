@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/wecgwm/wecgwm.github.io/specs/001-moments-timeline/contracts/moments-data.schema.json",
+  "title": "Moments Data Schema",
+  "description": "时刻记录数据文件的 JSON Schema 定义",
+  "type": "object",
+  "required": ["moments", "lastSync", "totalCount"],
+  "properties": {
+    "moments": {
+      "type": "array",
+      "description": "时刻记录数组，按创建时间降序排列",
+      "items": {
+        "$ref": "#/definitions/Moment"
+      }
+    },
+    "lastSync": {
+      "type": "string",
+      "format": "date-time",
+      "description": "最后同步时间戳（ISO 8601 格式，UTC 时区）",
+      "examples": ["2025-11-11T15:00:00Z"]
+    },
+    "totalCount": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "时刻记录总数，必须等于 moments 数组长度"
+    }
+  },
+  "definitions": {
+    "Moment": {
+      "type": "object",
+      "description": "单条时刻记录，对应一个 GitHub Issue",
+      "required": ["id", "content", "createdAt", "updatedAt"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "GitHub Issue 编号，唯一标识",
+          "examples": [42]
+        },
+        "content": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000,
+          "description": "时刻内容（Markdown 格式）",
+          "examples": ["今天学习了 GitHub Actions 的工作流设计，发现它真的很强大！"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "发布时间戳（ISO 8601 格式，UTC 时区）",
+          "examples": ["2025-11-11T14:30:00Z"]
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "最后编辑时间戳（ISO 8601 格式，UTC 时区），必须 >= createdAt",
+          "examples": ["2025-11-11T15:00:00Z"]
+        },
+        "title": {
+          "type": "string",
+          "description": "Issue 标题（可选，当前版本暂不使用）",
+          "examples": ["关于 Vue 3 的思考"]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "examples": [
+    {
+      "moments": [
+        {
+          "id": 45,
+          "content": "刚刚读完《Clean Code》，感觉受益匪浅。",
+          "createdAt": "2025-11-11T16:00:00Z",
+          "updatedAt": "2025-11-11T16:00:00Z"
+        },
+        {
+          "id": 42,
+          "content": "今天学习了 GitHub Actions 的工作流设计，发现它真的很强大！",
+          "createdAt": "2025-11-11T14:30:00Z",
+          "updatedAt": "2025-11-11T15:00:00Z"
+        }
+      ],
+      "lastSync": "2025-11-11T16:05:00Z",
+      "totalCount": 2
+    }
+  ]
+}
