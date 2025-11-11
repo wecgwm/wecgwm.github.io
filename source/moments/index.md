@@ -8,16 +8,13 @@ layout: page
   <p class="loading-state">加载中...</p>
 </div>
 
-<script src="/source/_data/moments.json" type="application/json" id="moments-data"></script>
-
 <script>
 (function() {
   // 从内联 script 标签读取数据
   let momentsData;
 
-  // 方式1：直接从 _data 加载（Hexo 会暴露到全局）
-  // 方式2：通过 fetch 加载 JSON 文件
-  fetch('/_data/moments.json')
+  // 从 /api 目录加载 JSON 文件
+  fetch('/api/moments.json')
     .then(response => response.json())
     .then(data => {
       momentsData = data;

@@ -29,6 +29,7 @@ jobs:
 
       - name: 转换为目标格式
         run: |
+          mkdir -p source/api
           jq '{
             moments: [.[] | {
               id: .number,
@@ -38,7 +39,7 @@ jobs:
             }] | sort_by(.createdAt) | reverse,
             lastSync: (now | todate),
             totalCount: length
-          }' raw-moments.json > source/_data/moments.json
+          }' raw-moments.json > source/api/moments.json
 
       - name: 提交更新
         run: |
@@ -50,7 +51,7 @@ jobs:
           git reset --soft origin/main
 
           # 添加新生成的moments.json
-          git add source/_data/moments.json
+          git add source/api/moments.json
 
           if git diff --staged --quiet; then
             echo "无变更，跳过提交"
