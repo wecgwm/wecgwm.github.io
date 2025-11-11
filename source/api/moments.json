@@ -10,15 +10,9 @@
       "id": 66,
       "content": "test777",
       "createdAt": "2025-11-11T10:18:26Z",
-      "updatedAt": "2025-11-11T10:18:26Z"
-    },
-    {
-      "id": 64,
-      "content": "test moment5 23222",
-      "createdAt": "2025-11-11T10:10:47Z",
-      "updatedAt": "2025-11-11T10:10:47Z"
+      "updatedAt": "2025-11-11T10:32:24Z"
     }
   ],
-  "lastSync": "2025-11-11T10:32:17Z",
-  "totalCount": 3
+  "lastSync": "2025-11-11T10:32:26Z",
+  "totalCount": 2
 }
